@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public abstract class Enrollment {
 
-    public abstract int getId();
+    public abstract Integer getId();
     public abstract void setId(Integer id);
 
     public abstract String getMotivation();
