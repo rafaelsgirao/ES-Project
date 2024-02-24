@@ -35,6 +35,17 @@ public abstract class Enrollment {
         verifyInvariants();
     }
 
-    private void verifyInvariants() {}
+    private void verifyInvariants() {
+        verifyMotivation();
+    }
+
+    private void verifyMotivation() {
+        if (getMotivation() == null || getMotivation().trim().isEmpty()) {
+            throw new IllegalArgumentException("Motivation cannot be empty");
+        }
+        if (getMotivation().length() < 10) {
+            throw new IllegalArgumentException("Motivation must have at least 10 characters");
+        }
+    }
 
 }
