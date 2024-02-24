@@ -2,9 +2,7 @@ package pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.dto;
 
 import java.time.LocalDateTime;
 
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.dto.ActivityDto;
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.dto.InstitutionDto;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.dto.UserDto;
 
 public abstract class EnrollmentDto {
