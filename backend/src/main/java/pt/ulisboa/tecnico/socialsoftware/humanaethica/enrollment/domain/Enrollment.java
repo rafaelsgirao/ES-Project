@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.domain;
 
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.dto.EnrollmentDto;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
 
 import java.time.LocalDateTime;
@@ -21,5 +22,19 @@ public abstract class Enrollment {
 
     public abstract Activity getActivity();
     public abstract void setActivity(Activity activity);
+
+    public Enrollment() {
+    }
+
+    public Enrollment(EnrollmentDto enrollmentDto, Volunteer volunteer, Activity activity) {
+        setMotivation(enrollmentDto.getMotivation());
+        setEnrollmentDate(enrollmentDto.getEnrollmentDate());
+        setVolunteer(volunteer);
+        setActivity(activity);
+
+        verifyInvariants();
+    }
+
+    private void verifyInvariants() {}
 
 }
