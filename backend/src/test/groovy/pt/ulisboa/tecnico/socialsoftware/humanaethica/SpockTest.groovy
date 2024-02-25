@@ -242,6 +242,13 @@ class SpockTest extends Specification {
         activityDto
     }
 
+    // enrollment
+    public static final String ENROLLMENT_MOTIVATION_00 = null
+    public static final String ENROLLMENT_MOTIVATION_01 = " "
+    public static final String ENROLLMENT_MOTIVATION_09 = "motivatio"
+    public static final String ENROLLMENT_MOTIVATION_10 = "motivation"
+
+
     protected Activity createActivity(name, start, end, deadline) {
         def activity = new Activity()
         activity.setName(name)
