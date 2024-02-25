@@ -7,25 +7,25 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.dto.UserDto;
 
 public abstract class EnrollmentDto {
 
+    // EnrollmentDto attributes
     private Integer id;
     private String motivation;
     private LocalDateTime enrollmentDate;
     private ActivityDto activityDto;
     private UserDto volunteerDto;
 
-    public abstract Integer getId();
-    public abstract void setId(Integer id);
+    // EnrollmentDto getters
+    public Integer getId() { return id; }
+    public String getMotivation() { return motivation; }
+    public LocalDateTime getEnrollmentDate() { return enrollmentDate; }
+    public ActivityDto getActivityDto() { return activityDto; }
+    public UserDto getVolunteerDto() { return volunteerDto; }
 
-    public abstract String getMotivation();
-    public abstract void setMotivation(String motivation);
-
-    public abstract LocalDateTime getEnrollmentDate();
-    public abstract void setEnrollmentDate(LocalDateTime enrollmentDate);
-
-    public abstract ActivityDto getActivityDto();
-    public abstract void setActivityDto(ActivityDto activityDto);
-
-    public abstract UserDto getVolunteerDto();
-    public abstract void setVolunteerDto(UserDto volunteerDto);
+    // EnrollmentDto setters
+    public void setId(Integer id) { this.id = id; }
+    public void setMotivation(String motivation) { this.motivation = motivation; }
+    public void setEnrollmentDate(LocalDateTime enrollmentDate) { this.enrollmentDate = enrollmentDate; }
+    public void setActivityDto(ActivityDto activityDto) { this.activityDto = activityDto; }
+    public void setVolunteerDto(UserDto volunteerDto) { this.volunteerDto = volunteerDto; }
 
 }
