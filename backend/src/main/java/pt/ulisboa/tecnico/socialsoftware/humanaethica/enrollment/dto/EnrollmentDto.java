@@ -6,7 +6,7 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.dto.ActivityDto;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.domain.Enrollment;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.dto.UserDto;
 
-public abstract class EnrollmentDto {
+public class EnrollmentDto {
 
     // EnrollmentDto attributes
     private Integer id;
@@ -44,4 +44,14 @@ public abstract class EnrollmentDto {
     public void setActivityDto(ActivityDto activityDto) { this.activityDto = activityDto; }
     public void setVolunteerDto(UserDto volunteerDto) { this.volunteerDto = volunteerDto; }
 
+    @Override
+    public String toString() {
+        return "EnrollmentDto{" +
+                "id=" + id +
+                ", motivation='" + motivation + '\'' +
+                ", enrollmentDate='" + enrollmentDate + '\'' +
+                ", activity=" + activityDto  +
+                ", volunteer=" + volunteerDto +
+                '}';
+    }
 }
