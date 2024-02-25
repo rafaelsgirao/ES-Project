@@ -58,7 +58,6 @@ public class Volunteer extends User {
     public void removeParticipation(Participation participation) {
         participations.remove(participation);
     }
-    
 
     public List<Enrollment> getEnrollments() {
         return enrollments;
