@@ -252,6 +252,10 @@ public class Activity {
     public void removeParticipation(Participation participation) {
         this.participations.remove(participation);
     }
+    
+    public void addEnrollment(Enrollment enrollment) {
+        this.enrollments.add(enrollment);
+    }
 
     private void verifyInvariants() {
         nameIsRequired();

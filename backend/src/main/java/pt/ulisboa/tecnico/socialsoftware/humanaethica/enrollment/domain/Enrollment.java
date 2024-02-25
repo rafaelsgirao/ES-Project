@@ -9,7 +9,7 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
 import java.time.LocalDateTime;
 
 @Entity
-public abstract class Enrollment {
+public class Enrollment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,20 +23,44 @@ public abstract class Enrollment {
     @ManyToOne
     private Volunteer volunteer;
 
-    public abstract Integer getId();
-    public abstract void setId(Integer id);
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public abstract String getMotivation();
-    public abstract void setMotivation(String motivation);
+    public String getMotivation() {
+        return motivation;
+    }
+    public void setMotivation(String motivation) {
+        this.motivation = motivation;
+    }
 
-    public abstract LocalDateTime getEnrollmentDate();
-    public abstract void setEnrollmentDate(LocalDateTime enrollmentDate);
+    public LocalDateTime getEnrollmentDate() {
+        return enrollmentDate;
+    }
 
-    public abstract Volunteer getVolunteer();
-    public abstract void setVolunteer(Volunteer volunteer);
+    public void setEnrollmentDate(LocalDateTime enrollmentDate) {
+        this.enrollmentDate = enrollmentDate;
+    }
 
-    public abstract Activity getActivity();
-    public abstract void setActivity(Activity activity);
+    public Volunteer getVolunteer() {
+        return volunteer;
+    }
+
+    public void setVolunteer(Volunteer volunteer) {
+        this.volunteer = volunteer;
+        volunteer.addEnrollment(this);
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+        activity.addEnrollment(this);
+    }
 
     public Enrollment() {
     }
