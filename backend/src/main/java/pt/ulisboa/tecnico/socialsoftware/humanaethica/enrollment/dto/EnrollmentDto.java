@@ -7,6 +7,12 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.dto.UserDto;
 
 public abstract class EnrollmentDto {
 
+    private Integer id;
+    private String motivation;
+    private LocalDateTime enrollmentDate;
+    private ActivityDto activityDto;
+    private UserDto volunteerDto;
+
     public abstract Integer getId();
     public abstract void setId(Integer id);
 
