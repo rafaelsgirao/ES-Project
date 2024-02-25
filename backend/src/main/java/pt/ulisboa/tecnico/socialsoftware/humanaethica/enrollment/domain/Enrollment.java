@@ -78,6 +78,7 @@ public class Enrollment {
 
     private void verifyInvariants() {
         verifyMotivation();
+        verifyApplicationDate();
     }
 
     private void verifyMotivation() {
@@ -93,6 +94,15 @@ public class Enrollment {
     public void verifyVolunteerEnrolled() {
         if (getActivity().getEnrollments().stream().anyMatch(e -> e.getVolunteer().equals(getVolunteer()))) {
             throw new HEException(VOLUNTEER_ALREADY_ENROLLED, this.volunteer.getName());
+        }
+    }
+
+    private void verifyApplicationDate() {
+        if (getEnrollmentDate() == null) {
+            throw new HEException(ENROLLMENT_INVALID_DATE, "enrollment date");
+        }
+        if (getEnrollmentDate().isAfter(this.activity.getApplicationDeadline())) {
+            throw new HEException(ENROLLMENT_DATE_AFTER_DEADLINE);
         }
     }
 

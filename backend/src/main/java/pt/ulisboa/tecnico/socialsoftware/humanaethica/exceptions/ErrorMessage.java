@@ -45,6 +45,8 @@ public enum ErrorMessage {
     VOLUNTEER_ALREADY_ENROLLED("Volunteer is already enrolled in this activity"),
     MOTIVATION_IS_EMPTY("Motivation is empty %s"),
     MOTIVATION_TOO_SHORT("Motivation should be bigger or equals than 10 caracteres %s"),
+    ENROLLMENT_INVALID_DATE("Date formate for %s is invalid"),
+    ENROLLMENT_DATE_AFTER_DEADLINE("Enrollment date is after activity application deadline")
 
     ACTIVITY_FULL("Activity is full"),
 
