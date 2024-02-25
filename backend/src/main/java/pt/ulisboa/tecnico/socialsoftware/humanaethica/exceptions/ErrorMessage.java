@@ -43,6 +43,9 @@ public enum ErrorMessage {
 
     //Enrollment
     VOLUNTEER_ALREADY_ENROLLED("Volunteer is already enrolled in this activity"),
+    MOTIVATION_IS_EMPTY("Motivation is empty %s"),
+    MOTIVATION_TOO_SHORT("Motivation should be bigger or equals than 10 caracteres %s"),
+
     ACTIVITY_FULL("Activity is full"),
 
     // Assessment

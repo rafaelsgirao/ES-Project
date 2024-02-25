@@ -82,10 +82,11 @@ public class Enrollment {
 
     private void verifyMotivation() {
         if (getMotivation() == null || getMotivation().trim().isEmpty()) {
-            throw new IllegalArgumentException("Motivation cannot be empty");
+            throw new HEException(MOTIVATION_IS_EMPTY, this.motivation);
+
         }
         if (getMotivation().length() < 10) {
-            throw new IllegalArgumentException("Motivation must have at least 10 characters");
+            throw new HEException(MOTIVATION_TOO_SHORT, this.motivation);
         }
     }
 
