@@ -154,6 +154,14 @@ public class Activity {
         this.state = state;
     }
 
+    public List<Enrollment> getEnrollments() {
+        return enrollments;
+    }
+
+    public void setEnrollments(List<Enrollment> enrollments) {
+        this.enrollments = enrollments;
+    }
+
     public void suspend() {
         activityCannotBeSuspended();
         this.setState(State.SUSPENDED);

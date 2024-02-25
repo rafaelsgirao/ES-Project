@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.dto.EnrollmentDto;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.HEException;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
+import static pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMessage.*;
 
 import java.time.LocalDateTime;
 
@@ -84,6 +86,12 @@ public class Enrollment {
         }
         if (getMotivation().length() < 10) {
             throw new IllegalArgumentException("Motivation must have at least 10 characters");
+        }
+    }
+
+    public void verifyVolunteerEnrolled() {
+        if (getActivity().getEnrollments().stream().anyMatch(e -> e.getVolunteer().equals(getVolunteer()))) {
+            throw new HEException(VOLUNTEER_ALREADY_ENROLLED, this.volunteer.getName());
         }
     }
 

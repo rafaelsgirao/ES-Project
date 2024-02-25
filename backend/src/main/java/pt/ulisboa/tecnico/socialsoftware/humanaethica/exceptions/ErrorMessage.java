@@ -40,6 +40,9 @@ public enum ErrorMessage {
     ACTIVITY_ALREADY_EXISTS("Activity already exists in database"),
     ACTIVITY_ALREADY_SUSPENDED("Activity is already suspended with name %s"),
     ACTIVITY_ALREADY_REPORTED("Activity is already reported with name %s"),
+
+    //Enrollment
+    VOLUNTEER_ALREADY_ENROLLED("Volunteer is already enrolled in this activity"),
     ACTIVITY_FULL("Activity is full"),
 
     // Assessment

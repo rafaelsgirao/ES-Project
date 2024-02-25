@@ -59,6 +59,15 @@ public class Volunteer extends User {
         participations.remove(participation);
     }
     
+
+    public List<Enrollment> getEnrollments() {
+        return enrollments;
+    }
+
+    public void setEnrollments(List<Enrollment> enrollments) {
+        this.enrollments = enrollments;
+    }
+
     public void addEnrollment(Enrollment enrollment) {
         this.enrollments.add(enrollment);
     }
