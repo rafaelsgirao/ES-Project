@@ -8,7 +8,6 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.HEException;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.domain.Institution;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.theme.domain.Theme;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler;
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.repository.ParticipationRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
