@@ -36,7 +36,9 @@ public class Participation  {
     private Volunteer volunteer;
 
     public Participation(Activity activity, Volunteer volunteer) {
-        //TODO
+        setActivity(activity);
+        setVolunteer(volunteer);
+        setAcceptanceDate(DateHandler.now());
     }
 
     public Integer getId() {
