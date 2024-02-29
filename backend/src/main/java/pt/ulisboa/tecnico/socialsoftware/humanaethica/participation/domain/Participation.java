@@ -3,11 +3,9 @@ package pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.domain;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder.In;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity;
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.HEException;
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.domain.Institution;
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.theme.domain.Theme;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.dto.ParticipationDto;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,10 +33,16 @@ public class Participation  {
     @JoinColumn(name = "volunteer_id")
     private Volunteer volunteer;
 
-    public Participation(Activity activity, Volunteer volunteer) {
+    public Participation() {
+    }
+
+    public Participation(ParticipationDto participationDto, Activity activity, Volunteer volunteer) {
+        setRating(participationDto.getRating());
+        setAcceptanceDate(DateHandler.now());
         setActivity(activity);
         setVolunteer(volunteer);
-        setAcceptanceDate(DateHandler.now());
+
+        verifyInvariants();
     }
 
     public Integer getId() {
@@ -75,5 +79,9 @@ public class Participation  {
 
     public void setVolunteer(Volunteer volunteer) {
         this.volunteer = volunteer;
+    }
+
+    public void verifyInvariants() {
+        // TODO: implement invariants
     }
 }
