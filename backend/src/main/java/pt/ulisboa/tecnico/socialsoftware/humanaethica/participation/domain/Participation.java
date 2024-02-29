@@ -3,9 +3,11 @@ package pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.domain;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder.In;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.HEException;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.dto.ParticipationDto;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.repository.ParticipationRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,6 +18,9 @@ import static pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMes
 @Entity
 @Table(name = "participation")
 public class Participation  {
+    @Transient
+    private ParticipationRepository participationRepository;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -82,6 +87,13 @@ public class Participation  {
     }
 
     public void verifyInvariants() {
-        // TODO: implement invariants
+        verifyUniqueParticipation();
+    }
+
+    public void verifyUniqueParticipation() {
+        int count = participationRepository.countParticipation(volunteer.getId(), activity.getId());
+        if (count > 0) {
+            throw new HEException(DUPLICATE_PARTICIPATION);
+        }
     }
 }
