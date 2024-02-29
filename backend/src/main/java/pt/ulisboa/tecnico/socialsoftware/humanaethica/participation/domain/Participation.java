@@ -7,6 +7,7 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.HEException;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.dto.ParticipationDto;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.repository.ParticipationRepository;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +16,9 @@ import static pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMes
 @Entity
 @Table(name = "participation")
 public class Participation  {
+    @Transient
+    private ParticipationRepository participationRepository;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
