@@ -10,4 +10,7 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.domain.Parti
 @Transactional
 public interface ParticipationRepository extends JpaRepository<Participation, Integer> {
 
+    // checks if the activity has reached the maximum number of participants
+    @Query("SELECT COUNT(p) FROM Participation p WHERE p.activity.id = :activityId")
+    int countParticipations(Integer activityId);
 }
