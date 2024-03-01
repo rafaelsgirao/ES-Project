@@ -56,9 +56,6 @@ public enum ErrorMessage {
     INVALID_PARTICIPATION("Invalid Participation"),
     ACTIVITY_ALREADY_REPORTED("Activity is already reported with name %s"),
 
-    // Participation
-    DUPLICATE_PARTICIPATION("Participation already exists"),
-
     // Assessment
     ASSESSMENT_REVIEW_TOO_SHORT("Assessment review should have at least ten characters");
 

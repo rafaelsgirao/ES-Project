@@ -121,4 +121,5 @@ public class Participation  {
             throw new HEException(ErrorMessage.ENROLLMENT_PERIOD_NOT_ENDED);
         }
     }
+
 }

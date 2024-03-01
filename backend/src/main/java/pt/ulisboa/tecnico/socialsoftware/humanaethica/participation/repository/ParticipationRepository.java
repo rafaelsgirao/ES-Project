@@ -9,4 +9,5 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.domain.Parti
 @Repository
 @Transactional
 public interface ParticipationRepository extends JpaRepository<Participation, Integer> {
+
 }
