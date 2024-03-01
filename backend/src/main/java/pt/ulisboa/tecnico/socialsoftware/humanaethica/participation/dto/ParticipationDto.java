@@ -55,4 +55,14 @@ public class ParticipationDto {
   public void setVolunteer(Volunteer volunteer) {
     this.volunteer = volunteer;
   }
+
+  public String toString() {
+    return "ParticipationDto{" + 
+            "id=" + id +
+            ", rating=" + rating +
+            ", acceptanceDate=" + acceptanceDate +
+            ", activity=" + activity +
+            ", volunteer=" +volunteer +
+            "}";
+  }
 }
