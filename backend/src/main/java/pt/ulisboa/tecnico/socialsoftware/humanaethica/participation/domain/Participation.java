@@ -88,12 +88,20 @@ public class Participation  {
 
     public void verifyInvariants() {
         verifyUniqueParticipation();
+        checkUniqueParticipation();
     }
 
     public void verifyUniqueParticipation() {
-        int count = participationRepository.countParticipation(volunteer.getId(), activity.getId());
+        int count = participationRepository.checkUniqueParticipation(volunteer.getId(), activity.getId());
         if (count > 0) {
             throw new HEException(DUPLICATE_PARTICIPATION);
+        }
+    }
+
+    public void checkUniqueParticipation() {
+        int count = participationRepository.countParticipations(activity.getId());
+        if (count >= activity.getParticipantsNumberLimit()) {
+            throw new HEException(ACTIVITY_FULL);
         }
     }
 }
