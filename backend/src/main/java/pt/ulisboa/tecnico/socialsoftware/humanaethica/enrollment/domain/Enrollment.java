@@ -6,6 +6,8 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.dto.EnrollmentDto;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.HEException;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler;
+
 import static pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMessage.*;
 
 import java.time.LocalDateTime;
@@ -69,7 +71,7 @@ public class Enrollment {
 
     public Enrollment(EnrollmentDto enrollmentDto, Volunteer volunteer, Activity activity) {
         setMotivation(enrollmentDto.getMotivation());
-        setEnrollmentDate(enrollmentDto.getEnrollmentDate());
+        setEnrollmentDate(DateHandler.toLocalDateTime(enrollmentDto.getEnrollmentDate()));
         setVolunteer(volunteer);
         setActivity(activity);
 
