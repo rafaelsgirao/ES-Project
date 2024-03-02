@@ -28,6 +28,24 @@ class CreateEnrollmentMethodTest extends SpockTest {
         enrollmentDto.enrollmentDate = DateHandler.toISOString(NOW)
     }
 
+    @Unroll
+    def "create enrollment and violate invariant motivation: motivation=#motivation"() {
+        given:
+        enrollmentDto.motivation = motivation
+
+        when:
+        new Enrollment(enrollmentDto, volunteer, activity)
+
+        then:
+        def error = thrown(HEException)
+        error.getErrorMessage() == errorMessage
+
+        where:
+        motivation                  || errorMessage
+        null                        || ErrorMessage.MOTIVATION_IS_EMPTY
+        " "                         || ErrorMessage.MOTIVATION_IS_EMPTY
+        ENROLLMENT_SHORT_MOTIVATION || ErrorMessage.MOTIVATION_TOO_SHORT
+    }
 
     @TestConfiguration
     static class LocalBeanConfiguration extends BeanConfiguration {}      
