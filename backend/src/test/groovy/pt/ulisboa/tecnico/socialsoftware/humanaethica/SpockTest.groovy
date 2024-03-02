@@ -243,10 +243,9 @@ class SpockTest extends Specification {
     }
 
     // enrollment
-    public static final String ENROLLMENT_MOTIVATION_00 = null
-    public static final String ENROLLMENT_MOTIVATION_01 = " "
-    public static final String ENROLLMENT_MOTIVATION_09 = "motivatio"
-    public static final String ENROLLMENT_MOTIVATION_10 = "motivation"
+    
+    public static final String ENROLLMENT_SHORT_MOTIVATION = "motivatio"
+    public static final String ENROLLMENT_MOTIVATION = "motivation"
 
 
     protected Activity createActivity(name, start, end, deadline) {
