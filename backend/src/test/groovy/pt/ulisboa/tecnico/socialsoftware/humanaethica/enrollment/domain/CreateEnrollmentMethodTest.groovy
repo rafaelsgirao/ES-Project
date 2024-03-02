@@ -24,9 +24,12 @@ class CreateEnrollmentMethodTest extends SpockTest {
     def setup() {
         given: "enrollment info"
         enrollmentDto = new EnrollmentDto()
-        enrollmentDto.motivation = ENROLLMENT_MOTIVATION_10
+        enrollmentDto.motivation = ENROLLMENT_MOTIVATION
         enrollmentDto.enrollmentDate = DateHandler.toISOString(NOW)
     }
 
+
+    @TestConfiguration
+    static class LocalBeanConfiguration extends BeanConfiguration {}      
+
 }
- 
