@@ -16,7 +16,7 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.dto.EnrollmentD
 
 @DataJpaTest
 class CreateEnrollmentMethodTest extends SpockTest {
-    Enrollment enrollment = Mock()
+    Enrollment otherEnrollment = Mock()
     Volunteer volunteer = Mock()
     Activity activity = Mock()
     def enrollmentDto
@@ -45,6 +45,21 @@ class CreateEnrollmentMethodTest extends SpockTest {
         null                        || ErrorMessage.MOTIVATION_IS_EMPTY
         " "                         || ErrorMessage.MOTIVATION_IS_EMPTY
         ENROLLMENT_SHORT_MOTIVATION || ErrorMessage.MOTIVATION_TOO_SHORT
+    }
+
+    @Unroll
+    def "create enrollment and violate invariant already enrolled"() {
+        given:
+        activity.getApplicationDeadline() >> NOW
+        activity.getEnrollments() >> [otherEnrollment]
+        otherEnrollment.getVolunteer() >> volunteer
+
+        when:
+        new Enrollment(enrollmentDto, volunteer, activity)
+
+        then:
+        def error = thrown(HEException)
+        error.getErrorMessage() == ErrorMessage.VOLUNTEER_ALREADY_ENROLLED
     }
 
     @TestConfiguration

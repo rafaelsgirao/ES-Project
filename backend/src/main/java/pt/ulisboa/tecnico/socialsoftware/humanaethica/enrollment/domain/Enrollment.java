@@ -81,6 +81,7 @@ public class Enrollment {
     private void verifyInvariants() {
         verifyMotivation();
         verifyApplicationDate();
+        verifyVolunteerEnrolled();
     }
 
     private void verifyMotivation() {
