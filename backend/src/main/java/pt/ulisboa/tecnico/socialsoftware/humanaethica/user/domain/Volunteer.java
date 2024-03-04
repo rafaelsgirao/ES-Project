@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain;
 import jakarta.persistence.*;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.auth.domain.AuthUser;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.domain.Assessment;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.domain.Participation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,9 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(User.UserTypes.VOLUNTEER)
 public class Volunteer extends User {
+    @OneToMany(mappedBy = "institution", orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Participation> participations = new ArrayList<>();
+
     
     @OneToMany(mappedBy = "volunteer", fetch =  FetchType.EAGER)
     private List<Assessment> assessments = new ArrayList<>();
@@ -23,6 +27,18 @@ public class Volunteer extends User {
 
     public Volunteer(String name, State state) {
         super(name, Role.VOLUNTEER, state);
+    }
+
+    public List<Participation> getParticipations() {
+        return participations;
+    }
+
+    public void addParticipation(Participation participation) {
+        participations.add(participation);
+    }
+
+    public void removeParticipation(Participation participation) {
+        participations.remove(participation);
     }
 
     public List<Assessment> getAssessments() {

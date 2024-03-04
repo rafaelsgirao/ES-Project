@@ -88,20 +88,20 @@ public class Participation  {
 
     public void verifyInvariants() {
         verifyUniqueParticipation();
-        checkUniqueParticipation();
+        checkFullActivity();
         verifyParticipationAfterEnrollment();
     }
 
     public void verifyUniqueParticipation() {
-        int count = participationRepository.checkUniqueParticipation(volunteer.getId(), activity.getId());
-        if (count > 0) {
-            throw new HEException(DUPLICATE_PARTICIPATION);
-        }
+        volunteer.getParticipations().stream().forEach(participation -> {
+            if (participation.getActivity().equals(this.getActivity())) {
+                throw new HEException(DUPLICATE_PARTICIPATION);
+            }
+        });
     }
 
-    public void checkUniqueParticipation() {
-        int count = participationRepository.countParticipations(activity.getId());
-        if (count >= activity.getParticipantsNumberLimit()) {
+    public void checkFullActivity() {
+        if (this.getActivity().getParticipantsNumberLimit() == this.getActivity().getParticipations().size()) {
             throw new HEException(ACTIVITY_FULL);
         }
     }
