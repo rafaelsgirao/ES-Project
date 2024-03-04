@@ -12,7 +12,6 @@ public interface ParticipationRepository extends JpaRepository<Participation, In
     @Query("SELECT COUNT(p) FROM Participation p WHERE p.volunteer.id = :volunteerId AND p.activity.id = :activityId")
     int checkUniqueParticipation(Integer volunteerId, Integer activityId);
 
-    // checks if the activity has reached the maximum number of participants
     @Query("SELECT COUNT(p) FROM Participation p WHERE p.activity.id = :activityId")
     int countParticipations(Integer activityId);
 }

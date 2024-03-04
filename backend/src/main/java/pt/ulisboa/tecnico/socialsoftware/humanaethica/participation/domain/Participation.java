@@ -1,8 +1,8 @@
 package pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.domain;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMessage;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.HEException;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.dto.ParticipationDto;
@@ -10,14 +10,14 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.repository.ParticipationRepository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import static pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMessage.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "participation")
 public class Participation  {
+    @Autowired
     @Transient
     private ParticipationRepository participationRepository;
 
@@ -89,6 +89,7 @@ public class Participation  {
     public void verifyInvariants() {
         verifyUniqueParticipation();
         checkUniqueParticipation();
+        verifyParticipationAfterEnrollment();
     }
 
     public void verifyUniqueParticipation() {
@@ -102,6 +103,12 @@ public class Participation  {
         int count = participationRepository.countParticipations(activity.getId());
         if (count >= activity.getParticipantsNumberLimit()) {
             throw new HEException(ACTIVITY_FULL);
+        }
+    }
+
+    public void verifyParticipationAfterEnrollment() {
+        if (this.getAcceptanceDate().isBefore(this.getActivity().getApplicationDeadline())) {
+            throw new HEException(ErrorMessage.ENROLLMENT_PERIOD_NOT_ENDED);
         }
     }
 }

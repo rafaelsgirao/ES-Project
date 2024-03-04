@@ -51,7 +51,8 @@ public enum ErrorMessage {
     ACTIVITY_ALREADY_REPORTED("Activity is already reported with name %s"),
 
     // Participation
-    DUPLICATE_PARTICIPATION("Participation already exists");
+    DUPLICATE_PARTICIPATION("Participation already exists"),
+    ENROLLMENT_PERIOD_NOT_ENDED("Enrollment period is still open");
 
     public final String label;
 
