@@ -24,6 +24,7 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.repository.Ins
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.repository.ActivityRepository
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.ActivityService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.theme.repository.ThemeRepository
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.repository.ParticipationRepository
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.theme.ThemeService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.AssessmentService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.dto.AssessmentDto
@@ -259,6 +260,12 @@ class SpockTest extends Specification {
         assessmentDto
     }
 
+    // participation
+
+    @Autowired
+    ParticipationRepository participationRepository
+
+
     // clean database
 
     def deleteAll() {
@@ -269,6 +276,7 @@ class SpockTest extends Specification {
         authUserRepository.deleteAll()
         userRepository.deleteAll()
         themeRepository.deleteAll()
+        participationRepository.deleteAll()
     }
 
 

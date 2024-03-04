@@ -9,9 +9,6 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.domain.Parti
 @Repository
 @Transactional
 public interface ParticipationRepository extends JpaRepository<Participation, Integer> {
-    @Query("SELECT COUNT(p) FROM Participation p WHERE p.volunteer.id = :volunteerId AND p.activity.id = :activityId")
-    int checkUniqueParticipation(Integer volunteerId, Integer activityId);
-
-    @Query("SELECT COUNT(p) FROM Participation p WHERE p.activity.id = :activityId")
-    int countParticipations(Integer activityId);
+    @Query(value = "DELETE FROM participations", nativeQuery = true)
+    void deleteAllParticipations();
 }
