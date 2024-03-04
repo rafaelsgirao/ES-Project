@@ -43,7 +43,7 @@ public class Participation  {
 
     public Participation(ParticipationDto participationDto, Activity activity, Volunteer volunteer) {
         setRating(participationDto.getRating());
-        setAcceptanceDate(DateHandler.now());
+        setAcceptanceDate(participationDto.getAcceptanceDate());
         setActivity(activity);
         setVolunteer(volunteer);
 
@@ -76,6 +76,7 @@ public class Participation  {
 
     public void setActivity(Activity activity) {
         this.activity = activity;
+        activity.addParticipation(this);
     }
 
     public Volunteer getVolunteer() {
@@ -84,6 +85,7 @@ public class Participation  {
 
     public void setVolunteer(Volunteer volunteer) {
         this.volunteer = volunteer;
+        volunteer.addParticipation(this);
     }
 
     public void verifyInvariants() {
@@ -94,7 +96,7 @@ public class Participation  {
 
     public void verifyUniqueParticipation() {
         volunteer.getParticipations().stream().forEach(participation -> {
-            if (participation.getActivity().equals(this.getActivity())) {
+            if (participation.getActivity().equals(this.activity)) {
                 throw new HEException(DUPLICATE_PARTICIPATION);
             }
         });

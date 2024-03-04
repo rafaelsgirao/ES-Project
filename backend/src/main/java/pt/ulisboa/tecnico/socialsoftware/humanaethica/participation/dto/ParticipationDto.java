@@ -1,23 +1,27 @@
 package pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.dto;
 
 import java.time.LocalDateTime;
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity;
+
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.dto.ActivityDto;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.domain.Participation;
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.dto.UserDto;
 
 public class ParticipationDto {
     private Integer id;
-    private int rating;
+    private Integer rating;
     private LocalDateTime acceptanceDate;
-    private Activity activity;
-    private Volunteer volunteer;
+    private ActivityDto activity;
+    private UserDto volunteer;
 
     public ParticipationDto() {}
 
     public ParticipationDto(Participation participation) {
-        setId(activity.getId());
-        setActivity(participation.getActivity());
-        setAcceptanceDate(participation.getAcceptanceDate());
+        setId(id);
+        setRating(rating);
+        setAcceptanceDate(acceptanceDate);
+
+        setVolunteer(new UserDto(participation.getVolunteer()));
+        setActivity(new ActivityDto(participation.getActivity(), true));
     }
 
     public void setId(Integer id) {
@@ -44,19 +48,19 @@ public class ParticipationDto {
         this.acceptanceDate = acceptanceDate;
     }
 
-    public Activity getActivity() {
+    public ActivityDto getActivity() {
         return activity;
     }
 
-    public void setActivity(Activity activity) {
+    public void setActivity(ActivityDto activity) {
         this.activity = activity;
     }
 
-    public Volunteer getVolunteer() {
+    public UserDto getVolunteer() {
         return volunteer;
     }
 
-    public void setVolunteer(Volunteer volunteer) {
+    public void setVolunteer(UserDto volunteer) {
         this.volunteer = volunteer;
     }
 
