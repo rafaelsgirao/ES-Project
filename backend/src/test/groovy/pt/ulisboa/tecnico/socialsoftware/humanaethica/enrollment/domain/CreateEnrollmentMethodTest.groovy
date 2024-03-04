@@ -28,6 +28,22 @@ class CreateEnrollmentMethodTest extends SpockTest {
         enrollmentDto.enrollmentDate = DateHandler.toISOString(NOW)
     }
 
+    def "create enrollment sucessfully"() {
+        given:
+        activity.getApplicationDeadline() >> NOW
+        activity.getEnrollments() >> []
+
+        when:
+        def result = new Enrollment(enrollmentDto, volunteer, activity)
+
+        then: "check result"
+        result.getMotivation() == ENROLLMENT_MOTIVATION
+        result.getEnrollmentDate() == NOW
+        result.getActivity() == activity
+        result.getVolunteer() == volunteer
+
+
+    }
     @Unroll
     def "create enrollment and violate invariant motivation: motivation=#motivation"() {
         given:
