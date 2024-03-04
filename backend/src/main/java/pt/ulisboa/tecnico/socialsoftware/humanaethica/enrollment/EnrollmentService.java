@@ -29,7 +29,7 @@ public class EnrollmentService {
     UserRepository userRepository;
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public EnrollmentDto registerEnrollment(Integer userId, Integer activityId, EnrollmentDto enrollmentDto) {
+    public EnrollmentDto createEnrollment(Integer userId, Integer activityId, EnrollmentDto enrollmentDto) {
         if (userId == null) throw new HEException(USER_NOT_FOUND);
         if (activityId == null) throw new HEException(ACTIVITY_NOT_FOUND);
 
