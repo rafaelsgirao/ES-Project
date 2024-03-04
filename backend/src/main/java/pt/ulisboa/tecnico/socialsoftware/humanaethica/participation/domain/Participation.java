@@ -12,10 +12,12 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.repository.P
 import java.time.LocalDateTime;
 
 import static pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMessage.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "participation")
 public class Participation  {
+    @Autowired
     @Transient
     private ParticipationRepository participationRepository;
 

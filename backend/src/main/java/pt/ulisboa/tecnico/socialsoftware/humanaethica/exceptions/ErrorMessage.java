@@ -54,7 +54,6 @@ public enum ErrorMessage {
     DUPLICATE_PARTICIPATION("Participation already exists"),
     ENROLLMENT_PERIOD_NOT_ENDED("Enrollment period is still open"),
     INVALID_PARTICIPATION("Invalid Participation"),
-    ACTIVITY_ALREADY_REPORTED("Activity is already reported with name %s"),
 
     // Assessment
     ASSESSMENT_REVIEW_TOO_SHORT("Assessment review should have at least ten characters");
