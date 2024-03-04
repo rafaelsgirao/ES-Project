@@ -16,11 +16,20 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.repository.P
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.repository.UserRepository;
 
+import java.util.List;
+
 @Service
 public class ParticipationService {
   @Autowired ActivityRepository activityRepository;
   @Autowired ParticipationRepository participationRepository;
   @Autowired UserRepository userRepository;
+
+  public List<ParticipationDto> getParticipations() {
+    return participationRepository.findAll().stream()
+            .map(participation -> new ParticipationDto(participation))
+            .sorted()
+            .toList();
+  }
 
   /*
    * Nestes testes deve ser verificado que o serviço devolve os valores corretos.
@@ -29,11 +38,10 @@ public class ParticipationService {
    */
   @Transactional(isolation = Isolation.READ_COMMITTED)
   public ParticipationDto createParticipation(
-      Integer activityId, ParticipationDto participationDto) {
+      Integer activityId, Integer volunteerId, ParticipationDto participationDto) {
     if (activityId == null) {
       throw new HEException(ACTIVITY_NOT_FOUND);
     }
-    Integer volunteerId = participationDto.getVolunteer().getId();
     if (volunteerId == null) {
       throw new HEException(USER_NOT_FOUND);
     }
