@@ -262,6 +262,12 @@ class SpockTest extends Specification {
 
     // participation
 
+    public static final String PARTICIPATION_NAME_1 = "participation name 1"
+    public static final String PARTICIPATION_NAME_2 = "participation name 2"
+    public static final String PARTICIPATION_NAME_3 = "participation name 3"
+    public static final Integer RATING_1 = 1
+    public static final Integer RATING_2 = 2
+
     @Autowired
     ParticipationRepository participationRepository
 
