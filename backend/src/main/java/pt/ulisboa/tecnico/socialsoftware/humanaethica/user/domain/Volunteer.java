@@ -33,6 +33,8 @@ public class Volunteer extends User {
         super(name, Role.VOLUNTEER, state);
     }
 
+    //Assessments
+    
     public List<Assessment> getAssessments() {
         return assessments;
     }
@@ -40,6 +42,8 @@ public class Volunteer extends User {
     public void addAssessment(Assessment assessment) { this.assessments.add(assessment);}
 
     public void removeAssessment(Assessment assessment) { this.assessments.remove(assessment); }
+
+    // Participation
 
     public List<Participation> getParticipations() {
         return participations;
