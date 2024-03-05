@@ -18,12 +18,14 @@ public class ParticipationController {
     private static final Logger logger = LoggerFactory.getLogger(ParticipationController.class);
 
     @GetMapping
-    public List<ParticipationDto> getParticipations() { return participationService.getParticipations(); }
+    public List<ParticipationDto> getParticipations() { 
+        return participationService.getParticipations(); 
+    }
 
-    @PostMapping()
+    @PostMapping(path={"{activityId}"})
     @PreAuthorize("(hasRole('ROLE_MEMBER'))")
-        public ParticipationDto createParticipation(@PathVariable Integer activityId, @Valid @RequestBody ParticipationDto participationDto) {
+    public ParticipationDto createParticipation(@PathVariable Integer activityId, @Valid @RequestBody ParticipationDto participationDto) {
         Integer volunteerId = participationDto.getVolunteer().getId();
-        return participationService.createParticipation(volunteerId, activityId, participationDto);
+        return participationService.createParticipation(activityId, volunteerId, participationDto);  
     }
 }
