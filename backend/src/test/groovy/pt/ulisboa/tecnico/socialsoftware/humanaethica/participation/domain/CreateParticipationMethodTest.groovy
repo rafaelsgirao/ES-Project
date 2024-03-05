@@ -34,7 +34,7 @@ class CreateParticipationMethodTest extends SpockTest {
 
     def "succesfully create participation"() {
         given:
-        activity.getApplicationDeadline() >> DateHandler.now().minusDays(3)
+        activity.getApplicationDeadline() >> TWO_DAYS_AGO
         activity.getParticipantsNumberLimit() >> ACTIVITY_LIMIT_2
         activity.getEndingDate() >> IN_TWO_DAYS
         otherParticipation.getActivity() >> otherActivity
@@ -54,7 +54,7 @@ class CreateParticipationMethodTest extends SpockTest {
     @Unroll
     def "create participation and violate number of participants has to be <= to the limit"() {
         given:
-        activity.getApplicationDeadline() >> DateHandler.now().minusDays(3)
+        activity.getApplicationDeadline() >> TWO_DAYS_AGO
         activity.getParticipantsNumberLimit() >> ACTIVITY_LIMIT_1
         activity.getEndingDate() >> IN_TWO_DAYS
         otherParticipation.getActivity() >> activity
@@ -73,7 +73,7 @@ class CreateParticipationMethodTest extends SpockTest {
     @Unroll
     def "create participation and violate volunteer can only participate once in an activity"() {
         given:
-        activity.getApplicationDeadline() >> DateHandler.now().minusDays(3)
+        activity.getApplicationDeadline() >> TWO_DAYS_AGO
         activity.getEndingDate() >> IN_TWO_DAYS
         otherParticipation.getActivity() >> activity
         volunteer.getParticipations() >> [otherParticipation]
@@ -85,6 +85,23 @@ class CreateParticipationMethodTest extends SpockTest {
         then:
         def error = thrown(HEException)
         error.getErrorMessage() == ErrorMessage.DUPLICATE_PARTICIPATION
+    }
+
+    @Unroll
+    def "create participation and violate volunteer can only be a participant after the application deadline"() {
+        given:
+        activity.getApplicationDeadline() >> IN_TWO_DAYS
+        activity.getEndingDate() >> IN_THREE_DAYS
+        activity.getParticipantsNumberLimit() >> ACTIVITY_LIMIT_2
+        volunteer.getParticipations() >> []
+        activity.getParticipations() >> []
+
+        when:
+        new Participation(participationDto, activity, volunteer)
+
+        then:
+        def error = thrown(HEException)
+        error.getErrorMessage() == ErrorMessage.ENROLLMENT_PERIOD_NOT_ENDED
     }
 
     @TestConfiguration
