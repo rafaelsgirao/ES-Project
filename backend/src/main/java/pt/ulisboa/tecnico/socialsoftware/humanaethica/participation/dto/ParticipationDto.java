@@ -16,10 +16,9 @@ public class ParticipationDto {
     public ParticipationDto() {}
 
     public ParticipationDto(Participation participation) {
-        setId(id);
-        setRating(rating);
-        setAcceptanceDate(acceptanceDate);
-
+        setId(participation.getId());
+        setRating(participation.getRating());
+        setAcceptanceDate(participation.getAcceptanceDate());
         setVolunteer(new UserDto(participation.getVolunteer()));
         setActivity(new ActivityDto(participation.getActivity(), true));
     }
