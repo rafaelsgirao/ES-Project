@@ -210,6 +210,8 @@ class SpockTest extends Specification {
     public static final String ACTIVITY_REGION_2 = "activity region 2"
     public static final String ACTIVITY_DESCRIPTION_1 = "activity description 1"
     public static final String ACTIVITY_DESCRIPTION_2 = "activity description 2"
+    public static final Integer ACTIVITY_LIMIT_1 = 1
+    public static final Integer ACTIVITY_LIMIT_2 = 2
 
     @Autowired
     ActivityRepository activityRepository
