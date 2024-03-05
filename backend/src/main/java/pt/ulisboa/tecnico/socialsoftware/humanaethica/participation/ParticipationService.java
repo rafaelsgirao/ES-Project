@@ -31,11 +31,6 @@ public class ParticipationService {
             .toList();
   }
 
-  /*
-   * Nestes testes deve ser verificado que o serviço devolve os valores corretos.
-   *  Também deve ser testado que os valores de entrada são válidos:
-   *    uma actividade associada a activityId e um objeto participationDto.
-   */
   @Transactional(isolation = Isolation.READ_COMMITTED)
   public ParticipationDto createParticipation(
       Integer activityId, Integer volunteerId, ParticipationDto participationDto) {
