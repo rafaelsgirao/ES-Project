@@ -96,7 +96,7 @@ public class Participation  {
 
     public void verifyUniqueParticipation() {
         volunteer.getParticipations().stream().forEach(participation -> {
-            if (participation.getActivity().equals(this.activity)) {
+            if (participation.getActivity().equals(this.activity) && !participation.equals(this)) {
                 throw new HEException(DUPLICATE_PARTICIPATION);
             }
         });
