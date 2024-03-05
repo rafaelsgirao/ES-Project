@@ -8,7 +8,7 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.domain.Enrollment
 
 @DataJpaTest
-class RegisterEnrollmentServiceTest extends SpockTest {
+class CreateEnrollmentServiceTest extends SpockTest {
 
     def activity
     def volunteer
