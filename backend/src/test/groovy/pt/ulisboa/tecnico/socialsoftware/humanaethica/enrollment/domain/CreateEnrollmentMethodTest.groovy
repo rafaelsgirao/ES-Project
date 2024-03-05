@@ -14,6 +14,7 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.domain.Enrollment
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.dto.EnrollmentDto;
 
+import java.time.LocalDateTime
 @DataJpaTest
 class CreateEnrollmentMethodTest extends SpockTest {
     Enrollment otherEnrollment = Mock()
@@ -44,6 +45,27 @@ class CreateEnrollmentMethodTest extends SpockTest {
 
 
     }
+
+    @Unroll
+    def "create enrollment and violate invariant date: applicationDeadline=#applicationDeadline"(){
+        given:
+        activity.getApplicationDeadline() >> applicationDeadline
+        activity.getEnrollments() >> []
+        
+        when:
+        new Enrollment(enrollmentDto, volunteer, activity)
+        
+        then:
+        def error = thrown(HEException)
+        error.getErrorMessage() == errorMessage
+
+        where:
+        applicationDeadline          | errorMessage
+        ONE_DAY_AGO                  | ErrorMessage.ENROLLMENT_DATE_AFTER_DEADLINE             
+        ONE_SEC_AGO                  | ErrorMessage.ENROLLMENT_DATE_AFTER_DEADLINE             
+        TWO_DAYS_AGO                 | ErrorMessage.ENROLLMENT_DATE_AFTER_DEADLINE             
+    }
+
     @Unroll
     def "create enrollment and violate invariant motivation: motivation=#motivation"() {
         given:
