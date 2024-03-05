@@ -57,7 +57,7 @@ class CreateParticipationMethodTest extends SpockTest {
         activity.getApplicationDeadline() >> DateHandler.now().minusDays(3)
         activity.getParticipantsNumberLimit() >> ACTIVITY_LIMIT_1
         activity.getEndingDate() >> IN_TWO_DAYS
-        otherParticipation.getActivity() >> otherActivity
+        otherParticipation.getActivity() >> activity
         otherVolunteer.getParticipations() >> [otherParticipation]
         activity.getParticipations() >> [otherParticipation]
         volunteer.getParticipations() >> []
@@ -68,6 +68,23 @@ class CreateParticipationMethodTest extends SpockTest {
         then:
         def error = thrown(HEException)
         error.getErrorMessage() == ErrorMessage.ACTIVITY_FULL
+    }
+
+    @Unroll
+    def "create participation and violate volunteer can only participate once in an activity"() {
+        given:
+        activity.getApplicationDeadline() >> DateHandler.now().minusDays(3)
+        activity.getEndingDate() >> IN_TWO_DAYS
+        otherParticipation.getActivity() >> activity
+        volunteer.getParticipations() >> [otherParticipation]
+        activity.getParticipations() >> [otherParticipation]
+
+        when:
+        new Participation(participationDto, activity, volunteer)
+
+        then:
+        def error = thrown(HEException)
+        error.getErrorMessage() == ErrorMessage.DUPLICATE_PARTICIPATION
     }
 
     @TestConfiguration
