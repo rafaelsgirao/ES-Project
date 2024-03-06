@@ -35,7 +35,7 @@ public class Participation  {
     public Participation() {
     }
 
-    public Participation(ParticipationDto participationDto, Activity activity, Volunteer volunteer) {
+     public Participation(Activity activity, Volunteer volunteer, ParticipationDto participationDto) {
         setRating(participationDto.getRating());
         setAcceptanceDate(DateHandler.now());
         setActivity(activity);

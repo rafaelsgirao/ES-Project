@@ -41,7 +41,7 @@ class CreateParticipationMethodTest extends SpockTest {
         activity.getParticipations() >> [otherParticipation]
 
         when:
-        def result = new Participation(participationDto, activity, volunteer)
+        def result = new Participation(activity, volunteer, participationDto)
 
         then: "check result"
         result.getRating() == PARTICIPATION_RATING_1
@@ -61,7 +61,7 @@ class CreateParticipationMethodTest extends SpockTest {
         volunteer.getParticipations() >> []
 
         when:
-        new Participation(participationDto, activity, volunteer)
+        new Participation(activity, volunteer, participationDto)
 
         then:
         def error = thrown(HEException)
@@ -78,7 +78,7 @@ class CreateParticipationMethodTest extends SpockTest {
         activity.getParticipations() >> [otherParticipation]
 
         when:
-        new Participation(participationDto, activity, volunteer)
+        new Participation(activity, volunteer, participationDto)
 
         then:
         def error = thrown(HEException)
@@ -95,7 +95,7 @@ class CreateParticipationMethodTest extends SpockTest {
         activity.getParticipations() >> []
 
         when:
-        new Participation(participationDto, activity, volunteer)
+        new Participation(activity, volunteer, participationDto)
 
         then:
         def error = thrown(HEException)

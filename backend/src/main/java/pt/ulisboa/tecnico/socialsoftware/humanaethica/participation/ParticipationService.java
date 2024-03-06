@@ -50,8 +50,7 @@ public class ParticipationService {
             .findById(activityId)
             .orElseThrow(() -> new HEException(ACTIVITY_NOT_FOUND, activityId));
 
-    Participation participation = new Participation(participationDto, activity, volunteer);
-
+    Participation participation = new Participation(activity, volunteer, participationDto);
     participationRepository.save(participation);
     return new ParticipationDto(participation);
   }
