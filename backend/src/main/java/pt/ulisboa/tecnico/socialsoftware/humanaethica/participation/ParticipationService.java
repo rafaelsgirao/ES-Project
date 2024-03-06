@@ -32,6 +32,11 @@ public class ParticipationService {
   }
 
   @Transactional(isolation = Isolation.READ_COMMITTED)
+  public List<Participation> getParticipationsByActivityId(Integer activityId) {
+    return participationRepository.findParticipationsByActivityId(activityId);
+  }
+
+  @Transactional(isolation = Isolation.READ_COMMITTED)
   public ParticipationDto createParticipation(
       Integer activityId, ParticipationDto participationDto) {
     if (participationDto == null) {
