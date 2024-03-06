@@ -15,59 +15,19 @@ import java.time.LocalDateTime;
 @Entity
 public class Enrollment {
 
+    // Attributes
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String motivation;
     private LocalDateTime enrollmentDate;
+    @ManyToOne private Activity activity;
+    @ManyToOne private Volunteer volunteer;
 
-    @ManyToOne
-    private Activity activity;
+    // Constructors
 
-    @ManyToOne
-    private Volunteer volunteer;
-
-    public Integer getId() {
-        return id;
-    }
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getMotivation() {
-        return motivation;
-    }
-    public void setMotivation(String motivation) {
-        this.motivation = motivation;
-    }
-
-    public LocalDateTime getEnrollmentDate() {
-        return enrollmentDate;
-    }
-
-    public void setEnrollmentDate(LocalDateTime enrollmentDate) {
-        this.enrollmentDate = enrollmentDate;
-    }
-
-    public Volunteer getVolunteer() {
-        return volunteer;
-    }
-
-    public void setVolunteer(Volunteer volunteer) {
-        this.volunteer = volunteer;
-        volunteer.addEnrollment(this);
-    }
-
-    public Activity getActivity() {
-        return activity;
-    }
-    public void setActivity(Activity activity) {
-        this.activity = activity;
-        activity.addEnrollment(this);
-    }
-
-    public Enrollment() {
-    }
+    public Enrollment() {}
 
     public Enrollment(EnrollmentDto enrollmentDto, Volunteer volunteer, Activity activity) {
         setMotivation(enrollmentDto.getMotivation());
@@ -77,6 +37,30 @@ public class Enrollment {
 
         verifyInvariants();
     }
+
+    // Getters
+
+    public Integer getId() { return id; }
+    public String getMotivation() { return motivation; }
+    public LocalDateTime getEnrollmentDate() { return enrollmentDate; }
+    public Volunteer getVolunteer() { return volunteer; }
+    public Activity getActivity() { return activity; }
+    
+    // Setters
+
+    public void setId(Integer id) { this.id = id; }
+    public void setMotivation(String motivation) { this.motivation = motivation; }
+    public void setEnrollmentDate(LocalDateTime enrollmentDate) { this.enrollmentDate = enrollmentDate; }
+    public void setVolunteer(Volunteer volunteer) {
+        this.volunteer = volunteer;
+        volunteer.addEnrollment(this);
+    }
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+        activity.addEnrollment(this);
+    }
+
+    // Invariants
 
     private void verifyInvariants() {
         verifyMotivation();

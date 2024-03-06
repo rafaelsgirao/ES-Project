@@ -7,15 +7,17 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler;
 
 public class EnrollmentDto {
 
-    // EnrollmentDto attributes
+    // Attributes
+
     private Integer id;
     private String motivation;
     private String enrollmentDate;
     private ActivityDto activityDto;
     private UserDto volunteerDto;
 
-    public EnrollmentDto() {
-    }
+    // Constructors
+
+    public EnrollmentDto() {}
 
    public EnrollmentDto(Enrollment enrollment, boolean deepCopyActivity, boolean deepCopyVolunteer) {
         setId(enrollment.getId());
@@ -30,14 +32,16 @@ public class EnrollmentDto {
         }
     }
 
-    // EnrollmentDto getters
+    // Getters
+
     public Integer getId() { return id; }
     public String getMotivation() { return motivation; }
     public String getEnrollmentDate() { return enrollmentDate; }
     public ActivityDto getActivityDto() { return activityDto; }
     public UserDto getVolunteerDto() { return volunteerDto; }
 
-    // EnrollmentDto setters
+    // Setters
+
     public void setId(Integer id) { this.id = id; }
     public void setMotivation(String motivation) { this.motivation = motivation; }
     public void setEnrollmentDate(String enrollmentDate) { this.enrollmentDate = enrollmentDate; }
