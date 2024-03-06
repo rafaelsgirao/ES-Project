@@ -23,7 +23,7 @@ public class ParticipationController {
     }
 
     @PostMapping(path={"{activityId}"})
-    @PreAuthorize("(hasRole('ROLE_MEMBER'))")
+    @PreAuthorize("(hasRole('ROLE_MEMBER')) and hasPermission(#activityId, 'ACTIVITY.MEMBER')")
     public ParticipationDto createParticipation(@PathVariable Integer activityId, @Valid @RequestBody ParticipationDto participationDto) {
         Integer volunteerId = participationDto.getVolunteer().getId();
         return participationService.createParticipation(activityId, volunteerId, participationDto);  
