@@ -38,6 +38,10 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.User
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.dto.InstitutionDto
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.Mailer
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.EnrollmentService
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.repository.EnrollmentRepository
+
 import spock.lang.Specification
 
 import java.time.LocalDateTime
@@ -237,7 +241,26 @@ class SpockTest extends Specification {
         activityDto
     }
 
+    protected Activity createActivity(name, start, end, deadline) {
+        def activity = new Activity()
+        activity.setName(name)
+        activity.setName(name)
+        activity.setStartingDate(start)
+        activity.setEndingDate(end)
+        activity.setApplicationDeadline(deadline)
+        activityRepository.save(activity)
+        activity
+    }
+
     // enrollment
+
+    @Autowired 
+    EnrollmentService enrollmentService
+
+
+    @Autowired
+    EnrollmentRepository enrollmentRepository
+    
     public static final String ENROLLMENT_SHORT_MOTIVATION = "motivatio"
     public static final String ENROLLMENT_MOTIVATION = "motivation"
     
