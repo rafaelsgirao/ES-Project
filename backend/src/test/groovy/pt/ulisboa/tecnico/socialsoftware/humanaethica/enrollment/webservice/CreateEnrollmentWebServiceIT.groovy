@@ -64,7 +64,24 @@ class CreateEnrollmentWebServiceIT extends SpockTest {
     }
 
     def "login as volunteer, and create an enrollment with error"() {
+        given:
+        demoVolunteerLogin()
+        and: 'a empty motivation'
+        enrollmentDto.motivation = " "
 
+        when: 'the volunteer tries to create an enrollment'
+        webClient.post()
+                .uri('/enrollments/' + activityId)
+                .headers(httpHeaders -> httpHeaders.putAll(headers))
+                .bodyValue(enrollmentDto)
+                .retrieve()
+                .bodyToMono(EnrollmentDto.class)
+                .block()
+
+        then: 'check response status' 
+        def error = thrown(WebClientResponseException)
+        error.statusCode == HttpStatus.BAD_REQUEST
+        enrollmentRepository.count() == 0
     }
 
     def "login as member, and create an enrollment"() {
