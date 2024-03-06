@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import jakarta.validation.Valid;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.domain.Participation;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.dto.ParticipationDto;
 import java.util.List;
 
@@ -21,5 +22,11 @@ public class ParticipationController {
     @PreAuthorize("(hasRole('ROLE_MEMBER')) and hasPermission(#activityId, 'ACTIVITY.MEMBER')")
     public ParticipationDto createParticipation(@PathVariable Integer activityId, @Valid @RequestBody ParticipationDto participationDto) {
         return participationService.createParticipation(activityId, participationDto);  
+    }
+
+    @PutMapping(path={"/{activityId}"})
+    @PreAuthorize("hasRole('ROLE_MEMBER') and hasPermission(#activityId, 'ACTIVITY.MEMBER')")
+    public List<Participation> getParticipationsByActivity(@PathVariable Integer activityId) {
+        return participationService.getParticipationsByActivityId(activityId);
     }
 }
