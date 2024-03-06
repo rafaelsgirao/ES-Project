@@ -29,7 +29,6 @@ class CreateParticipationMethodTest extends SpockTest {
         given: "participation info"
         participationDto = new ParticipationDto()
         participationDto.rating = PARTICIPATION_RATING_1
-        participationDto.acceptanceDate = NOW
     }
 
     def "succesfully create participation"() {
@@ -46,7 +45,6 @@ class CreateParticipationMethodTest extends SpockTest {
 
         then: "check result"
         result.getRating() == PARTICIPATION_RATING_1
-        result.getAcceptanceDate() == NOW
         result.getVolunteer() == volunteer
         result.getActivity() == activity
     }
