@@ -95,7 +95,9 @@ public class Enrollment {
     }
 
     public void verifyVolunteerEnrolled() {
-        if (getActivity().getEnrollments().stream().anyMatch(e -> e.getVolunteer().equals(getVolunteer()))) {
+        if (getActivity().getEnrollments().stream().anyMatch(
+                e -> e.getVolunteer().equals(getVolunteer()) && !e.equals(this)
+        )) {
             throw new HEException(VOLUNTEER_ALREADY_ENROLLED, this.volunteer.getName());
         }
     }
