@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.socialsoftware.humanaethica.participation;
 import static pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMessage.ACTIVITY_NOT_FOUND;
 import static pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMessage.USER_NOT_FOUND;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -16,8 +17,6 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.repository.P
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.repository.UserRepository;
 
-import java.util.List;
-
 @Service
 public class ParticipationService {
   @Autowired ActivityRepository activityRepository;
@@ -26,14 +25,15 @@ public class ParticipationService {
 
   public List<ParticipationDto> getParticipations() {
     return participationRepository.findAll().stream()
-            .map(participation -> new ParticipationDto(participation))
-            .sorted()
-            .toList();
+        .map(participation -> new ParticipationDto(participation))
+        .sorted()
+        .toList();
   }
 
   @Transactional(isolation = Isolation.READ_COMMITTED)
   public ParticipationDto createParticipation(
-      Integer activityId, Integer volunteerId, ParticipationDto participationDto) {
+      Integer activityId, ParticipationDto participationDto) {
+    Integer volunteerId = participationDto.getVolunteer().getId();
     if (activityId == null) {
       throw new HEException(ACTIVITY_NOT_FOUND);
     }

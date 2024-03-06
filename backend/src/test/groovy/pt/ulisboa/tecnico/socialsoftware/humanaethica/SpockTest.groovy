@@ -18,6 +18,8 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.UserApplicationalServ
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.UserService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Member
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.User
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.dto.UserDto
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.repository.UserRepository
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.InstitutionService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.repository.InstitutionRepository
@@ -25,6 +27,8 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.repository.Activi
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.ActivityService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.theme.repository.ThemeRepository
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.repository.ParticipationRepository
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.dto.ParticipationDto
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.ParticipationService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.theme.ThemeService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.AssessmentService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.dto.AssessmentDto
@@ -273,6 +277,17 @@ class SpockTest extends Specification {
     @Autowired
     ParticipationRepository participationRepository
 
+    @Autowired
+    ParticipationService participationService
+
+    protected ParticipationDto createParticipationDto(rating, acceptanceDate, volunteer, activity) {
+        def participationDto = new ParticipationDto()
+        participationDto.setRating(rating)
+        participationDto.setAcceptanceDate(acceptanceDate)
+        participationDto.setVolunteer(new UserDto((User) volunteer))
+        setActivity(new ActivityDto(activity, true));
+        participationDto
+    }
 
     // clean database
 

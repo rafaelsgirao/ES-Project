@@ -13,6 +13,8 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.config.HEPermissionEvaluat
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.demo.DemoService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.demo.DemoUtils
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.UserApplicationalService
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.ParticipationService
+
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.InstitutionService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.ActivityService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.UserService
@@ -71,6 +73,11 @@ class BeanConfiguration {
     @Bean
     ActivityService activityService() {
         return new ActivityService()
+    }
+
+    @Bean
+    ParticipationService participationService() {
+        return new ParticipationService()
     }
 
     @Bean
