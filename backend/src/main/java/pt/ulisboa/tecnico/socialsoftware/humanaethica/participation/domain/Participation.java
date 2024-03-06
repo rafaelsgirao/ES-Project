@@ -7,20 +7,14 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.HEException;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.dto.ParticipationDto;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.repository.ParticipationRepository;
 
 import java.time.LocalDateTime;
 
 import static pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMessage.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "participation")
 public class Participation  {
-    @Autowired
-    @Transient
-    private ParticipationRepository participationRepository;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -43,7 +37,7 @@ public class Participation  {
 
     public Participation(ParticipationDto participationDto, Activity activity, Volunteer volunteer) {
         setRating(participationDto.getRating());
-        setAcceptanceDate(participationDto.getAcceptanceDate());
+        setAcceptanceDate(DateHandler.now());
         setActivity(activity);
         setVolunteer(volunteer);
 
