@@ -264,6 +264,8 @@ class SpockTest extends Specification {
     public static final String ENROLLMENT_SHORT_MOTIVATION = "motivatio"
     public static final String ENROLLMENT_MOTIVATION = "motivation"
 
+
+
     protected EnrollmentDto createEnrollmentDto(motivation) {
         def enrollmentDto = new EnrollmentDto()        
         enrollmentDto.setMotivation(motivation)
