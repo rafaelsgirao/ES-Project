@@ -24,9 +24,8 @@ class CreateEnrollmentServiceTest extends SpockTest {
 
     def "create enrollment"() {
         given: "an enrollment dto"
-        def enrollmentDto = new EnrollmentDto()
-        enrollmentDto.setMotivation(ENROLLMENT_MOTIVATION)
-        enrollmentDto.setEnrollmentDate(DateHandler.toISOString(NOW))
+        def enrollmentDto = createEnrollmentDto(ENROLLMENT_MOTIVATION, NOW)
+        
         when:
         def result = enrollmentService.createEnrollment(volunteer.getId(), activity.getId(), enrollmentDto)
         then: "the returned data is correct"

@@ -39,6 +39,7 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.dto.Institutio
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.Mailer
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.EnrollmentService
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.dto.EnrollmentDto
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.repository.EnrollmentRepository
 
@@ -257,12 +258,18 @@ class SpockTest extends Specification {
     @Autowired 
     EnrollmentService enrollmentService
 
-
     @Autowired
     EnrollmentRepository enrollmentRepository
     
     public static final String ENROLLMENT_SHORT_MOTIVATION = "motivatio"
     public static final String ENROLLMENT_MOTIVATION = "motivation"
+
+    protected EnrollmentDto createEnrollmentDto(motivation, date) {
+        def enrollmentDto = new EnrollmentDto()
+        enrollmentDto.setMotivation(motivation)
+        enrollmentDto.setEnrollmentDate(DateHandler.toISOString(date))
+        enrollmentDto
+    }
     
     // assessment
     public static final String REVIEW_1 = "assessment review"
