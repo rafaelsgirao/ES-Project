@@ -104,8 +104,24 @@ class CreateEnrollmentWebServiceIT extends SpockTest {
     }
 
     def "login as admin, and create an enrollment"() {
-        
+        given: 'a admin'
+        demoAdminLogin()
+
+        when: 'the admin tries to create enrollment'
+        webClient.post()
+                .uri('/enrollments/' + activityId)
+                .headers(httpHeaders -> httpHeaders.putAll(headers))
+                .bodyValue(enrollmentDto)
+                .retrieve()
+                .bodyToMono(EnrollmentDto.class)
+                .block()
+
+        then: "an error is returned"
+        def error = thrown(WebClientResponseException)
+        error.statusCode == HttpStatus.FORBIDDEN
+        enrollmentRepository.count() == 0
     }
+
 
     def cleanup() {
         deleteAll()
