@@ -27,6 +27,6 @@ public class ParticipationController {
     @PutMapping(path={"/{activityId}"})
     @PreAuthorize("hasRole('ROLE_MEMBER') and hasPermission(#activityId, 'ACTIVITY.MEMBER')")
     public List<ParticipationDto> getParticipationsByActivity(@PathVariable Integer activityId) {
-        return participationService.getParticipationsByActivityId(activityId);
+        return participationService.getParticipationsByActivity(activityId);
     }
 }

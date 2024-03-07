@@ -32,10 +32,10 @@ public class ParticipationService {
   }
 
   @Transactional(isolation = Isolation.READ_COMMITTED)
-  public List<ParticipationDto> getParticipationsByActivityId(Integer activityId) {
+  public List<ParticipationDto> getParticipationsByActivity(Integer activityId) {
     return participationRepository.findParticipationsByActivityId(activityId)
             .stream().map(participation -> new ParticipationDto(participation))
-            .sorted().toList();
+            .toList();
   }
 
   @Transactional(isolation = Isolation.READ_COMMITTED)
