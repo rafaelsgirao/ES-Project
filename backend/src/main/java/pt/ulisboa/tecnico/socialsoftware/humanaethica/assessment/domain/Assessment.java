@@ -19,12 +19,24 @@ public class Assessment {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getReview() {
         return review;
     }
 
+    public void setReview(String review) {
+        this.review = review;
+    }
+
     public LocalDateTime getReviewDate() {
         return reviewDate;
+    }
+
+    public void setReviewDate(LocalDateTime reviewDate) {
+        this.reviewDate = reviewDate;
     }
 
 
