@@ -285,7 +285,7 @@ class SpockTest extends Specification {
         participationDto.setRating(rating)
         participationDto.setAcceptanceDate(acceptanceDate)
         participationDto.setVolunteer(new UserDto((User) volunteer))
-        setActivity(new ActivityDto(activity, true));
+        participationDto.setActivity(new ActivityDto(activity, true));
         participationDto
     }
 
@@ -301,6 +301,4 @@ class SpockTest extends Specification {
         themeRepository.deleteAll()
         participationRepository.deleteAll()
     }
-
-
 }
