@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.domain;
 
 import java.time.LocalDateTime;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.dto.AssessmentDto;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.domain.Institution;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
 import jakarta.persistence.*;
@@ -51,6 +52,25 @@ public class Assessment {
     public void setReviewDate(LocalDateTime reviewDate) {
         this.reviewDate = reviewDate;
     }
+
+    public Volunteer getVolunteer() {
+        return volunteer;
+    }
+
+    public void setVolunteer(Volunteer volunteer) {
+        this.volunteer = volunteer;
+        volunteer.addAssessment(this);
+    }
+
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
+        institution.addAssessment(this);
+    }
+
 
 
 }
