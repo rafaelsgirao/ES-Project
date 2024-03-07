@@ -30,7 +30,7 @@ class CreateParticipationServiceTest extends SpockTest {
         def activityDto = createActivityDto(ACTIVITY_NAME_1, ACTIVITY_REGION_1, 1, ACTIVITY_DESCRIPTION_1,
                 ONE_DAY_AGO,IN_TWO_DAYS,IN_THREE_DAYS, [])
         activity = new Activity(activityDto, institution, [])
-        activity.setParticipantsNumberLimit(ACTIVITY_LIMIT_2) //FIXME: this should work with just 1!
+        activity.setParticipantsNumberLimit(ACTIVITY_LIMIT_1)
         activityRepository.save(activity)
         volunteer = new Volunteer(USER_1_NAME, USER_1_USERNAME, USER_1_EMAIL, AuthUser.Type.NORMAL, User.State.APPROVED)
         userRepository.save(volunteer)

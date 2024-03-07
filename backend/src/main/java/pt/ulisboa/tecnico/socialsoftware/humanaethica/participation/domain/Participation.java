@@ -35,13 +35,16 @@ public class Participation  {
     public Participation() {
     }
 
-     public Participation(Activity activity, Volunteer volunteer, ParticipationDto participationDto) {
+    public Participation(Activity activity, Volunteer volunteer, ParticipationDto participationDto) {
         setRating(participationDto.getRating());
         setAcceptanceDate(DateHandler.now());
-        setActivity(activity);
-        setVolunteer(volunteer);
+        _setActivity(activity);
+        _setVolunteer(volunteer);
 
         verifyInvariants();
+
+        setActivity(activity);
+        setVolunteer(volunteer);
     }
 
     public Integer getId() {
@@ -72,7 +75,10 @@ public class Participation  {
         this.activity = activity;
         activity.addParticipation(this);
     }
-
+    
+    private void _setActivity(Activity activity) {
+        this.activity = activity;
+    }
     public Volunteer getVolunteer() {
         return volunteer;
     }
@@ -80,6 +86,10 @@ public class Participation  {
     public void setVolunteer(Volunteer volunteer) {
         this.volunteer = volunteer;
         volunteer.addParticipation(this);
+    }
+
+    private void _setVolunteer(Volunteer volunteer) {
+        this.volunteer = volunteer;
     }
 
     public void verifyInvariants() {
