@@ -238,6 +238,7 @@ class SpockTest extends Specification {
     
     // assessment
     public static final String REVIEW_1 = "assessment review"
+    public static final String REVIEW_SHORT = "review"
 
     protected Activity createActivity(name, start, end, deadline, institution) {
         def activity = new Activity()
