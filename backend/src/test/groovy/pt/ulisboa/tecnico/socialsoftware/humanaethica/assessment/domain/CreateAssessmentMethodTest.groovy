@@ -69,7 +69,7 @@ class CreateAssessmentMethodTest extends SpockTest {
         review                  || errorMessage
         null                    || ErrorMessage.ASSESSMENT_REVIEW_TOO_SHORT
         " "                     || ErrorMessage.ASSESSMENT_REVIEW_TOO_SHORT
-        ASSESSMENT_REVIEW_SHORT || ErrorMessage.ASSESSMENT_REVIEW_TOO_SHORT
+        REVIEW_1                || ErrorMessage.ASSESSMENT_REVIEW_TOO_SHORT
     }
 
     @Unroll
