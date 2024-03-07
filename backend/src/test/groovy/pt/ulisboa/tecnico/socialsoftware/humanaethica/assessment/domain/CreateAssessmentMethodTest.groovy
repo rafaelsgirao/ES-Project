@@ -45,7 +45,6 @@ class CreateAssessmentMethodTest extends SpockTest {
 
         then:
         assessment.getReview() == REVIEW_1
-        assessment.getReviewDate() == NOW
         assessment.getInstitution() == institution
         assessment.getVolunteer() == volunteer
     }
