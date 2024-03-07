@@ -11,8 +11,8 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.SpockTest
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.dto.ParticipationDto
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.theme.dto.ThemeDto
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.User;
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.User
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.auth.domain.AuthUser
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.dto.UserDto
 
@@ -70,7 +70,6 @@ class CreateParticipationWebServiceIT extends SpockTest {
                 .block()
 
         then: "check response data"
-        response.id == activity.getId()
         response.rating == PARTICIPATION_RATING_1
         response.activity.getId() == activity.getId()
         response.volunteer.getId() == volunteer1.getId()
@@ -113,6 +112,28 @@ class CreateParticipationWebServiceIT extends SpockTest {
 
         cleanup:
         deleteAll()
+    }
+
+    def "login as admin, register a participation"() {
+            given:
+            demoAdminLogin()
+
+            when:
+            def response = webClient.post()
+                    .uri('/participations/' + activity.getId())
+                    .headers(httpHeaders -> httpHeaders.putAll(headers))
+                    .bodyValue(participationDto)
+                    .retrieve()
+                    .bodyToMono(ParticipationDto.class)
+                    .block()
+
+            then: "an error is returned"
+        def error = thrown(WebClientResponseException)
+        error.statusCode == HttpStatus.FORBIDDEN
+        participationRepository.count() == 0
+
+            cleanup:
+            deleteAll()
     }
 
     //TODO:  testes para verificar as condições de acesso.

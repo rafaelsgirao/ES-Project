@@ -65,7 +65,7 @@ class CreateParticipationServiceTest extends SpockTest {
             getActivityId(activityId) != 222 &&
             newParticipationDto != null &&
             newParticipationDto.getVolunteer() != null) {
-                newParticipationDto.setVolunteer(new UserDto(newVolunteer))
+            newParticipationDto.setVolunteer(new UserDto(newVolunteer))
             }
 
         when: "create a participation"
