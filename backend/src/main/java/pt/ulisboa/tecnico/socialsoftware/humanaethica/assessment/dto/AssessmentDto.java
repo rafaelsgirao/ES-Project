@@ -69,4 +69,14 @@ public class AssessmentDto {
     this.institution = institution;
   }
 
+  public String toString() {
+    return "AssessmentDto{" +
+      "id=" + id +
+      ", review='" + review + '\'' +
+      ", reviewDate=" + reviewDate +
+      ", volunteer=" + volunteer +
+      ", institution=" + institution +
+      '}';
+  }
+
 }
