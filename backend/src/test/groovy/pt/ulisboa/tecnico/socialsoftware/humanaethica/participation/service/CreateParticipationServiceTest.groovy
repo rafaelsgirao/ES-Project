@@ -58,13 +58,17 @@ class CreateParticipationServiceTest extends SpockTest {
     @Unroll
     def "create participation with invalid arguments: volunteerId=#volunteerId | activityId=#activityId | participationDto = #participationDto"() {
         given: "a combination of invalid arguments"
-        when: "create a participation"
         def newVolunteer = new Volunteer(USER_1_NAME, USER_1_USERNAME, USER_1_EMAIL, AuthUser.Type.NORMAL, User.State.APPROVED)
         newVolunteer.setId(getVolunteerId())
         def newParticipationDto = getParticipationDto(participationDto)
-        if (getActivityId(activityId) != 222 && newParticipationDto != null && newParticipationDto.getVolunteer() != null) {
-            newParticipationDto.setVolunteer(new UserDto(newVolunteer))
-        }
+        if (
+            getActivityId(activityId) != 222 &&
+            newParticipationDto != null &&
+            newParticipationDto.getVolunteer() != null) {
+                newParticipationDto.setVolunteer(new UserDto(newVolunteer))
+            }
+
+        when: "create a participation"
         participationService.createParticipation(
             getActivityId(activityId), newParticipationDto
         )
@@ -75,13 +79,13 @@ class CreateParticipationServiceTest extends SpockTest {
         participationRepository.findAll().size() == 0
 
         where:
-        volunteerId            | activityId | participationDto  || errorMessage
-        NO_EXIST            | EXIST    | EXIST    || ErrorMessage.USER_NOT_FOUND
-        EXIST_FAKE | EXIST     | EXIST    || ErrorMessage.USER_NOT_FOUND
-        EXIST | NO_EXIST | EXIST    || ErrorMessage.ACTIVITY_NOT_FOUND
-        EXIST | EXIST_FAKE | EXIST    || ErrorMessage.ACTIVITY_NOT_FOUND
-        EXIST | EXIST | NO_EXIST    || ErrorMessage.INVALID_PARTICIPATION
-        EXIST | EXIST | EXIST_FAKE    || ErrorMessage.USER_NOT_FOUND
+        volunteerId   | activityId | participationDto  || errorMessage
+        NO_EXIST      | EXIST      | EXIST             || ErrorMessage.USER_NOT_FOUND
+        EXIST_FAKE    | EXIST      | EXIST             || ErrorMessage.USER_NOT_FOUND
+        EXIST         | NO_EXIST   | EXIST             || ErrorMessage.ACTIVITY_NOT_FOUND
+        EXIST         | EXIST_FAKE | EXIST             || ErrorMessage.ACTIVITY_NOT_FOUND
+        EXIST         | EXIST      | NO_EXIST          || ErrorMessage.INVALID_PARTICIPATION
+        EXIST         | EXIST      | EXIST_FAKE        || ErrorMessage.USER_NOT_FOUND
     }
 
     def getActivityId(activityId) {
