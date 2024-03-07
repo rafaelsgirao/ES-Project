@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler;
 import static pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMessage.*;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.HEException;
@@ -36,6 +37,7 @@ public class Assessment {
         setReviewDate(DateHandler.toLocalDateTime(assessmentDto.getReviewDate()));
         setInstitution(institution);
         setVolunteer(volunteer);
+        verifyInvariants();
     }
 
     public Integer getId() {
@@ -82,11 +84,19 @@ public class Assessment {
 
     private void verifyInvariants() {
         reviewHasAtLeast10Characters();
+        verifyUniqueVolunteerAssessment();
     }
 
     private void reviewHasAtLeast10Characters() {
         if (this.review == null || this.review.trim().length() < 10) {
            throw new HEException(ASSESSMENT_REVIEW_TOO_SHORT);
+        }
+    }
+
+    private void verifyUniqueVolunteerAssessment() {
+        List<Assessment> assessments = volunteer.getAssessments();
+        if(assessments.stream().anyMatch(assessment -> assessment.getInstitution().equals(institution) && assessment.getId() != this.getId())) {
+            throw new HEException(VOLUNTEER_ALREADY_ASSESSED_INSTITUTION);
         }
     }
 

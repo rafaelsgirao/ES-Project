@@ -42,7 +42,8 @@ public enum ErrorMessage {
     ACTIVITY_ALREADY_REPORTED("Activity is already reported with name %s"),
 
     // Assessment
-    ASSESSMENT_REVIEW_TOO_SHORT("Assessment review should have at least ten characters");
+    ASSESSMENT_REVIEW_TOO_SHORT("Assessment review should have at least ten characters"),
+    VOLUNTEER_ALREADY_ASSESSED_INSTITUTION("Volunteer already assessed this institution");
 
 
     public final String label;
