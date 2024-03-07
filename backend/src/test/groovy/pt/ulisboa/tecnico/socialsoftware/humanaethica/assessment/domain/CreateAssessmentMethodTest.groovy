@@ -88,6 +88,22 @@ class CreateAssessmentMethodTest extends SpockTest {
         error.getErrorMessage() == ErrorMessage.VOLUNTEER_ALREADY_ASSESSED_INSTITUTION
     }
 
+    @Unroll
+    def "create assessment and violate invariant institution can only be asses when it has finished activities"() {
+        given:
+        activity.getEndingDate() >> IN_ONE_DAY
+        institution.getActivities() >> [activity]
+        otherAssessment.getVolunteer() >> otherVolunteer
+        institution.getAssessments() >> [otherAssessment]
+        
+        when:
+        new Assessment(assessmentDto, institution, volunteer)
+
+        then:
+        def error = thrown(HEException)
+        error.getErrorMessage() == ErrorMessage.INSTITUTION_WITHOUT_ACTIVITIES_FINISHED
+    }
+
     @TestConfiguration
     static class LocalBeanConfiguration extends BeanConfiguration {}
 }
