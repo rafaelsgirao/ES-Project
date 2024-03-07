@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.repository.ActivityRepository;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMessage;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.HEException;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.domain.Participation;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.dto.ParticipationDto;
@@ -33,10 +34,16 @@ public class ParticipationService {
   @Transactional(isolation = Isolation.READ_COMMITTED)
   public ParticipationDto createParticipation(
       Integer activityId, ParticipationDto participationDto) {
-    Integer volunteerId = participationDto.getVolunteer().getId();
+    if (participationDto == null) {
+      throw new HEException(ErrorMessage.INVALID_PARTICIPATION);
+    }
     if (activityId == null) {
       throw new HEException(ACTIVITY_NOT_FOUND);
     }
+    if (participationDto.getVolunteer() == null) {
+      throw new HEException(USER_NOT_FOUND);
+    }
+    Integer volunteerId = participationDto.getVolunteer().getId();
     if (volunteerId == null) {
       throw new HEException(USER_NOT_FOUND);
     }
