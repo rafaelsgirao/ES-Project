@@ -49,6 +49,29 @@ class CreateAssessmentMethodTest extends SpockTest {
         assessment.getVolunteer() == volunteer
     }
 
+    @Unroll
+    def "create assessment and violate invariant review: review=#review"() {
+        given:
+        activity.getEndingDate() >> ONE_DAY_AGO
+        institution.getActivities() >> [activity]
+        otherAssessment.getVolunteer() >> otherVolunteer
+        institution.getAssessments() >> [otherAssessment]
+        assessmentDto.review = review
+
+        when:
+        new Assessment(assessmentDto, institution, volunteer)
+
+        then: ""
+        def error = thrown(HEException)
+        error.getErrorMessage() == errorMessage
+
+        where:
+        review                  || errorMessage
+        null                    || ErrorMessage.ASSESSMENT_REVIEW_TOO_SHORT
+        " "                     || ErrorMessage.ASSESSMENT_REVIEW_TOO_SHORT
+        ASSESSMENT_REVIEW_SHORT || ErrorMessage.ASSESSMENT_REVIEW_TOO_SHORT
+    }
+    
     @TestConfiguration
     static class LocalBeanConfiguration extends BeanConfiguration {}
 }
