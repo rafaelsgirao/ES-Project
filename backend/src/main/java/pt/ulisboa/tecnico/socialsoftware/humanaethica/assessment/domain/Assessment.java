@@ -15,4 +15,17 @@ public class Assessment {
 
     private LocalDateTime reviewDate;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public LocalDateTime getReviewDate() {
+        return reviewDate;
+    }
+
+
 }
