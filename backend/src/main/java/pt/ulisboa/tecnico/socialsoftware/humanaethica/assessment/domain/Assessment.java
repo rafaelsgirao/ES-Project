@@ -2,6 +2,8 @@ package pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.domain;
 
 import java.time.LocalDateTime;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.domain.Institution;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +16,14 @@ public class Assessment {
     private String review;
 
     private LocalDateTime reviewDate;
+
+    @ManyToOne
+    @JoinColumn(name = "volunteer_id")
+    private Volunteer volunteer;
+
+    @ManyToOne
+    @JoinColumn(name = "institution_id")
+    private Institution institution;
 
     public Assessment() {
     }
