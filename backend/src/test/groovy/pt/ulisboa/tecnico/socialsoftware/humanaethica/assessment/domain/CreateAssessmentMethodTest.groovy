@@ -59,7 +59,7 @@ class CreateAssessmentMethodTest extends SpockTest {
         assessmentDto.review = review
 
         when:
-        new Assessment(assessmentDto, institution, volunteer)
+        new Assessment(institution, volunteer, assessmentDto)
 
         then: ""
         def error = thrown(HEException)
@@ -69,7 +69,7 @@ class CreateAssessmentMethodTest extends SpockTest {
         review                  || errorMessage
         null                    || ErrorMessage.ASSESSMENT_REVIEW_TOO_SHORT
         " "                     || ErrorMessage.ASSESSMENT_REVIEW_TOO_SHORT
-        REVIEW_1                || ErrorMessage.ASSESSMENT_REVIEW_TOO_SHORT
+        REVIEW_SHORT            || ErrorMessage.ASSESSMENT_REVIEW_TOO_SHORT
     }
 
     @Unroll
@@ -81,7 +81,7 @@ class CreateAssessmentMethodTest extends SpockTest {
         institution.getAssessments() >> [otherAssessment]
 
         when:
-        new Assessment(assessmentDto, institution, volunteer)
+        new Assessment(institution, volunteer, assessmentDto)
 
         then:
         def error = thrown(HEException)
@@ -97,7 +97,7 @@ class CreateAssessmentMethodTest extends SpockTest {
         institution.getAssessments() >> [otherAssessment]
         
         when:
-        new Assessment(assessmentDto, institution, volunteer)
+        new Assessment(institution, volunteer, assessmentDto)
 
         then:
         def error = thrown(HEException)

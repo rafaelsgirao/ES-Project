@@ -216,6 +216,7 @@ class SpockTest extends Specification {
     
     // assessment
     public static final String REVIEW_1 = "assessment review"
+    public static final String REVIEW_SHORT = "review"
 
     // clean database
 
