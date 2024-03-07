@@ -23,6 +23,12 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.repository.Activi
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.ActivityService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.theme.repository.ThemeRepository
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.theme.ThemeService
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.AssessmentService
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.dto.AssessmentDto
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.repository.AssessmentRepository
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.dto.UserDto
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.User
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.dto.InstitutionDto
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.Mailer
 import spock.lang.Specification
@@ -217,6 +223,22 @@ class SpockTest extends Specification {
     // assessment
     public static final String REVIEW_1 = "assessment review"
     public static final String REVIEW_SHORT = "review"
+    
+    @Autowired
+    AssessmentRepository assessmentRepository
+
+    @Autowired
+    AssessmentService assessmentService
+
+    protected AssessmentDto createAssessmentDto(review, reviewDate,  institution, volunteer) {
+        
+        def assessmentDto = new AssessmentDto()
+        assessmentDto.setReview(review)
+        assessmentDto.setReviewDate(DateHandler.toISOString(reviewDate))
+        assessmentDto.setInstitution(new InstitutionDto(institution, false, false))
+        assessmentDto.setVolunteer(new UserDto((User) volunteer))
+        assessmentDto
+    }
 
     // clean database
 
@@ -227,6 +249,7 @@ class SpockTest extends Specification {
         userRepository.deleteAll()
         institutionRepository.deleteAll()
         themeRepository.deleteAll()
+        assessmentRepository.deleteAll()
     }
 
 

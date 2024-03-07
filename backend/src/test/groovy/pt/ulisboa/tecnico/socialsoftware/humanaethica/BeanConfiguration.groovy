@@ -15,9 +15,9 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.demo.DemoUtils
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.UserApplicationalService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.InstitutionService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.ActivityService
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.theme.ThemeService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.UserService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.theme.ThemeService
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.AssessmentService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.Mailer
 
 @TestConfiguration
@@ -96,6 +96,11 @@ class BeanConfiguration {
     @Bean
     DemoService demoService() {
         return new DemoService();
+    }
+
+    @Bean
+    AssessmentService assessmentService() {
+        return new AssessmentService()
     }
 
     @Bean
