@@ -5,6 +5,8 @@ import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.reactive.function.client.WebClientResponseException
+import org.springframework.http.HttpStatus
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.SpockTest
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.dto.ParticipationDto
@@ -91,20 +93,28 @@ class CreateParticipationWebServiceIT extends SpockTest {
         deleteAll()
     }
 
+    def "login as volunteer, register a participation with error"() {
+        given:
+        demoVolunteerLogin()
+
+        when:
+        def response = webClient.post()
+                .uri('/participations/' + activity.getId())
+                .headers(httpHeaders -> httpHeaders.putAll(headers))
+                .bodyValue(participationDto)
+                .retrieve()
+                .bodyToMono(ParticipationDto.class)
+                .block()
+
+        then: "an error is returned"
+        def error = thrown(WebClientResponseException)
+        error.statusCode == HttpStatus.FORBIDDEN
+        participationRepository.count() == 0
+
+        cleanup:
+        deleteAll()
+    }
+
     //TODO:  testes para verificar as condições de acesso.
 
 }
-
-
-
-
-/* TODO: remove
-
-public ParticipationDto createParticipation(@PathVariable Integer activityId, @Valid @RequestBody ParticipationDto participationDto)
-
-Nestes testes deve ser verificado que o serviço devolve os valores corretos e que os resultados ficam na base de dados. Adicionalmente devem ser efetuados testes para verificar as condições de acesso.
-
-Estes testes são de componente.
-
-
-*/
