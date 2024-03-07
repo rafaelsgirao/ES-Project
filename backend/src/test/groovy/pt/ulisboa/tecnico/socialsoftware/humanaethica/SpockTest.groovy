@@ -213,6 +213,9 @@ class SpockTest extends Specification {
         activityDto.setThemes(themesDto)
         activityDto
     }
+    
+    // assessment
+    public static final String REVIEW_1 = "assessment review"
 
     // clean database
 
