@@ -16,6 +16,8 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.repository.UserReposi
 
 import static pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMessage.*;
 
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class EnrollmentService {
@@ -26,6 +28,18 @@ public class EnrollmentService {
     EnrollmentRepository enrollmentRepository;
     @Autowired
     UserRepository userRepository;
+
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public List<EnrollmentDto> getEnrollmentsByActivity(Integer activityId){
+        Activity activity = activityRepository.findById(activityId).orElse(null);
+        if (activity == null) {
+            throw new HEException(ACTIVITY_NOT_FOUND, activityId);
+        }
+        return enrollmentRepository.getEnrollmentsByActivityId(activityId).stream()
+                .map(enrollment -> new EnrollmentDto(enrollment, true, true))
+                .sorted(Comparator.comparing(EnrollmentDto::getEnrollmentDate))
+                .toList();
+    }
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public EnrollmentDto createEnrollment(Integer userId, Integer activityId, EnrollmentDto enrollmentDto) {
