@@ -60,6 +60,53 @@ class CreateAssessmentServiceTest extends SpockTest {
 
   }
 
+  @Unroll
+  def "invalid arguments: institution #institutionId, volunteer #volunteerId"() {
+    when:
+    assessmentService.createAssessment(getVolunteerId(volunteerId), getInstitutionId(institutionId), getAssessmentDto(newAssessmentDto))
+
+    then:
+    def error = thrown(HEException)
+    error.getErrorMessage() == errorMessage
+    and: "no assessment is saved in the database"
+    assessmentRepository.findAll().size() == 0
+
+    where:
+    institutionId | volunteerId | newAssessmentDto  || errorMessage
+    null          | EXIST       |  EXIST            || ErrorMessage.INSTITUTION_NOT_FOUND
+    NO_EXIST      | EXIST       | EXIST             || ErrorMessage.INSTITUTION_NOT_FOUND
+    EXIST         | null        | EXIST             || ErrorMessage.USER_NOT_FOUND
+    EXIST         | NO_EXIST    | EXIST             || ErrorMessage.USER_NOT_FOUND
+    EXIST         | EXIST       | null              || ErrorMessage.INVALID_ASSESSMENT
+  }
+
+  def getInstitutionId(institutionId) {
+    if (institutionId == EXIST) {
+      return institution.id
+    } else if (institutionId == NO_EXIST) {
+      return 1234
+    } else {
+      return null
+    }
+  }
+
+  def getVolunteerId(volunteerId) {
+    if (volunteerId == EXIST) {
+      return volunteer.id
+    } else if (volunteerId == NO_EXIST) {
+      return 1234
+    } else {
+      return null
+    }
+  }
+
+  def getAssessmentDto(assessmentId) {
+    if (assessmentId == EXIST) {
+      return createAssessmentDto(REVIEW_1, IN_ONE_DAY, institution, volunteer)
+    } else {
+      return null
+    }
+  }
 
    @TestConfiguration
     static class LocalBeanConfiguration extends BeanConfiguration {}
