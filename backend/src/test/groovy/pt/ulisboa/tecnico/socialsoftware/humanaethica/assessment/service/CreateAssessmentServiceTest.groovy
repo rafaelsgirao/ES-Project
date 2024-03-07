@@ -41,7 +41,7 @@ class CreateAssessmentServiceTest extends SpockTest {
 
   def "create assessment"() {
     given: "an assessment dto"
-    def assessmentDto = createAssessmentDto(REVIEW_1, IN_ONE_DAY, institution, volunteer)
+    def assessmentDto = createAssessmentDto(REVIEW_1, IN_ONE_DAY)
 
     when:
     def result = assessmentService.createAssessment(volunteer.getId(), institution.getId(), assessmentDto)
@@ -102,7 +102,7 @@ class CreateAssessmentServiceTest extends SpockTest {
 
   def getAssessmentDto(assessmentId) {
     if (assessmentId == EXIST) {
-      return createAssessmentDto(REVIEW_1, IN_ONE_DAY, institution, volunteer)
+      return createAssessmentDto(REVIEW_1, IN_ONE_DAY)
     } else {
       return null
     }

@@ -230,13 +230,11 @@ class SpockTest extends Specification {
     @Autowired
     AssessmentService assessmentService
 
-    protected AssessmentDto createAssessmentDto(review, reviewDate,  institution, volunteer) {
+    protected AssessmentDto createAssessmentDto(review, reviewDate) {
         
         def assessmentDto = new AssessmentDto()
         assessmentDto.setReview(review)
         assessmentDto.setReviewDate(DateHandler.toISOString(reviewDate))
-        assessmentDto.setInstitution(new InstitutionDto(institution, false, false))
-        assessmentDto.setVolunteer(new UserDto((User) volunteer))
         assessmentDto
     }
 
