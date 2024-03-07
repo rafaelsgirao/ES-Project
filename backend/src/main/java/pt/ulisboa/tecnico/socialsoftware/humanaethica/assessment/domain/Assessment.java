@@ -29,6 +29,13 @@ public class Assessment {
     public Assessment() {
     }
 
+    public Assessment(Institution institution, Volunteer volunteer,AssessmentDto assessmentDto) {
+        setReview(assessmentDto.getReview());
+        setReviewDate(DateHandler.toLocalDateTime(assessmentDto.getReviewDate()));
+        setInstitution(institution);
+        setVolunteer(volunteer);
+    }
+
     public Integer getId() {
         return id;
     }
