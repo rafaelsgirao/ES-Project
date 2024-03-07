@@ -15,6 +15,9 @@ public class Assessment {
 
     private LocalDateTime reviewDate;
 
+    public Assessment() {
+    }
+
     public Integer getId() {
         return id;
     }
