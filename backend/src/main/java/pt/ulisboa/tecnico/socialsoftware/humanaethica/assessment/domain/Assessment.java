@@ -5,6 +5,7 @@ import java.util.List;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler;
 import static pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMessage.*;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.HEException;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.dto.AssessmentDto;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.domain.Institution;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
@@ -85,6 +86,7 @@ public class Assessment {
     private void verifyInvariants() {
         reviewHasAtLeast10Characters();
         verifyUniqueVolunteerAssessment();
+        verifyInstitutionHasFinishedActivities();
     }
 
     private void reviewHasAtLeast10Characters() {
@@ -97,6 +99,14 @@ public class Assessment {
         List<Assessment> assessments = volunteer.getAssessments();
         if(assessments.stream().anyMatch(assessment -> assessment.getInstitution().equals(institution) && assessment.getId() != this.getId())) {
             throw new HEException(VOLUNTEER_ALREADY_ASSESSED_INSTITUTION);
+        }
+    }
+
+    private void verifyInstitutionHasFinishedActivities() {
+        List<Activity> activities = institution.getActivities();
+        if(!activities.stream().anyMatch(activity -> activity.getEndingDate()
+                .isBefore(LocalDateTime.now()))) {
+                    throw new HEException(INSTITUTION_WITHOUT_ACTIVITIES_FINISHED);
         }
     }
 
