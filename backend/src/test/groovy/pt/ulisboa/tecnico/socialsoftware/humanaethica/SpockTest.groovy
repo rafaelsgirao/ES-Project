@@ -235,6 +235,9 @@ class SpockTest extends Specification {
         activityDto.setThemes(themesDto)
         activityDto
     }
+    
+    // assessment
+    public static final String REVIEW_1 = "assessment review"
 
     protected Activity createActivity(name, start, end, deadline, institution) {
         def activity = new Activity()
