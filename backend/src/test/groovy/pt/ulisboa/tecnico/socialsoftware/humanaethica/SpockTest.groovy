@@ -321,5 +321,4 @@ class SpockTest extends Specification {
         userRepository.deleteAll()
         themeRepository.deleteAll()
     }
-
 }
