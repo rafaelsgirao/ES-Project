@@ -2,6 +2,8 @@ package pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.domain;
 
 import java.time.LocalDateTime;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.utils.DateHandler;
+import static pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.ErrorMessage.*;
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.exceptions.HEException;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.dto.AssessmentDto;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.domain.Institution;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
@@ -76,6 +78,16 @@ public class Assessment {
     public void setInstitution(Institution institution) {
         this.institution = institution;
         institution.addAssessment(this);
+    }
+
+    private void verifyInvariants() {
+        reviewHasAtLeast10Characters();
+    }
+
+    private void reviewHasAtLeast10Characters() {
+        if (this.review == null || this.review.trim().length() < 10) {
+           throw new HEException(ASSESSMENT_REVIEW_TOO_SHORT);
+        }
     }
 
 
