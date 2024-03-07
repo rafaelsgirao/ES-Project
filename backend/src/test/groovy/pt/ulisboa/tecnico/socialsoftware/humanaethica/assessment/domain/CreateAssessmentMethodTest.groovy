@@ -41,7 +41,7 @@ class CreateAssessmentMethodTest extends SpockTest {
         institution.getAssessments() >> [otherAssessment]
 
         when:
-        def assessment = new Assessment(assessmentDto, institution, volunteer)
+        def assessment = new Assessment(institution, volunteer, assessmentDto)
 
         then:
         assessment.getReview() == REVIEW_1
