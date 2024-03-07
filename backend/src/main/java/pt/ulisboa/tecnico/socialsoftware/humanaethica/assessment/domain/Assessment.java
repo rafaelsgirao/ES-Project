@@ -96,10 +96,11 @@ public class Assessment {
     }
 
     private void verifyUniqueVolunteerAssessment() {
-        List<Assessment> assessments = volunteer.getAssessments();
-        if(assessments.stream().anyMatch(assessment -> assessment.getInstitution().equals(institution) && assessment.getId() != this.getId())) {
-            throw new HEException(VOLUNTEER_ALREADY_ASSESSED_INSTITUTION);
-        }
+        institution.getAssessments().stream().forEach(assessment -> {
+            if (assessment.getVolunteer().equals(this.volunteer) &&  !assessment.equals(this)) {
+                throw new HEException(VOLUNTEER_ALREADY_ASSESSED_INSTITUTION);
+            }
+        });
     }
 
     private void verifyInstitutionHasFinishedActivities() {
