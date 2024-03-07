@@ -71,7 +71,23 @@ class CreateAssessmentMethodTest extends SpockTest {
         " "                     || ErrorMessage.ASSESSMENT_REVIEW_TOO_SHORT
         ASSESSMENT_REVIEW_SHORT || ErrorMessage.ASSESSMENT_REVIEW_TOO_SHORT
     }
-    
+
+    @Unroll
+    def "create assessment and violate invariant volunteer can only assess once an institution"() {
+        given:
+        activity.getEndingDate() >> ONE_DAY_AGO
+        institution.getActivities() >> [activity]
+        otherAssessment.getVolunteer() >> volunteer
+        institution.getAssessments() >> [otherAssessment]
+
+        when:
+        new Assessment(assessmentDto, institution, volunteer)
+
+        then:
+        def error = thrown(HEException)
+        error.getErrorMessage() == ErrorMessage.VOLUNTEER_ALREADY_ASSESSED_INSTITUTION
+    }
+
     @TestConfiguration
     static class LocalBeanConfiguration extends BeanConfiguration {}
 }
