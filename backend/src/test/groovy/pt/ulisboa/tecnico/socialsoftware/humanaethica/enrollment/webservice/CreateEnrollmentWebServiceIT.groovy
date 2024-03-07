@@ -34,7 +34,7 @@ class CreateEnrollmentWebServiceIT extends SpockTest {
         headers = new HttpHeaders()
         headers.setContentType(MediaType.APPLICATION_JSON)
         
-        enrollmentDto = createEnrollmentDto(ENROLLMENT_MOTIVATION, NOW)
+        enrollmentDto = createEnrollmentDto(ENROLLMENT_MOTIVATION)
 
         def activity = createActivity(ACTIVITY_NAME_1, IN_TWO_DAYS, IN_THREE_DAYS, IN_ONE_DAY)
         activityId = activity.getId()
@@ -55,12 +55,10 @@ class CreateEnrollmentWebServiceIT extends SpockTest {
 
         then: "check response data"
         response.motivation == ENROLLMENT_MOTIVATION
-        response.enrollmentDate == DateHandler.toISOString(NOW)
         and: 'check database data'
         enrollmentRepository.count() == 1
         def enrollment = enrollmentRepository.findAll().get(0)
         enrollment.getMotivation() == ENROLLMENT_MOTIVATION
-        enrollment.getEnrollmentDate().withNano(0) == NOW.withNano(0)
     }
 
     def "login as volunteer, and create an enrollment with error"() {

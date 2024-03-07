@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity;
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.dto.ActivityDto;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.repository.ActivityRepository;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.domain.Enrollment;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.dto.EnrollmentDto;
@@ -32,6 +31,7 @@ public class EnrollmentService {
     public EnrollmentDto createEnrollment(Integer userId, Integer activityId, EnrollmentDto enrollmentDto) {
         if (userId == null) throw new HEException(USER_NOT_FOUND);
         if (activityId == null) throw new HEException(ACTIVITY_NOT_FOUND);
+        if (enrollmentDto == null) throw new HEException(INVALID_ENROLLMENT);
 
         Volunteer volunteer = (Volunteer) userRepository.findById(userId).orElseThrow(() -> new HEException(USER_NOT_FOUND, userId));
         Activity activity = activityRepository.findById(activityId).orElseThrow(() -> new HEException(ACTIVITY_NOT_FOUND, activityId));
