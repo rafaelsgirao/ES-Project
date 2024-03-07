@@ -245,7 +245,6 @@ class SpockTest extends Specification {
     protected Activity createActivity(name, start, end, deadline) {
         def activity = new Activity()
         activity.setName(name)
-        activity.setName(name)
         activity.setStartingDate(start)
         activity.setEndingDate(end)
         activity.setApplicationDeadline(deadline)
@@ -264,9 +263,8 @@ class SpockTest extends Specification {
     public static final String ENROLLMENT_SHORT_MOTIVATION = "motivatio"
     public static final String ENROLLMENT_MOTIVATION = "motivation"
 
-    protected EnrollmentDto createEnrollmentDto(motivation, date) {
-        def enrollmentDto = new EnrollmentDto()
-        enrollmentDto.setMotivation(motivation)
+    protected EnrollmentDto createEnrollmentDto(motivation) {
+        def enrollmentDto = new EnrollmentDto()        
         enrollmentDto.setEnrollmentDate(DateHandler.toISOString(date))
         enrollmentDto
     }

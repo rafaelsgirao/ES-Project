@@ -26,12 +26,11 @@ class CreateEnrollmentMethodTest extends SpockTest {
         given: "enrollment info"
         enrollmentDto = new EnrollmentDto()
         enrollmentDto.motivation = ENROLLMENT_MOTIVATION
-        enrollmentDto.enrollmentDate = DateHandler.toISOString(NOW)
     }
 
     def "create enrollment sucessfully"() {
         given:
-        activity.getApplicationDeadline() >> NOW
+        activity.getApplicationDeadline() >> IN_ONE_DAY
         activity.getEnrollments() >> []
 
         when:
@@ -39,7 +38,6 @@ class CreateEnrollmentMethodTest extends SpockTest {
 
         then: "check result"
         result.getMotivation() == ENROLLMENT_MOTIVATION
-        result.getEnrollmentDate() == NOW
         result.getActivity() == activity
         result.getVolunteer() == volunteer
 
@@ -81,14 +79,14 @@ class CreateEnrollmentMethodTest extends SpockTest {
         where:
         motivation                  || errorMessage
         null                        || ErrorMessage.MOTIVATION_IS_EMPTY
-        " "                         || ErrorMessage.MOTIVATION_IS_EMPTY
+        " "                         || ErrorMessage.MOTIVATION_TOO_SHORT
         ENROLLMENT_SHORT_MOTIVATION || ErrorMessage.MOTIVATION_TOO_SHORT
     }
 
     @Unroll
     def "create enrollment and violate invariant already enrolled"() {
         given:
-        activity.getApplicationDeadline() >> NOW
+        activity.getApplicationDeadline() >> IN_ONE_DAY
         activity.getEnrollments() >> [otherEnrollment]
         otherEnrollment.getVolunteer() >> volunteer
 

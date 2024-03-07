@@ -31,7 +31,7 @@ public class Enrollment {
 
     public Enrollment(EnrollmentDto enrollmentDto, Volunteer volunteer, Activity activity) {
         setMotivation(enrollmentDto.getMotivation());
-        setEnrollmentDate(DateHandler.toLocalDateTime(enrollmentDto.getEnrollmentDate()));
+        setEnrollmentDate(DateHandler.now());
         setVolunteer(volunteer);
         setActivity(activity);
 
@@ -69,11 +69,10 @@ public class Enrollment {
     }
 
     private void verifyMotivation() {
-        if (getMotivation() == null || getMotivation().trim().isEmpty()) {
+        if (getMotivation() == null) {
             throw new HEException(MOTIVATION_IS_EMPTY, this.motivation);
-
         }
-        if (getMotivation().length() < 10) {
+        if (getMotivation().trim().length() < 10) {
             throw new HEException(MOTIVATION_TOO_SHORT, this.motivation);
         }
     }
