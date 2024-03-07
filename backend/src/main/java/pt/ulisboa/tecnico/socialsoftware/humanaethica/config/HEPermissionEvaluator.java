@@ -28,11 +28,18 @@ public class HEPermissionEvaluator implements PermissionEvaluator {
         if (targetDomainObject instanceof Integer) {
             int id = (int) targetDomainObject;
             String permissionValue = (String) permission;
+
+            Member member = (Member)authUser.getUser();
+            Activity activity = activityRepository.findById(id).orElse(null);
+            
+            if (activity == null) return false;
+
             switch (permissionValue) {
+                case "INSTITUTION.MEMBER":
+                    Institution institution = activity.getInstitution();
+                    return member.getInstitution() == institution;
                 case "ACTIVITY.MEMBER":
-                    Activity activity = activityRepository.findById(id).orElse(null);
-                    if (activity == null) return false;
-                    return activity.getInstitution().getId().equals(((Member)authUser.getUser()).getInstitution().getId());
+                    return activity.getInstitution().getId().equals(member.getInstitution().getId());
                 default:
                     return false;
             }

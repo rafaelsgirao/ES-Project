@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,5 +24,11 @@ public class EnrollmentController {
     public EnrollmentDto createEnrollment(Principal principal, @PathVariable Integer activityId, @Valid @RequestBody EnrollmentDto enrollmentDto) {
         int userId = ((AuthUser) ((Authentication) principal).getPrincipal()).getUser().getId();
         return enrollmentService.createEnrollment(userId, activityId, enrollmentDto);
+    }
+
+    @GetMapping("/{activityId}")
+    @PreAuthorize("(hasRole('ROLE_MEMBER') and hasPermission(#activityId, 'INSTITUTION.MEMBER')")
+    public List<EnrollmentDto> getEnrollment(Principal principal, @PathVariable Integer activityId) {
+        return enrollmentService.getEnrollmentsByActivity(activityId);
     }
 }
