@@ -263,6 +263,7 @@ class SpockTest extends Specification {
     
     public static final String ENROLLMENT_SHORT_MOTIVATION = "motivatio"
     public static final String ENROLLMENT_MOTIVATION = "motivation"
+    public static final String ENROLLMENT_MOTIVATION_2 = "motivation2"
 
 
 
