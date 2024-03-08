@@ -46,7 +46,7 @@ public enum ErrorMessage {
     ASSESSMENT_REVIEW_TOO_SHORT("Assessment review should have at least ten characters"),
     VOLUNTEER_ALREADY_ASSESSED_INSTITUTION("Volunteer already assessed this institution"),
     INSTITUTION_WITHOUT_ACTIVITIES_FINISHED("Institution has no activities finished"),
-    INVALID_ASSESSMENT("Invalid assessment");
+    INVALID_ASSESSMENT("Invalid assessment"),
 
     ACTIVITY_ALREADY_REPORTED("Activity is already reported with name %s"),
 
