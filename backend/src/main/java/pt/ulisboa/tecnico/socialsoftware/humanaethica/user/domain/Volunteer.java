@@ -18,9 +18,6 @@ public class Volunteer extends User {
     @OneToMany(mappedBy = "volunteer", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Participation> participations = new ArrayList<>();
 
-    
-    @OneToMany(mappedBy = "volunteer", fetch =  FetchType.EAGER)
-    private List<Assessment> assessments = new ArrayList<>();
 
     public Volunteer() {
     }
