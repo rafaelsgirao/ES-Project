@@ -98,6 +98,25 @@ class GetEnrollmentsWebServiceIT extends SpockTest{
         enrollmentRepository.count() == 0
     }
 
+    def "a admin tries to list enrollments"(){
+        given: 'a admin'
+        demoAdminLogin()
+
+        when:
+        def response = webClient.get()
+            .uri('/enrollments/' + activityId)
+            .headers(httpHeaders -> httpHeaders.putAll(headers))
+            .retrieve()
+            .bodyToMono(EnrollmentDto.class)
+            .collectList()
+            .block()
+
+        then: "an error is returned"
+        def error = thrown(WebClientResponseException)
+        error.statusCode == HttpStatus.FORBIDDEN
+        enrollmentRepository.count() == 0
+    }
+
 
     def cleanup() {
         deleteAll()
