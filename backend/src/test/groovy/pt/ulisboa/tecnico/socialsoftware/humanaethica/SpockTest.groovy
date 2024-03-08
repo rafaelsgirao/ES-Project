@@ -16,6 +16,7 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.demo.DemoUtils
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.theme.domain.Theme
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.UserApplicationalService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.UserService
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Member
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.repository.UserRepository
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.InstitutionService
@@ -175,6 +176,13 @@ class SpockTest extends Specification {
         return member
     }
 
+    def createVolunteer(name, userName, email, type, state, password) {
+        def volunteer = new Volunteer(name, userName, email, type, state)
+        volunteer.getAuthUser().setPassword(passwordEncoder.encode(password))
+        userRepository.save(volunteer)
+        return volunteer
+    }
+
     // theme
 
     public static final String THEME_NAME_1 = "THEME_NAME 1"
@@ -220,9 +228,21 @@ class SpockTest extends Specification {
         activityDto.setThemes(themesDto)
         activityDto
     }
+
+    protected Activity createActivity(name, start, end, deadline, institution) {
+        def activity = new Activity()
+        activity.setName(name)
+        activity.setStartingDate(start)
+        activity.setEndingDate(end)
+        activity.setApplicationDeadline(deadline)
+        activity.setInstitution(institution)
+        activityRepository.save(activity)
+        activity
+    }
     
     // assessment
     public static final String REVIEW_1 = "assessment review"
+    public static final String REVIEW_2 = "assessment review 2"
     public static final String REVIEW_SHORT = "review"
     
     @Autowired
