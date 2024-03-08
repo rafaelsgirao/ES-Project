@@ -36,11 +36,11 @@ class GetEnrollmentsServiceTest extends SpockTest{
         and: "enrollment info"
         def enrollmentDto = createEnrollmentDto(ENROLLMENT_MOTIVATION)
         and: 'an enrollment'
-        def enrollment = new Enrollment(enrollmentDto, volunteer, activity)
+        def enrollment = new Enrollment(activity, volunteer, enrollmentDto)
         enrollmentRepository.save(enrollment)
         and: 'another enrollment'
         enrollmentDto.motivation = ENROLLMENT_MOTIVATION_2
-        enrollment = new Enrollment(enrollmentDto, volunteer2, activity)
+        enrollment = new Enrollment(activity, volunteer2, enrollmentDto)
         enrollmentRepository.save(enrollment)
         activityId = activity.getId()
     }
