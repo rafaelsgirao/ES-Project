@@ -86,7 +86,35 @@ class CreateAssessmentWebServiceIT extends SpockTest {
         def assessment = assessmentRepository.findAll().get(0)
         assessment.getReview() == REVIEW_1
 
+        cleanup:
+        deleteAll()
+
     }
+
+    def "login as volunteer, and create an assessment with error"() {
+        given:
+        demoVolunteerLogin()
+        and: 'a empty motivation'
+        assessmentDto.review = " "
+
+        when: 'the volunteer tries to create an assessment'
+        webClient.post()
+                .uri('/assessments/create/' + institution.getId())
+                .headers(httpHeaders -> httpHeaders.putAll(headers))
+                .bodyValue(assessmentDto)
+                .retrieve()
+                .bodyToMono(AssessmentDto.class)
+                .block()
+
+        then: 'check response status' 
+        def error = thrown(WebClientResponseException)
+        error.statusCode == HttpStatus.BAD_REQUEST
+        assessmentRepository.count() == 0
+
+        cleanup:
+        deleteAll()
+    }
+
 
     def cleanup() {
         deleteAll()
