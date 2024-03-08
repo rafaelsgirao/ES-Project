@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.crypto.password.PasswordEncoder
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.dto.ActivityDto
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.auth.AuthUserService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.auth.dto.AuthDto
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.auth.dto.AuthPasswordDto
@@ -50,7 +51,7 @@ class SpockTest extends Specification {
     Mailer mailer
 
     // dates
-
+    public static final LocalDateTime THREE_DAYS_AGO = DateHandler.now().minusDays(3)
     public static final LocalDateTime TWO_DAYS_AGO = DateHandler.now().minusDays(2)
     public static final LocalDateTime ONE_DAY_AGO = DateHandler.now().minusDays(1)
     public static final LocalDateTime NOW = DateHandler.now()
@@ -241,13 +242,13 @@ class SpockTest extends Specification {
     // clean database
 
     def deleteAll() {
+        assessmentRepository.deleteAll()
         activityRepository.deleteAllActivityTheme()
         activityRepository.deleteAll()
+        institutionRepository.deleteAll()
         authUserRepository.deleteAll()
         userRepository.deleteAll()
-        institutionRepository.deleteAll()
         themeRepository.deleteAll()
-        assessmentRepository.deleteAll()
     }
 
 
