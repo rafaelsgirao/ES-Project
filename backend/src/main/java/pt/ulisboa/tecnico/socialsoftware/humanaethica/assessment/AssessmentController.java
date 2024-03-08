@@ -20,7 +20,7 @@ public class AssessmentController {
 
     @GetMapping("/{institutionId}")
     public List<AssessmentDto> getAssessmentsByInstitution(Integer institutionId) {
-        return assessmentService.getAssessmentByInstutionId(institutionId);
+        return assessmentService.getAssessmentsByInstitution(institutionId);
     }
 
     @PostMapping("/{institutionId}")

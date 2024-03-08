@@ -34,7 +34,7 @@ public class AssessmentService {
     private InstitutionRepository institutionRepository;
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public List<AssessmentDto> getAssessmentByInstutionId(Integer institutionId) {
+    public List<AssessmentDto> getAssessmentsByInstitution(Integer institutionId) {
         return assessmentRepository.findByInstitutionId(institutionId).stream()
                 .map(assessment -> new AssessmentDto(assessment, true, true)).toList();
     }
