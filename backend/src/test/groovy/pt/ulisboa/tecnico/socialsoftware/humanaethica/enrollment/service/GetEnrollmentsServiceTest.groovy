@@ -45,7 +45,16 @@ class GetEnrollmentsServiceTest extends SpockTest{
         activityId = activity.getId()
     }
 
-    @Unroll
+    def "get two enrollments"() {
+        when:
+        def result = enrollmentService.getEnrollmentsByActivity(activityId)
+
+        then:
+        result.size() == 2
+        result.get(0).getMotivation() == ENROLLMENT_MOTIVATION
+        result.get(1).getMotivation() == ENROLLMENT_MOTIVATION_2
+    }
+
     def "list the enrollments of a non-existing activity"() {
         when:
         def result = enrollmentService.getEnrollmentsByActivity(NO_EXIST)
