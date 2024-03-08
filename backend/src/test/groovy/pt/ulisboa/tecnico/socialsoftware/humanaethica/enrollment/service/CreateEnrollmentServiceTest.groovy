@@ -26,7 +26,7 @@ class CreateEnrollmentServiceTest extends SpockTest {
         def enrollmentDto = createEnrollmentDto(ENROLLMENT_MOTIVATION)
         
         when:
-        def result = enrollmentService.createEnrollment(volunteer.getId(), activity.getId(), enrollmentDto)
+        enrollmentService.createEnrollment(volunteer.getId(), activity.getId(), enrollmentDto)
         then: "the returned data is correct"
         result.motivation == ENROLLMENT_MOTIVATION
         result.volunteerDto.id == volunteer.getId()
@@ -79,9 +79,8 @@ class CreateEnrollmentServiceTest extends SpockTest {
     def getEnrollmentDto(exists) {
     if (exists == EXIST) {
       return createEnrollmentDto(ENROLLMENT_MOTIVATION)
-    } else {
-      return null
     }
+    return null
   }
 
 
