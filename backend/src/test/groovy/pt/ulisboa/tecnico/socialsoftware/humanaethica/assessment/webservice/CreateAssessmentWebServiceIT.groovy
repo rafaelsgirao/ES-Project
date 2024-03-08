@@ -115,7 +115,25 @@ class CreateAssessmentWebServiceIT extends SpockTest {
         deleteAll()
     }
 
+    def "login as member, and create an assessment"() {
+        given: 'a member'
+        demoMemberLogin()
 
+        when: 'the member tries to create assessment'
+        webClient.post()
+                .uri('/assessments/create/' + institution.getId())
+                .headers(httpHeaders -> httpHeaders.putAll(headers))
+                .bodyValue(assessmentDto)
+                .retrieve()
+                .bodyToMono(AssessmentDto.class)
+                .block()
+
+        then: "an error is returned"
+        def error = thrown(WebClientResponseException)
+        error.statusCode == HttpStatus.FORBIDDEN
+        assessmentRepository.count() == 0
+    }
+    
     def cleanup() {
         deleteAll()
     }
