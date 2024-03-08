@@ -82,9 +82,32 @@ class GetAssessmentsByInstitutionWebServiceIT extends SpockTest{
         deleteAll()
     }
 
+    def "a member tries to list assessments"(){
+        given:
+        demoMemberLogin()
+
+        when:
+        def response = webClient.get()
+                .uri('/assessments/' + institutionId)
+                .headers(httpHeaders -> httpHeaders.putAll(headers))
+                .retrieve()
+                .bodyToMono(List<AssessmentDto>.class)
+                .block()
+
+        then: "check response"
+        response.size() == 2
+        response.get(0).review == REVIEW_1
+        response.get(0).volunteer.id == volunteer.getId()
+        response.get(0).institution.id == institution.getId()
+        response.get(1).review == REVIEW_2
+        response.get(1).volunteer.id == volunteer2.getId()
+        response.get(1).institution.id == institution.getId()
+
+        cleanup:
+        deleteAll()
+    }
+
     
-
-
     def cleanup() {
         deleteAll()
     }
