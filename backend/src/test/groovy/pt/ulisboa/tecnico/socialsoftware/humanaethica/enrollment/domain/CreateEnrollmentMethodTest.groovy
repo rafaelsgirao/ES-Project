@@ -57,10 +57,10 @@ class CreateEnrollmentMethodTest extends SpockTest {
         error.getErrorMessage() == errorMessage
 
         where:
-        applicationDeadline          | errorMessage
-        ONE_DAY_AGO                  | ErrorMessage.ENROLLMENT_DATE_AFTER_DEADLINE             
-        ONE_SEC_AGO                  | ErrorMessage.ENROLLMENT_DATE_AFTER_DEADLINE             
-        TWO_DAYS_AGO                 | ErrorMessage.ENROLLMENT_DATE_AFTER_DEADLINE             
+        applicationDeadline          || errorMessage
+        ONE_DAY_AGO                  || ErrorMessage.ENROLLMENT_DATE_AFTER_DEADLINE             
+        ONE_SEC_AGO                  || ErrorMessage.ENROLLMENT_DATE_AFTER_DEADLINE             
+        TWO_DAYS_AGO                 || ErrorMessage.ENROLLMENT_DATE_AFTER_DEADLINE             
     }
 
     @Unroll
