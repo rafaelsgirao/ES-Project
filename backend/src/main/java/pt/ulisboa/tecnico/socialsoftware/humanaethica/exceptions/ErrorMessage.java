@@ -42,7 +42,7 @@ public enum ErrorMessage {
     ACTIVITY_ALREADY_REPORTED("Activity is already reported with name %s"),
 
     //Enrollment
-    VOLUNTEER_ALREADY_ENROLLED("Volunteer is already enrolled in this activity"),
+    VOLUNTEER_ALREADY_ENROLLED("Volunteer is already enrolled in activity"),
     MOTIVATION_IS_EMPTY("Motivation is empty: %s"),
     MOTIVATION_TOO_SHORT("Motivation should be bigger or equals than 10 caracteres %s"),
     ENROLLMENT_INVALID_DATE("Date formate for %s is invalid"),
