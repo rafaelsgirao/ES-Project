@@ -35,6 +35,9 @@ public class AssessmentService {
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<AssessmentDto> getAssessmentsByInstitution(Integer institutionId) {
+        if (institutionId == null) throw new HEException(INSTITUTION_NOT_FOUND);
+        institutionRepository.findById(institutionId).orElseThrow(() -> new HEException(INSTITUTION_NOT_FOUND, institutionId));
+
         return assessmentRepository.findByInstitutionId(institutionId).stream()
                 .map(assessment -> new AssessmentDto(assessment, true, true)).toList();
     }
