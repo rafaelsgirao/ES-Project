@@ -52,6 +52,18 @@ public class Participation  {
         setActivity(activity);
         setVolunteer(volunteer);
     }
+    
+    public Participation(ParticipationDto participationDto, Activity activity, Volunteer volunteer) {
+        setRating(participationDto.getRating());
+        setAcceptanceDate(DateHandler.now());
+        _setActivity(activity);
+        _setVolunteer(volunteer);
+
+        verifyInvariants();
+
+        setActivity(activity);
+        setVolunteer(volunteer);
+    }
 
     public Integer getId() {
         return id;

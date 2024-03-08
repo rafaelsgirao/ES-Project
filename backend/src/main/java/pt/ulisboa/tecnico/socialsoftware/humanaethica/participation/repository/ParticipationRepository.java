@@ -17,4 +17,5 @@ public interface ParticipationRepository extends JpaRepository<Participation, In
 
     @Query("SELECT p FROM Participation p WHERE p.activity.id = :activityId")
     List<Participation> findParticipationsByActivityId(Integer activityId);
+
 }

@@ -92,7 +92,7 @@ class CreateParticipationWebServiceIT extends SpockTest {
         demoVolunteerLogin()
 
         when:
-        def response = webClient.post()
+        webClient.post()
                 .uri('/participations/' + activity.getId())
                 .headers(httpHeaders -> httpHeaders.putAll(headers))
                 .bodyValue(participationDto)
@@ -114,7 +114,7 @@ class CreateParticipationWebServiceIT extends SpockTest {
             demoAdminLogin()
 
             when:
-            def response = webClient.post()
+            webClient.post()
                     .uri('/participations/' + activity.getId())
                     .headers(httpHeaders -> httpHeaders.putAll(headers))
                     .bodyValue(participationDto)
