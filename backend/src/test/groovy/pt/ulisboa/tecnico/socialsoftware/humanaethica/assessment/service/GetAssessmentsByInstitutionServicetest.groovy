@@ -56,6 +56,14 @@ class GetAssessmentsByInstitutionServicetest extends SpockTest{
         result.get(1).getReview() == REVIEW_2
     }
 
+    def "list the assessments of a non-existing institution"() {
+        when:
+        assessmentService.getAssessmentsByInstitution(NO_EXIST)
+
+        then:
+        def error = thrown(HEException)
+        error.getErrorMessage() == ErrorMessage.INSTITUTION_NOT_FOUND  
+    }
 
     @TestConfiguration
     static class LocalBeanConfiguration extends BeanConfiguration {}
