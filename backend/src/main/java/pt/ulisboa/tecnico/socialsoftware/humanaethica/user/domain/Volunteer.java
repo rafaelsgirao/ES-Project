@@ -56,12 +56,4 @@ public class Volunteer extends User {
     public void removeParticipation(Participation participation) {
         participations.remove(participation);
     }
-
-    public List<Assessment> getAssessments() {
-        return assessments;
-    }
-
-    public void addAssessment(Assessment assessment) { this.assessments.add(assessment);}
-
-    public void removeAssessment(Assessment assessment) { this.assessments.remove(assessment); }
 }
