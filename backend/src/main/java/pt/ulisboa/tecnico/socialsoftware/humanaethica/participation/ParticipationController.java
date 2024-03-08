@@ -15,14 +15,9 @@ public class ParticipationController {
     @Autowired
     private ParticipationService participationService;
 
-    private static final Logger logger = LoggerFactory.getLogger(ParticipationController.class);
 
-    @GetMapping
-    public List<ParticipationDto> getParticipations() { 
-        return participationService.getParticipations(); 
-    }
 
-    @PostMapping(path={"{activityId}"})
+    @PostMapping("/{activityId}")
     @PreAuthorize("(hasRole('ROLE_MEMBER')) and hasPermission(#activityId, 'ACTIVITY.MEMBER')")
     public ParticipationDto createParticipation(@PathVariable Integer activityId, @Valid @RequestBody ParticipationDto participationDto) {
         return participationService.createParticipation(activityId, participationDto);  

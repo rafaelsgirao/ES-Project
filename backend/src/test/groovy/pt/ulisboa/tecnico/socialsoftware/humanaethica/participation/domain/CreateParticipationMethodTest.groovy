@@ -43,7 +43,7 @@ class CreateParticipationMethodTest extends SpockTest {
         when:
         def result = new Participation(activity, volunteer, participationDto)
 
-        then: "check result"
+        then:
         result.getRating() == PARTICIPATION_RATING_1
         result.getVolunteer() == volunteer
         result.getActivity() == activity

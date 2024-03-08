@@ -27,8 +27,6 @@ class CreateParticipationWebServiceIT extends SpockTest {
     def activityDto
     def volunteer1
     def volunteerDto1
-    def volunteer2
-    def volunteerDto2
 
     def setup() {
         deleteAll() // ensure a clean-slate database
@@ -43,9 +41,6 @@ class CreateParticipationWebServiceIT extends SpockTest {
         userRepository.save(volunteer1)
         volunteerDto1 = new UserDto(volunteer1)
 
-        volunteer2 = new Volunteer(USER_2_NAME, USER_2_USERNAME, USER_2_EMAIL, AuthUser.Type.NORMAL, User.State.APPROVED)
-        userRepository.save(volunteer2)
-        volunteerDto2 = new UserDto(volunteer2) // not used ATM
 
         def themesDto = new ArrayList<ThemeDto>()
         activityDto = createActivityDto(ACTIVITY_NAME_1, ACTIVITY_REGION_1, 2, ACTIVITY_DESCRIPTION_1,
@@ -136,6 +131,5 @@ class CreateParticipationWebServiceIT extends SpockTest {
             deleteAll()
     }
 
-    //TODO:  testes para verificar as condições de acesso.
 
 }
