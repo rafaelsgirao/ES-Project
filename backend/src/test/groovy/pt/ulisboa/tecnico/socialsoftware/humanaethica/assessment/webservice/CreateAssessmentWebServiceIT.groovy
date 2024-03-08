@@ -132,6 +132,9 @@ class CreateAssessmentWebServiceIT extends SpockTest {
         def error = thrown(WebClientResponseException)
         error.statusCode == HttpStatus.FORBIDDEN
         assessmentRepository.count() == 0
+
+        cleanup:
+        deleteAll()
     }
 
     def "login as admin, and create an assessment"() {
