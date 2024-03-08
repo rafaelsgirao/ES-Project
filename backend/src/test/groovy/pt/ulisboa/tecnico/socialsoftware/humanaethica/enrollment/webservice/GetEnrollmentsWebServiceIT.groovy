@@ -13,12 +13,21 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.SpockTest
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.domain.Enrollment
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.dto.EnrollmentDto
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.User
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.auth.domain.AuthUser
+
+import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class GetEnrollmentsWebServiceIT extends SpockTest{
 
     @LocalServerPort
     private int port
+
+    def activity
+    def activityId
+    def volunteer
+    def volunteer2
 
     def setup(){
         deleteAll()
@@ -30,21 +39,44 @@ class GetEnrollmentsWebServiceIT extends SpockTest{
         given: "a institution"
         def institution = institutionService.getDemoInstitution()
         and: "a volunteer"
-        def volunteer = createMember(USER_1_NAME, USER_1_USERNAME, USER_1_PASSWORD, USER_1_EMAIL, Member.Type.VOLUNTEER, institution, Member.State.APPROVED)
+        volunteer = createVolunteer(USER_1_NAME, USER_1_USERNAME, USER_1_EMAIL, AuthUser.Type.NORMAL, User.State.APPROVED, USER_1_PASSWORD)
         and: "another volunteer"
-        def volunteer2 = createMember(USER_2_NAME, USER_2_USERNAME, USER_2_PASSWORD, USER_2_EMAIL, Member.Type.VOLUNTEER, institution, Member.State.APPROVED)
+        volunteer2 = createVolunteer(USER_2_NAME, USER_2_USERNAME, USER_2_EMAIL, AuthUser.Type.NORMAL, User.State.APPROVED, USER_2_PASSWORD)
         and: "an activity"
-        def activity = createActivity(ACTIVITY_NAME_1, IN_TWO_DAYS, IN_THREE_DAYS, IN_ONE_DAY)
+        activity = createActivity(ACTIVITY_NAME_1, IN_TWO_DAYS, IN_THREE_DAYS, IN_ONE_DAY, institution)
         and: "enrollment info"
-        def enrollmentDto = createEnrollmentDto(ENROLLMENT_MOTIVATION,NOW)
+        def enrollmentDto = createEnrollmentDto(ENROLLMENT_MOTIVATION)
         and: 'an enrollment'
-        def enrollment = new Enrollment(enrollmentDto, activity, volunteer)
-        activityRepository.save(enrollment)
+        def enrollment = new Enrollment(enrollmentDto, volunteer, activity)
+        enrollmentRepository.save(enrollment)
         and: 'another enrollment'
         enrollmentDto.motivation = ENROLLMENT_MOTIVATION_2
-        enrollmentDto.enrollmentDate = NOW
-        enrollment = new Enrollment(enrollmentDto, activity, volunteer2)
-        activityRepository.save(enrollment)
+        enrollment = new Enrollment(enrollmentDto, volunteer2, activity)
+        enrollmentRepository.save(enrollment)
+
+        activityId = activity.getId()
+    }
+
+    def "get enrollments"() {
+        given:
+        demoMemberLogin()
+
+        when:
+        def response = webClient.get()
+                .uri('/enrollments/' + activityId)
+                .headers(httpHeaders -> httpHeaders.putAll(headers))
+                .retrieve()
+                .bodyToMono(List<EnrollmentDto>.class)
+                .block()
+
+        then: "check response"
+        response.size() == 2
+        response.get(0).motivation == ENROLLMENT_MOTIVATION
+        response.get(0).volunteerDto.id == volunteer.getId()
+        response.get(0).activityDto.id == activity.getId()
+        response.get(1).motivation == ENROLLMENT_MOTIVATION_2
+        response.get(1).volunteerDto.id == volunteer2.getId()
+        response.get(1).activityDto.id == activity.getId()
     }
 
     def cleanup() {

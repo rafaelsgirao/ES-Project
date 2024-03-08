@@ -18,8 +18,6 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.UserApplicationalServ
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.UserService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Member
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.User
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.dto.UserDto
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.repository.UserRepository
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.InstitutionService
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.repository.InstitutionRepository
@@ -252,6 +250,18 @@ class SpockTest extends Specification {
         activityRepository.save(activity)
         activity
     }
+
+    protected Activity createActivity(name, start, end, deadline, institution) {
+        def activity = new Activity()
+        activity.setName(name)
+        activity.setStartingDate(start)
+        activity.setEndingDate(end)
+        activity.setApplicationDeadline(deadline)
+        activity.setInstitution(institution)
+        activityRepository.save(activity)
+        activity
+    }
+
 
     // enrollment
 
