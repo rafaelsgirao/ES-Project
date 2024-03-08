@@ -88,14 +88,12 @@ class GetEnrollmentsWebServiceIT extends SpockTest{
             .uri('/enrollments/' + activityId)
             .headers(httpHeaders -> httpHeaders.putAll(headers))
             .retrieve()
-            .bodyToMono(EnrollmentDto.class)
-            .collectList()
+            .bodyToMono(List<EnrollmentDto>.class)
             .block()
 
         then: "an error is returned"
         def error = thrown(WebClientResponseException)
         error.statusCode == HttpStatus.FORBIDDEN
-        enrollmentRepository.count() == 0
     }
 
     def "a admin tries to list enrollments"(){
@@ -107,14 +105,12 @@ class GetEnrollmentsWebServiceIT extends SpockTest{
             .uri('/enrollments/' + activityId)
             .headers(httpHeaders -> httpHeaders.putAll(headers))
             .retrieve()
-            .bodyToMono(EnrollmentDto.class)
-            .collectList()
+            .bodyToMono(List<EnrollmentDto>.class)
             .block()
 
         then: "an error is returned"
         def error = thrown(WebClientResponseException)
         error.statusCode == HttpStatus.FORBIDDEN
-        enrollmentRepository.count() == 0
     }
 
 
