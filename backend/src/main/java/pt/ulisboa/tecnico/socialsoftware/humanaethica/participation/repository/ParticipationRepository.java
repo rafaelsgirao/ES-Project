@@ -14,4 +14,7 @@ public interface ParticipationRepository extends JpaRepository<Participation, In
 
     @Query("SELECT COUNT(p) FROM Participation p WHERE p.activity.id = :activityId")
     int countParticipations(Integer activityId);
+
+    @Query("SELECT p FROM Participation p WHERE p.activity.id = :activityId")
+    List<Participation> findParticipationsByActivityId(Integer activityId);
 }
