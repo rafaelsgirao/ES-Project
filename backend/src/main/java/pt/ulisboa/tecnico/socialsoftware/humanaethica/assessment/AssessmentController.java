@@ -19,7 +19,7 @@ public class AssessmentController {
     private AssessmentService assessmentService;
 
     @GetMapping("/{institutionId}")
-    public List<AssessmentDto> getAssessmentsByInstitution(Integer institutionId) {
+    public List<AssessmentDto> getAssessmentsByInstitution(@PathVariable Integer institutionId) {
         return assessmentService.getAssessmentsByInstitution(institutionId);
     }
 
