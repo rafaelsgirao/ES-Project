@@ -15,6 +15,9 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.domain.Enrollme
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.enrollment.dto.EnrollmentDto
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.User
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.auth.domain.AuthUser
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.domain.Institution
+import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.repository.InstitutionRepository
+
 
 import java.util.List;
 
@@ -77,6 +80,28 @@ class GetEnrollmentsWebServiceIT extends SpockTest{
         response.get(1).motivation == ENROLLMENT_MOTIVATION_2
         response.get(1).volunteerDto.id == volunteer2.getId()
         response.get(1).activityDto.id == activity.getId()
+    }
+
+    def "a member tries to list enrollments from another institution"() {
+        given: 'a member'
+        def institution_2 = new Institution()
+        institutionRepository.save(institution_2)
+
+        def member = createMember(USER_3_NAME, USER_3_USERNAME, USER_3_PASSWORD, USER_3_EMAIL, AuthUser.Type.NORMAL, institution_2, User.State.APPROVED)
+
+        normalUserLogin(USER_3_USERNAME, USER_3_PASSWORD)
+
+        when:
+        def response = webClient.get()
+            .uri('/enrollments/' + activityId)
+            .headers(httpHeaders -> httpHeaders.putAll(headers))
+            .retrieve()
+            .bodyToMono(List<EnrollmentDto>.class)
+            .block()
+
+        then: "an error is returned"
+        def error = thrown(WebClientResponseException)
+        error.statusCode == HttpStatus.FORBIDDEN
     }
 
     def "a volunteer tries to list enrollments"(){
