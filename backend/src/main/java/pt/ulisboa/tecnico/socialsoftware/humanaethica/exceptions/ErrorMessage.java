@@ -53,10 +53,7 @@ public enum ErrorMessage {
     // Participation
     DUPLICATE_PARTICIPATION("Participation already exists"),
     ENROLLMENT_PERIOD_NOT_ENDED("Enrollment period is still open"),
-    INVALID_PARTICIPATION("Invalid Participation"),
-
-    // Assessment
-    ASSESSMENT_REVIEW_TOO_SHORT("Assessment review should have at least ten characters");
+    INVALID_PARTICIPATION("Invalid Participation");
 
 
     public final String label;
