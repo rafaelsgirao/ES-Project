@@ -33,7 +33,7 @@ class CreateEnrollmentMethodTest extends SpockTest {
         activity.getEnrollments() >> []
 
         when:
-        def result = new Enrollment(enrollmentDto, volunteer, activity)
+        def result = new Enrollment(activity, volunteer, enrollmentDto)
 
         then: "check result"
         result.getMotivation() == ENROLLMENT_MOTIVATION
@@ -50,7 +50,7 @@ class CreateEnrollmentMethodTest extends SpockTest {
         activity.getEnrollments() >> []
         
         when:
-        new Enrollment(enrollmentDto, volunteer, activity)
+        new Enrollment(activity, volunteer, enrollmentDto)
         
         then:
         def error = thrown(HEException)
@@ -69,7 +69,7 @@ class CreateEnrollmentMethodTest extends SpockTest {
         enrollmentDto.motivation = motivation
 
         when:
-        new Enrollment(enrollmentDto, volunteer, activity)
+        new Enrollment(activity, volunteer, enrollmentDto)
 
         then:
         def error = thrown(HEException)
@@ -90,7 +90,7 @@ class CreateEnrollmentMethodTest extends SpockTest {
         otherEnrollment.getVolunteer() >> volunteer
 
         when:
-        new Enrollment(enrollmentDto, volunteer, activity)
+        new Enrollment(activity, volunteer, enrollmentDto)
 
         then:
         def error = thrown(HEException)

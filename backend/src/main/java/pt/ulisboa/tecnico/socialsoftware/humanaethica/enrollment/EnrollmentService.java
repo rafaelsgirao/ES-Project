@@ -36,7 +36,7 @@ public class EnrollmentService {
         Volunteer volunteer = (Volunteer) userRepository.findById(userId).orElseThrow(() -> new HEException(USER_NOT_FOUND, userId));
         Activity activity = activityRepository.findById(activityId).orElseThrow(() -> new HEException(ACTIVITY_NOT_FOUND, activityId));
 
-        Enrollment enrollment = new Enrollment(enrollmentDto, volunteer, activity);
+        Enrollment enrollment = new Enrollment(activity, volunteer, enrollmentDto);
         enrollmentRepository.save(enrollment);
         return new EnrollmentDto(enrollment, true, true);
     }

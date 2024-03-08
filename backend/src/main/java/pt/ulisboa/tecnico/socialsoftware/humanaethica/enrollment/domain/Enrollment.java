@@ -29,7 +29,7 @@ public class Enrollment {
 
     public Enrollment() {}
 
-    public Enrollment(EnrollmentDto enrollmentDto, Volunteer volunteer, Activity activity) {
+    public Enrollment(Activity activity, Volunteer volunteer, EnrollmentDto enrollmentDto) {
         setMotivation(enrollmentDto.getMotivation());
         setEnrollmentDate(DateHandler.now());
         setVolunteer(volunteer);
