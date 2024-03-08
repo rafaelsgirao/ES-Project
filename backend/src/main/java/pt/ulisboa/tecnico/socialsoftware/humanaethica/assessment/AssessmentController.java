@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import jakarta.validation.Valid;
 
 @RestController
@@ -16,6 +17,11 @@ import jakarta.validation.Valid;
 public class AssessmentController {
     @Autowired
     private AssessmentService assessmentService;
+
+    @GetMapping("/{institutionId}")
+    public List<AssessmentDto> getAssessmentsByInstitution(Integer institutionId) {
+        return assessmentService.getAssessmentByInstutionId(institutionId);
+    }
 
     @PostMapping("/{institutionId}")
     @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
