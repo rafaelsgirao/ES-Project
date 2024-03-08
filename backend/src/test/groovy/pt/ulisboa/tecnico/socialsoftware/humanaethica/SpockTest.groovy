@@ -238,37 +238,6 @@ class SpockTest extends Specification {
     
     // assessment
     public static final String REVIEW_1 = "assessment review"
-    public static final String REVIEW_SHORT = "review"
-    
-    @Autowired
-    AssessmentRepository assessmentRepository
-
-    @Autowired
-    AssessmentService assessmentService
-
-    protected AssessmentDto createAssessmentDto(review, reviewDate,  institution, volunteer) {
-        
-        def assessmentDto = new AssessmentDto()
-        assessmentDto.setReview(review)
-        assessmentDto.setReviewDate(DateHandler.toISOString(reviewDate))
-        assessmentDto.setInstitution(new InstitutionDto(institution, false, false))
-        assessmentDto.setVolunteer(new UserDto((User) volunteer))
-        assessmentDto
-    }
-
-    protected Activity createActivity(name, start, end, deadline, institution) {
-        def activity = new Activity()
-        activity.setName(name)
-        activity.setStartingDate(start)
-        activity.setEndingDate(end)
-        activity.setApplicationDeadline(deadline)
-        activity.setInstitution(institution)
-        activityRepository.save(activity)
-        activity
-    }
-    
-    // assessment
-    public static final String REVIEW_1 = "assessment review"
     public static final String REVIEW_2 = "assessment review 2"
     public static final String REVIEW_SHORT = "review"
     
