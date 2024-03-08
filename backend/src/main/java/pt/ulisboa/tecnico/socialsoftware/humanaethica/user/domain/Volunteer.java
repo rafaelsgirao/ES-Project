@@ -2,7 +2,6 @@ package pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain;
 
 import jakarta.persistence.*;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.auth.domain.AuthUser;
-import pt.ulisboa.tecnico.socialsoftware.humanaethica.activity.domain.Activity;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.domain.Assessment;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.participation.domain.Participation;
 
