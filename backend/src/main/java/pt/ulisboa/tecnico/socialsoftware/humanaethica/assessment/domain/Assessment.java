@@ -20,13 +20,14 @@ public class Assessment {
 
     private String review;
 
+    @Column(name = "review_date")
     private LocalDateTime reviewDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "volunteer_id")
     private Volunteer volunteer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "institution_id")
     private Institution institution;
 
