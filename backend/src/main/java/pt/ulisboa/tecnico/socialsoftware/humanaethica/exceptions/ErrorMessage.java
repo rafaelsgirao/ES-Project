@@ -48,8 +48,6 @@ public enum ErrorMessage {
     INSTITUTION_WITHOUT_ACTIVITIES_FINISHED("Institution has no activities finished"),
     INVALID_ASSESSMENT("Invalid assessment"),
 
-    ACTIVITY_ALREADY_REPORTED("Activity is already reported with name %s"),
-
     // Participation
     DUPLICATE_PARTICIPATION("Participation already exists"),
     ENROLLMENT_PERIOD_NOT_ENDED("Enrollment period is still open"),
