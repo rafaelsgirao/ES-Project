@@ -70,7 +70,7 @@ class CreateAssessmentWebServiceIT extends SpockTest {
 
         when: 'the volunteer tries to create an assessment'
         def response = webClient.post()
-                .uri('/assessments/create/' + institution.getId())
+                .uri('/assessments/' + institution.getId())
                 .headers(httpHeaders -> httpHeaders.putAll(headers))
                 .bodyValue(assessmentDto)
                 .retrieve()
@@ -99,7 +99,7 @@ class CreateAssessmentWebServiceIT extends SpockTest {
 
         when: 'the volunteer tries to create an assessment'
         webClient.post()
-                .uri('/assessments/create/' + institution.getId())
+                .uri('/assessments/' + institution.getId())
                 .headers(httpHeaders -> httpHeaders.putAll(headers))
                 .bodyValue(assessmentDto)
                 .retrieve()
@@ -121,7 +121,7 @@ class CreateAssessmentWebServiceIT extends SpockTest {
 
         when: 'the member tries to create assessment'
         webClient.post()
-                .uri('/assessments/create/' + institution.getId())
+                .uri('/assessments/' + institution.getId())
                 .headers(httpHeaders -> httpHeaders.putAll(headers))
                 .bodyValue(assessmentDto)
                 .retrieve()
@@ -140,7 +140,7 @@ class CreateAssessmentWebServiceIT extends SpockTest {
 
         when: 'the admin tries to create assessment'
         webClient.post()
-                .uri('/assessments/create/' + institution.getId())
+                .uri('/assessments/' + institution.getId())
                 .headers(httpHeaders -> httpHeaders.putAll(headers))
                 .bodyValue(assessmentDto)
                 .retrieve()

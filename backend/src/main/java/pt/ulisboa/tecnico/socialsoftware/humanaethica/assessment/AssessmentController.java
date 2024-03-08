@@ -17,7 +17,7 @@ public class AssessmentController {
     @Autowired
     private AssessmentService assessmentService;
 
-    @PostMapping("/create/{institutionId}")
+    @PostMapping("/{institutionId}")
     @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
     public AssessmentDto createAssessment(Principal principal, @PathVariable Integer institutionId,
             @Valid @RequestBody AssessmentDto assessmentDto) {
