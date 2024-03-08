@@ -17,6 +17,7 @@ import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.repository.Ins
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.assessment.domain.Assessment;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.user.domain.Volunteer;
 import pt.ulisboa.tecnico.socialsoftware.humanaethica.institution.domain.Institution;
+import java.util.List;
 
 
 import org.springframework.transaction.annotation.Isolation;
@@ -31,6 +32,12 @@ public class AssessmentService {
 
     @Autowired
     private InstitutionRepository institutionRepository;
+
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public List<AssessmentDto> getAssessmentByInstutionId(Integer institutionId) {
+        return assessmentRepository.findByInstitutionId(institutionId).stream()
+                .map(assessment -> new AssessmentDto(assessment, true, true)).toList();
+    }
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public AssessmentDto createAssessment(Integer userId, Integer institutionId, AssessmentDto assessmentDto) {
