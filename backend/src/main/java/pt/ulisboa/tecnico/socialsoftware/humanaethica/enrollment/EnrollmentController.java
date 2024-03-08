@@ -27,7 +27,7 @@ public class EnrollmentController {
     }
 
     @GetMapping("/{activityId}")
-    @PreAuthorize("(hasRole('ROLE_MEMBER') and hasPermission(#activityId, 'ACTIVITY.MEMBER')")
+    @PreAuthorize("(hasRole('ROLE_MEMBER')) and hasPermission(#activityId, 'ACTIVITY.MEMBER')")
     public List<EnrollmentDto> getEnrollment(Principal principal, @PathVariable Integer activityId) {
         return enrollmentService.getEnrollmentsByActivity(activityId);
     }
