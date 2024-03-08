@@ -278,6 +278,16 @@ class SpockTest extends Specification {
         participationDto
     }
 
+    protected Activity createActivity(name, start, end, deadline, institution) {
+        def activity = new Activity()
+        activity.setName(name)
+        activity.setStartingDate(start)
+        activity.setEndingDate(end)
+        activity.setApplicationDeadline(deadline)
+        activity.setInstitution(institution)
+        activityRepository.save(activity)
+        activity
+    }
     // clean database
 
     def deleteAll() {
