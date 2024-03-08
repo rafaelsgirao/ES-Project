@@ -79,6 +79,26 @@ class GetEnrollmentsWebServiceIT extends SpockTest{
         response.get(1).activityDto.id == activity.getId()
     }
 
+    def "a volunteer tries to list enrollments"(){
+        given: 'a volunteer'
+        demoVolunteerLogin()
+
+        when:
+        def response = webClient.get()
+            .uri('/enrollments/' + activityId)
+            .headers(httpHeaders -> httpHeaders.putAll(headers))
+            .retrieve()
+            .bodyToMono(EnrollmentDto.class)
+            .collectList()
+            .block()
+
+        then: "an error is returned"
+        def error = thrown(WebClientResponseException)
+        error.statusCode == HttpStatus.FORBIDDEN
+        enrollmentRepository.count() == 0
+    }
+
+
     def cleanup() {
         deleteAll()
     }
