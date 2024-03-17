@@ -40,6 +40,19 @@
             </template>
             <span>Report Activity</span>
           </v-tooltip>
+          <v-tooltip v-if="availableToEnroll()" bottom>
+            <template v-slot:activator="{ on }">
+              <v-icon
+                class="mr-2 action-button"
+                color="blue"
+                v-on="on"
+                data-cy="applyButton"
+                @click="applyForActivity(item)"
+                >fas fa-right-to-bracket</v-icon
+              >
+            </template>
+            <span>Apply for Activity</span>
+          </v-tooltip>
         </template>
       </v-data-table>
     </v-card>
@@ -145,6 +158,14 @@ export default class VolunteerActivitiesView extends Vue {
         await this.$store.dispatch('error', error);
       }
     }
+  }
+
+  async applyForActivity(activity: Activity) {
+    console.log('Activity: ', activity);
+  }
+
+  availableToEnroll(): boolean {
+    return true;
   }
 }
 </script>
