@@ -57,6 +57,13 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
       align: 'left',
       width: '5%',
     },
+    {
+      text: 'Actions',
+      value: 'action',
+      align: 'left',
+      sortable: false,
+      width: '5%',
+    }
   ];
 
   async created() {
