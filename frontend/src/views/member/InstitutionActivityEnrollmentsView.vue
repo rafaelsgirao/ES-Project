@@ -28,6 +28,19 @@
           >
         </v-card-title>
       </template>
+      <template v-slot:[`item.action`]="{ item }">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-icon
+              class="mr-2 action-button"
+              @click="createParticipation(item)"
+              v-on="on"
+              >check
+            </v-icon>
+          </template>
+          <span>Select Participant</span>
+        </v-tooltip>
+      </template>
     </v-data-table>
   </v-card>
 </template>
@@ -84,6 +97,10 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
   async getActivities() {
     await this.$store.dispatch('setActivity', null);
     this.$router.push({ name: 'institution-activities' }).catch(() => {});
+  }
+
+  createParticipation(enrollment: Enrollment) {
+
   }
 }
 </script>
