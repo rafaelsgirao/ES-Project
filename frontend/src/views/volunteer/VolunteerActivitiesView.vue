@@ -47,7 +47,7 @@
                 color="blue"
                 v-on="on"
                 data-cy="applyButton"
-                @click="applyForActivity(item)"
+                @click="applyForActivity()"
                 >fas fa-right-to-bracket</v-icon
               >
             </template>
@@ -83,6 +83,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import RemoteServices from '@/services/RemoteServices';
 import Activity from '@/models/activity/Activity';
+import Enrollment from '@/models/enrollment/Enrollment';
 import Participation from '@/models/participation/Participation';
 import Assessment from '@/models/assessment/Assessment';
 import AssessmentDialog from '@/views/volunteer/AssessmentDialog.vue';
@@ -99,6 +100,10 @@ export default class VolunteerActivitiesView extends Vue {
   volunteerParticipations: Participation[] = [];
   volunteerAssessments: Assessment[] = [];
   search: string = '';
+
+  currentEnrollment: Enrollment | null = null;
+  editEnrollmentDialog: boolean = false;
+
 
   currentActivity: Activity| null = null;
   newAssessmentDialog: boolean = false;
@@ -193,8 +198,9 @@ export default class VolunteerActivitiesView extends Vue {
     }
   }
 
-  async applyForActivity(activity: Activity) {
-    console.log('Activity: ', activity);
+  async applyForActivity() {
+    this.currentEnrollment = new Enrollment();
+    this.editEnrollmentDialog = true;
   }
 
   availableToEnroll(): boolean {
