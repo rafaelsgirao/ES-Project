@@ -33,7 +33,7 @@
           <template v-slot:activator="{ on }">
             <v-icon
               class="mr-2 action-button"
-              @click="createParticipation(item)"
+              @click="newParticipant(item)"
               v-on="on"
               >check
             </v-icon>
@@ -42,6 +42,13 @@
         </v-tooltip>
       </template>
     </v-data-table>
+    <participation-selection-dialog
+      v-if="participationSelectionDialog"
+      v-model="participationSelectionDialog"
+      :enrollment="currentEnrollment"
+      v-on:select-participant="onSelectParticipant"
+      v-on:close-participation-selection-dialog="onCloseParticipationSelectionDialog"
+    />
   </v-card>
 </template>
 
@@ -50,12 +57,21 @@ import { Component, Vue } from 'vue-property-decorator';
 import RemoteServices from '@/services/RemoteServices';
 import Activity from '@/models/activity/Activity';
 import Enrollment from '@/models/enrollment/Enrollment';
+import ParticipationSelectionDialog from './ParticipationSelectionDialog.vue';
 
-@Component({})
+@Component({
+  components: {
+    'participation-selection-dialog': ParticipationSelectionDialog,
+  },
+})
 export default class InstitutionActivityEnrollmentsView extends Vue {
   activity!: Activity;
   enrollments: Enrollment[] = [];
   search: string = '';
+
+  currentEnrollment: Enrollment | null = null;
+  participationSelectionDialog: boolean = false;
+
 
   headers: object = [
     {
@@ -111,8 +127,20 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
     this.$router.push({ name: 'institution-activities' }).catch(() => {});
   }
 
-  createParticipation(enrollment: Enrollment) {
+  newParticipant(enrollment: Enrollment) {
+    this.currentEnrollment = enrollment;
+    this.participationSelectionDialog = true;
+  }
 
+  onSelectParticipant(enrollment: Enrollment) {
+    // TODO: other logic
+    this.participationSelectionDialog = false;
+    this.currentEnrollment = null;
+  }
+
+  onCloseParticipationSelectionDialog() {
+    this.currentEnrollment = null;
+    this.participationSelectionDialog = false;
   }
 }
 </script>

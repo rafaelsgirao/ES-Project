@@ -15,7 +15,7 @@
             :rules="[
               (v) =>
                 validateRating(v) ||
-                'Rating between 1 and 5 is required',
+                'Rating between 1 and 5 or it can be left empty',
             ]"
             v-model="selectParticipant.rating"
             data-cy="ratingInput"
@@ -44,14 +44,16 @@
   </v-dialog>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop, Model } from 'vue-property-decorator';
 import Participation from '@/models/participation/Participation';
 import RemoteServices from '@/services/RemoteServices';
+import Enrollment from '@/models/enrollment/Enrollment';
 
 @Component({})
 
 export default class ParticipationSelectionDialog extends Vue {
-  dialog: boolean = false;
+  @Model('dialog', Boolean) dialog!: boolean;
+  @Prop({ type: Enrollment, required: true }) readonly enrollment!: Enrollment;
 
   selectParticipant: Participation = new Participation();
 
@@ -63,7 +65,7 @@ export default class ParticipationSelectionDialog extends Vue {
   }
 
   createParticipation() {
-    // TODO: RemoteService method to create a participation
+    // TODO: method to create a participation
   }
 }
 </script>
