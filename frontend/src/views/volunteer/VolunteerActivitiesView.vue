@@ -40,7 +40,7 @@
             </template>
             <span>Report Activity</span>
           </v-tooltip>
-          <v-tooltip v-if="availableToEnroll()" bottom>
+          <v-tooltip v-if="availableToEnroll(item)" bottom>
             <template v-slot:activator="{ on }">
               <v-icon
                 class="mr-2 action-button"
@@ -99,6 +99,7 @@ export default class VolunteerActivitiesView extends Vue {
   activities: Activity[] = [];
   volunteerParticipations: Participation[] = [];
   volunteerAssessments: Assessment[] = [];
+  volunteerEnrollments: Enrollment[] = [];
   search: string = '';
 
   currentEnrollment: Enrollment | null = null;
@@ -175,6 +176,7 @@ export default class VolunteerActivitiesView extends Vue {
     await this.$store.dispatch('loading');
     try {
       this.activities = await RemoteServices.getActivities();
+      this.volunteerEnrollments = await RemoteServices.getVolunteerEnrollments();
       this.volunteerParticipations = await RemoteServices.getVolunteerParticipations();
       this.volunteerAssessments = await RemoteServices.getVolunteerAssessments();
     } catch (error) {
@@ -203,8 +205,12 @@ export default class VolunteerActivitiesView extends Vue {
     this.editEnrollmentDialog = true;
   }
 
-  availableToEnroll(): boolean {
-    return true;
+  availableToEnroll(activity: Activity): boolean {
+    if (!this.volunteerEnrollments) {
+      return true;
+    }
+    const enrolled = this.volunteerEnrollments.some(enrollment => enrollment.activityId === activity.id);
+    return !enrolled;
   }
 
   activityHasEnded(activity: Activity) {
