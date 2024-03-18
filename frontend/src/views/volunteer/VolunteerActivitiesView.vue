@@ -177,7 +177,8 @@ export default class VolunteerActivitiesView extends Vue {
       return true;
     }
     const enrolled = this.volunteerEnrollments.some(enrollment => enrollment.activityId === activity.id);
-    return !enrolled;
+    const expired = new Date(activity.applicationDeadline) < new Date();
+    return !enrolled && !expired;
   }
 }
 </script>
