@@ -47,9 +47,13 @@
       v-model="participationSelectionDialog"
       :enrollment="currentEnrollment"
       v-on:select-participant="onSelectParticipant"
+<<<<<<< HEAD
       v-on:close-participation-selection-dialog="
         onCloseParticipationSelectionDialog
       "
+=======
+      v-on:close-participation-selection-dialog="onCloseParticipationSelectionDialog"
+>>>>>>> 787824a (fix: ParticipationSelectionDialog pops up when 'Select participant' button is clicked.)
     />
   </v-card>
 </template>
@@ -74,6 +78,10 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
   currentEnrollment: Enrollment | null = null;
   participationSelectionDialog: boolean = false;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 787824a (fix: ParticipationSelectionDialog pops up when 'Select participant' button is clicked.)
   headers: object = [
     {
       text: 'Volunteer Name',
@@ -133,7 +141,11 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
     this.participationSelectionDialog = true;
   }
 
+<<<<<<< HEAD
   onSelectParticipant() {
+=======
+  onSelectParticipant(enrollment: Enrollment) {
+>>>>>>> 787824a (fix: ParticipationSelectionDialog pops up when 'Select participant' button is clicked.)
     // TODO: other logic
     this.participationSelectionDialog = false;
     this.currentEnrollment = null;
