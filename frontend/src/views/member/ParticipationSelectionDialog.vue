@@ -1,46 +1,46 @@
 <template>
   <v-dialog v-model="dialog" persistent width="1300">
     <v-card>
-        <v-card-title>
-           <span class="headline">
-            {{ 'Select Participant' }}
-          </span>
-        </v-card-title>
+      <v-card-title>
+        <span class="headline">
+          {{ 'Select Participant' }}
+        </span>
+      </v-card-title>
+      <v-card-text>
+        <v-form ref="form" lazy-validation>
+          <v-row>
+            <v-text-field
+              label="Rating"
+              :rules="[
+                (v) =>
+                  validateRating(v) ||
+                  'Rating between 1 and 5 or it can be left empty',
+              ]"
+              v-model="selectParticipant.rating"
+              data-cy="ratingInput"
+            ></v-text-field>
+          </v-row>
+        </v-form>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+          color="blue darken-1"
+          variant="text"
+          @click="$emit('close-participation-selection-dialog')"
+        >
+          Close
+        </v-btn>
+        <v-btn
+          color="blue darken-1"
+          variant="text"
+          @click="createParticipation"
+          data-cy="selectParticipant"
+        >
+          Make Participant
+        </v-btn>
+      </v-card-actions>
     </v-card>
-    <v-card-text>
-      <v-form ref="form" lazy-validation>
-        <v-row>
-          <v-text-field
-            label="Rating"
-            :rules="[
-              (v) =>
-                validateRating(v) ||
-                'Rating between 1 and 5 or it can be left empty',
-            ]"
-            v-model="selectParticipant.rating"
-            data-cy="ratingInput"
-          ></v-text-field>
-        </v-row>
-      </v-form>
-    </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn
-        color="blue darken-1"
-        variant="text"
-        @click="$emit('close-participation-selection-dialog')"
-      >
-        Close
-      </v-btn>
-      <v-btn
-        color="blue darken-1"
-        variant="text"
-        @click="createParticipation"
-        data-cy="selectParticipant"
-      >
-        Make Participant
-      </v-btn>
-    </v-card-actions>
   </v-dialog>
 </template>
 <script lang="ts">
@@ -50,7 +50,6 @@ import RemoteServices from '@/services/RemoteServices';
 import Enrollment from '@/models/enrollment/Enrollment';
 
 @Component({})
-
 export default class ParticipationSelectionDialog extends Vue {
   @Model('dialog', Boolean) dialog!: boolean;
   @Prop({ type: Enrollment, required: true }) readonly enrollment!: Enrollment;
@@ -58,16 +57,21 @@ export default class ParticipationSelectionDialog extends Vue {
   selectParticipant: Participation = new Participation();
 
   validateRating(value: any) {
-    if((value > 0 && value < 6) || value === null || value === undefined) {
+    if ((value > 0 && value < 6) || value === null || value === undefined) {
       return true;
     }
     return false;
   }
 
-  createParticipation() {
-    // TODO: method to create a participation
+  async createParticipation() {
+    try {
+      await RemoteServices.createParticipation();
+      this.$emit('select-participant');
+    } catch (error) {
+      await this.$store.dispatch('error', error);
+    }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss"></style>
