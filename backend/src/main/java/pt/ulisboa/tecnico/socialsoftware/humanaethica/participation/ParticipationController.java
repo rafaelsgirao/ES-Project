@@ -12,20 +12,26 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController()
-@RequestMapping(value = "/activities/{activityId}/participations")
+@RequestMapping(value = "/participations")
 public class ParticipationController {
     @Autowired
     ParticipationService participationService;
 
-    @GetMapping()
+    @GetMapping("/activities/{activityId}")
     @PreAuthorize("(hasRole('ROLE_MEMBER')) and hasPermission(#activityId, 'ACTIVITY.MEMBER')")
     public List<ParticipationDto> getActivityParticipations(@PathVariable Integer activityId) {
         return participationService.getParticipationsByActivity(activityId);
     }
 
-    @PostMapping()
+    @PostMapping("/create")
     @PreAuthorize("(hasRole('ROLE_MEMBER')) and hasPermission(#activityId, 'ACTIVITY.MEMBER')")
     public ParticipationDto createParticipation(Principal principal, @PathVariable Integer activityId, @Valid @RequestBody ParticipationDto participationDto) {
         return participationService.createParticipation(activityId, participationDto);
+    }
+
+    @GetMapping("/volunteer")
+    public List<ParticipationDto> getVolunteerParticipations(Principal principal) {
+        AuthUser authUser = (AuthUser) ((Authentication) principal).getPrincipal();
+        return participationService.getVolunteerParticipations(authUser.getUser().getId());
     }
 }
