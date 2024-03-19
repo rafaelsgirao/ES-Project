@@ -50,7 +50,7 @@ class GetParticipationsByActivityWebServiceIT extends SpockTest {
 
         when:
         def response = webClient.get()
-                .uri('/activities/' + activity.id + '/participations')
+                .uri('/participations/activities/' + activity.id)
                 .headers(httpHeaders -> httpHeaders.putAll(headers))
                 .retrieve()
                 .bodyToFlux(ParticipationDto.class)
@@ -72,7 +72,7 @@ class GetParticipationsByActivityWebServiceIT extends SpockTest {
 
         when:
        webClient.get()
-                .uri('/activities/' + activity.id + '/participations')
+                .uri('/participations/activities/' + activity.id)
                 .headers(httpHeaders -> httpHeaders.putAll(headers))
                 .retrieve()
                 .bodyToFlux(ParticipationDto.class)
@@ -90,7 +90,7 @@ class GetParticipationsByActivityWebServiceIT extends SpockTest {
 
         when:
         webClient.get()
-                .uri('/activities/' + activity.id + '/participations')
+                .uri('/participations/activities/' + activity.id)
                 .headers(httpHeaders -> httpHeaders.putAll(headers))
                 .retrieve()
                 .bodyToFlux(ParticipationDto.class)
@@ -108,7 +108,7 @@ class GetParticipationsByActivityWebServiceIT extends SpockTest {
 
         when:
         def response = webClient.get()
-                .uri('/activities/' + activity.id + '/participations')
+                .uri('/participations/activities/' + activity.id)
                 .headers(httpHeaders -> httpHeaders.putAll(headers))
                 .retrieve()
                 .bodyToFlux(ParticipationDto.class)
@@ -126,7 +126,7 @@ class GetParticipationsByActivityWebServiceIT extends SpockTest {
 
         when:
         def response = webClient.get()
-                .uri('/activities/' + 222 + '/participations')
+                .uri('/participations/activities/' + 222)
                 .headers(httpHeaders -> httpHeaders.putAll(headers))
                 .retrieve()
                 .bodyToFlux(ParticipationDto.class)
