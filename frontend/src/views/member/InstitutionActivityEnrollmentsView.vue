@@ -47,7 +47,9 @@
       v-model="participationSelectionDialog"
       :enrollment="currentEnrollment"
       v-on:select-participant="onSelectParticipant"
-      v-on:close-participation-selection-dialog="onCloseParticipationSelectionDialog"
+      v-on:close-participation-selection-dialog="
+        onCloseParticipationSelectionDialog
+      "
     />
   </v-card>
 </template>
@@ -71,7 +73,6 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
 
   currentEnrollment: Enrollment | null = null;
   participationSelectionDialog: boolean = false;
-
 
   headers: object = [
     {
@@ -104,7 +105,7 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
       align: 'left',
       sortable: false,
       width: '5%',
-    }
+    },
   ];
 
   async created() {
@@ -132,7 +133,7 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
     this.participationSelectionDialog = true;
   }
 
-  onSelectParticipant(enrollment: Enrollment) {
+  onSelectParticipant() {
     // TODO: other logic
     this.participationSelectionDialog = false;
     this.currentEnrollment = null;

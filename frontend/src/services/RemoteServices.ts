@@ -602,9 +602,7 @@ export default class RemoteServices {
       });
   }
 
-  static async createParticipation() {
-    
-  }
+  static async createParticipation() {}
 
   // Error
 
