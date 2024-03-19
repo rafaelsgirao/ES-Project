@@ -483,7 +483,35 @@ export default class RemoteServices {
       });
   }
 
+  // Participant Controller
+
+  static async getVolunteerParticipations() {
+    return httpClient
+      .get('/participants/volunteer')
+      .then((response) => {
+        return response.data.map((enrollment: any) => {
+          return new Enrollment(enrollment);
+        });
+      })
+      .catch(async (error) => {
+        throw Error(await this.errorMessage(error));
+      });
+  }
+
   // Assessment Controller
+
+  static async getVolunteerAssessments() {
+    return httpClient
+      .get('/assessments/volunteer')
+      .then((response) => {
+        return response.data.map((assessment: any) => {
+          return new Assessment(assessment);
+        });
+      })
+      .catch(async (error) => {
+        throw Error(await this.errorMessage(error));
+      });
+  }
 
   static async getInstitutionAssessments(
     institutionId: number | null,
