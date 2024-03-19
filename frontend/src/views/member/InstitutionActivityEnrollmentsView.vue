@@ -48,12 +48,18 @@
       :enrollment="currentEnrollment"
       v-on:select-participant="onSelectParticipant"
 <<<<<<< HEAD
+<<<<<<< HEAD
       v-on:close-participation-selection-dialog="
         onCloseParticipationSelectionDialog
       "
 =======
       v-on:close-participation-selection-dialog="onCloseParticipationSelectionDialog"
 >>>>>>> 787824a (fix: ParticipationSelectionDialog pops up when 'Select participant' button is clicked.)
+=======
+      v-on:close-participation-selection-dialog="
+        onCloseParticipationSelectionDialog
+      "
+>>>>>>> 03a134b (fix: prettier warnings)
     />
   </v-card>
 </template>
@@ -79,9 +85,12 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
   participationSelectionDialog: boolean = false;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 787824a (fix: ParticipationSelectionDialog pops up when 'Select participant' button is clicked.)
+=======
+>>>>>>> 03a134b (fix: prettier warnings)
   headers: object = [
     {
       text: 'Volunteer Name',
@@ -142,10 +151,14 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   onSelectParticipant() {
 =======
   onSelectParticipant(enrollment: Enrollment) {
 >>>>>>> 787824a (fix: ParticipationSelectionDialog pops up when 'Select participant' button is clicked.)
+=======
+  onSelectParticipant() {
+>>>>>>> 03a134b (fix: prettier warnings)
     // TODO: other logic
     this.participationSelectionDialog = false;
     this.currentEnrollment = null;
