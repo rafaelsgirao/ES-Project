@@ -40,7 +40,7 @@
             </template>
             <span>Report Activity</span>
           </v-tooltip>
-          <v-tooltip bottom>
+          <v-tooltip v-if="activityHasEnded(item)" bottom>
             <template v-slot:activator="{ on }">
               <v-icon
                 class="mr-2 action-button"
@@ -157,6 +157,10 @@ export default class VolunteerActivitiesView extends Vue {
         await this.$store.dispatch('error', error);
       }
     }
+  }
+
+  activityHasEnded(activity: Activity) {
+    return new Date(activity.endingDate) < new Date();
   }
 }
 </script>
