@@ -602,6 +602,10 @@ export default class RemoteServices {
       });
   }
 
+  static async createParticipation() {
+    
+  }
+
   // Error
 
   static async errorMessage(error: any): Promise<string> {
