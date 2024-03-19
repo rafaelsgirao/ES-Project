@@ -46,7 +46,7 @@ class GetAssessmentsByInstitutionWebServiceIT extends SpockTest {
     def 'non authenticated user gets two assessment'() {
         when:
         def response = webClient.get()
-                .uri('/institutions/' + institution.id + '/assessments')
+                .uri('/assessments/institutions/' + institution.id)
                 .headers(httpHeaders -> httpHeaders.putAll(headers))
                 .retrieve()
                 .bodyToFlux(AssessmentDto.class)
@@ -64,7 +64,7 @@ class GetAssessmentsByInstitutionWebServiceIT extends SpockTest {
     def 'institution does not exist'() {
         when:
         def response = webClient.get()
-                .uri('/institutions/' + '222' + '/assessments')
+                .uri('/assessments/institutions/' + 222)
                 .headers(httpHeaders -> httpHeaders.putAll(headers))
                 .retrieve()
                 .bodyToFlux(AssessmentDto.class)

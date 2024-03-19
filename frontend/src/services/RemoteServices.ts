@@ -489,7 +489,7 @@ export default class RemoteServices {
     institutionId: number | null,
   ): Promise<Assessment[]> {
     return httpClient
-      .get(`/institutions/${institutionId}/assessments`)
+      .get(`/assessments/institutions/${institutionId}`)
       .then((response) => {
         return response.data.map((assessment: any) => {
           return new Assessment(assessment);
