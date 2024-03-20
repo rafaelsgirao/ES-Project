@@ -470,9 +470,9 @@ export default class RemoteServices {
 
   // Enrollment controller
 
-  static async createEnrollment(enrollment: Enrollment) {
+  static async createEnrollment(activityId:number, enrollment: Enrollment) {
     return httpClient
-      .post('/enrollments', enrollment)
+      .post(`/activities/${activityId}/enrollments`, enrollment)
       .then((response) => {
         return new Enrollment(response.data);
       })

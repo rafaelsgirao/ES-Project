@@ -47,7 +47,7 @@
                 color="blue"
                 v-on="on"
                 data-cy="applyButton"
-                @click="applyForActivity()"
+                @click="applyForActivity(item)"
                 >fas fa-right-to-bracket</v-icon
               >
             </template>
@@ -59,6 +59,7 @@
         v-if="currentEnrollment && editEnrollmentDialog"
         v-model="editEnrollmentDialog"
         :enrollment="currentEnrollment"
+        :activity="currentActivity"
         v-on:save-enrollment="onSaveEnrollment"
         v-on:close-enrollment-dialog="onCloseEnrollmentDialog"
       />
@@ -85,6 +86,7 @@ export default class VolunteerActivitiesView extends Vue {
   search: string = '';
   volunteerEnrollments: Enrollment[] = [];
 
+  currentActivity: Activity | null = null;
   currentEnrollment: Enrollment | null = null;
   editEnrollmentDialog: boolean = false;
 
@@ -178,8 +180,9 @@ export default class VolunteerActivitiesView extends Vue {
     }
   }
 
-  async applyForActivity() {
+  async applyForActivity(activity: Activity) {
     this.currentEnrollment = new Enrollment();
+    this.currentActivity = activity;
     this.editEnrollmentDialog = true;
   }
 
@@ -189,7 +192,7 @@ export default class VolunteerActivitiesView extends Vue {
   }
 
   async onSaveEnrollment(enrollment: Enrollment) {
-    
+    this.volunteerEnrollments.unshift(enrollment);
     this.editEnrollmentDialog = false;
     this.currentEnrollment = null;
   }
