@@ -47,6 +47,7 @@
                 color="blue"
                 v-on="on"
                 data-cy="writeAssessmentButton"
+                @click="writeAssessment()"
                 >create</v-icon
               >
             </template>
@@ -54,6 +55,11 @@
           </v-tooltip>
         </template>
       </v-data-table>
+      <assessment-dialog
+        v-if="newAssessmentDialog"
+        v-model="newAssessmentDialog"
+        v-on:close-assessment-dialog="onCloseAssessmentDialog"
+      />
     </v-card>
   </div>
 </template>
@@ -64,9 +70,13 @@ import RemoteServices from '@/services/RemoteServices';
 import Activity from '@/models/activity/Activity';
 import Participation from '@/models/participation/Participation';
 import Assessment from '@/models/assessment/Assessment';
+import AssessmentDialog from '@/views/volunteer/AssessmentDialog.vue';
 import { show } from 'cli-cursor';
 
 @Component({
+  components: {
+    'assessment-dialog': AssessmentDialog,
+  },
   methods: { show },
 })
 export default class VolunteerActivitiesView extends Vue {
@@ -74,6 +84,8 @@ export default class VolunteerActivitiesView extends Vue {
   volunteerParticipations: Participation[] = [];
   volunteerAssessments: Assessment[] = [];
   search: string = '';
+
+  newAssessmentDialog: boolean = false;
   headers: object = [
     {
       text: 'Name',
@@ -175,6 +187,14 @@ export default class VolunteerActivitiesView extends Vue {
 
   volunteerHasAssessedInstitution(activity: Activity) {
     return this.volunteerAssessments.some((a) => a.institutionId === activity.institution.id);
+  }
+
+  writeAssessment() {
+    this.newAssessmentDialog = true;
+  }
+
+  onCloseAssessmentDialog() {
+    this.newAssessmentDialog = false;
   }
 }
 </script>
