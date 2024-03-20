@@ -58,7 +58,16 @@
     }
   
     async createEnrollment() {
+      try {
+        if (this.isValid) {
+          const result = await RemoteServices.createEnrollment(this.editEnrollment);
+          this.$emit('save-enrollment', result);
+          
+        }
+      } catch (error) {
+        console.error('Error creating enrollment:', error);
       
+      }
     }
   }
   </script>
