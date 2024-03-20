@@ -54,7 +54,7 @@
     editEnrollment: Enrollment = new Enrollment();
   
     get isValid(): boolean {
-      return true;
+      return !!this.editEnrollment.motivation && this.editEnrollment.motivation.length >= 10;
     }
   
     async createEnrollment() {
