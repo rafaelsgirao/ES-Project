@@ -131,8 +131,7 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
     this.participationSelectionDialog = true;
   }
 
-  onSelectParticipant(enrollment: Enrollment) {
-    // TODO: other logic
+  onSelectParticipant() {
     this.participationSelectionDialog = false;
     this.currentEnrollment = null;
   }
