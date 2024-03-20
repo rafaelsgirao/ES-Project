@@ -64,8 +64,12 @@ export default class ParticipationSelectionDialog extends Vue {
 
   async createParticipation() {
     try {
-      await RemoteServices.createParticipation();
-      this.$emit('select-participant');
+      this.selectParticipant.volunteerId = this.enrollment.volunteer.id;
+      const result = await RemoteServices.createParticipation(
+        this.$store.getters.getActivity.id,
+        this.selectParticipant);
+      this.$emit('select-participant', result);
+      console.log(result.id);
     } catch (error) {
       await this.$store.dispatch('error', error);
     }
