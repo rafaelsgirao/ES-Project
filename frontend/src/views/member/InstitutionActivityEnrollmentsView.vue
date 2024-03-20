@@ -29,7 +29,10 @@
         </v-card-title>
       </template>
       <template v-slot:[`item.action`]="{ item }">
-        <v-tooltip bottom>
+        <v-tooltip
+          v-if="!item.participating && availableParticipationSlots()"
+          bottom
+        >
           <template v-slot:activator="{ on }">
             <v-icon
               class="mr-2 action-button"
@@ -47,7 +50,9 @@
       v-model="participationSelectionDialog"
       :enrollment="currentEnrollment"
       v-on:select-participant="onSelectParticipant"
-      v-on:close-participation-selection-dialog="onCloseParticipationSelectionDialog"
+      v-on:close-participation-selection-dialog="
+        onCloseParticipationSelectionDialog
+      "
     />
   </v-card>
 </template>
@@ -103,7 +108,7 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
       align: 'left',
       sortable: false,
       width: '5%',
-    }
+    },
   ];
 
   async created() {
@@ -140,6 +145,14 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
     this.currentEnrollment = null;
     this.participationSelectionDialog = false;
   }
+  availableParticipationSlots(): boolean {
+    let participationsCount = this.enrollments.filter(
+      (enrollment: Enrollment) => enrollment.participating,
+    ).length;
+    return participationsCount < this.activity.participantsNumberLimit;
+  }
+
+  createParticipation(enrollment: Enrollment) {}
 }
 </script>
 
