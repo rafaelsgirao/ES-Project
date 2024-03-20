@@ -43,30 +43,36 @@
   </template>
   
   <script lang="ts">
-  import { Vue, Component, Model } from 'vue-property-decorator';
+  import { Vue, Component, Model, Prop } from 'vue-property-decorator';
   import Enrollment from '@/models/enrollment/Enrollment'; 
+  import Activity from '@/models/activity/Activity';
   import RemoteServices from '@/services/RemoteServices';
   
   @Component
   export default class EnrollmentDialog extends Vue {
     @Model('dialog', Boolean) dialog!: boolean;
+    @Prop({ type: Enrollment, required: true }) readonly enrollment!: Enrollment;
+    @Prop({ type: Activity, required: true }) readonly activity!: Activity;
   
     editEnrollment: Enrollment = new Enrollment();
   
     get isValid(): boolean {
       return !!this.editEnrollment.motivation && this.editEnrollment.motivation.length >= 10;
     }
+
+    async created() {
+      this.editEnrollment = new Enrollment(this.enrollment);
+    }
   
     async createEnrollment() {
       try {
-        if (this.isValid) {
-          const result = await RemoteServices.createEnrollment(this.editEnrollment);
+        if (this.isValid && this.activity.id) {
+          const result = await RemoteServices.createEnrollment(this.activity.id, this.editEnrollment);
           this.$emit('save-enrollment', result);
           
         }
       } catch (error) {
         console.error('Error creating enrollment:', error);
-      
       }
     }
   }
