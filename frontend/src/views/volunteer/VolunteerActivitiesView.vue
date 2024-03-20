@@ -215,9 +215,14 @@ export default class VolunteerActivitiesView extends Vue {
   }
 
   onCloseEnrollmentDialog() {
+    this.currentEnrollment = null;
+    this.editEnrollmentDialog = false;
   }
 
   async onSaveEnrollment(enrollment: Enrollment) {
+    
+    this.editEnrollmentDialog = false;
+    this.currentEnrollment = null;
   }
 
   availableToEnroll(activity: Activity): boolean {
