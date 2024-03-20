@@ -80,4 +80,4 @@ export default class ParticipationSelectionDialog extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="scss"></style>
