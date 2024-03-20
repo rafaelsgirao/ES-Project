@@ -55,6 +55,13 @@
           </v-tooltip>
         </template>
       </v-data-table>
+      <enrollment-dialog
+        v-if="currentEnrollment && editEnrollmentDialog"
+        v-model="editEnrollmentDialog"
+        :enrollment="currentEnrollment"
+        v-on:save-enrollment="onSaveEnrollment"
+        v-on:close-enrollment-dialog="onCloseEnrollmentDialog"
+      />
     </v-card>
   </div>
 </template>
@@ -65,8 +72,12 @@ import RemoteServices from '@/services/RemoteServices';
 import Activity from '@/models/activity/Activity';
 import Enrollment from '@/models/enrollment/Enrollment';
 import { show } from 'cli-cursor';
+import EnrollmentDialog from './EnrollmentDialog.vue';
 
 @Component({
+  components: {
+    'enrollment-dialog': EnrollmentDialog,
+  },
   methods: { show },
 })
 export default class VolunteerActivitiesView extends Vue {
@@ -170,6 +181,12 @@ export default class VolunteerActivitiesView extends Vue {
   async applyForActivity() {
     this.currentEnrollment = new Enrollment();
     this.editEnrollmentDialog = true;
+  }
+
+  onCloseEnrollmentDialog() {
+  }
+
+  async onSaveEnrollment(enrollment: Enrollment) {
   }
 
   availableToEnroll(activity: Activity): boolean {
