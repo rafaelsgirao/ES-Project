@@ -484,7 +484,7 @@ export default class RemoteServices {
       });
   }
 
-  // Participantions Controller
+  // Participation Controller
 
   static async getVolunteerParticipations() {
     return httpClient
