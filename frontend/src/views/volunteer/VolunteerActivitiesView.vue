@@ -40,7 +40,7 @@
             </template>
             <span>Report Activity</span>
           </v-tooltip>
-          <v-tooltip v-if="activityHasEnded(item)" bottom>
+          <v-tooltip v-if="activityHasEnded(item) && volunteerHasParticipated(item)" bottom>
             <template v-slot:activator="{ on }">
               <v-icon
                 class="mr-2 action-button"
@@ -62,6 +62,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import RemoteServices from '@/services/RemoteServices';
 import Activity from '@/models/activity/Activity';
+import Participation from '@/models/participation/Participation';
 import { show } from 'cli-cursor';
 
 @Component({
@@ -69,6 +70,7 @@ import { show } from 'cli-cursor';
 })
 export default class VolunteerActivitiesView extends Vue {
   activities: Activity[] = [];
+  volunteerParticipations: Participation[] = [];
   search: string = '';
   headers: object = [
     {
@@ -138,6 +140,7 @@ export default class VolunteerActivitiesView extends Vue {
     await this.$store.dispatch('loading');
     try {
       this.activities = await RemoteServices.getActivities();
+      this.volunteerParticipations = await RemoteServices.getVolunteerParticipations();
     } catch (error) {
       await this.$store.dispatch('error', error);
     }
@@ -161,6 +164,10 @@ export default class VolunteerActivitiesView extends Vue {
 
   activityHasEnded(activity: Activity) {
     return new Date(activity.endingDate) < new Date();
+  }
+
+  volunteerHasParticipated(activity: Activity) {
+    return this.volunteerParticipations.some((p) => p.activityId === activity.id);
   }
 }
 </script>
