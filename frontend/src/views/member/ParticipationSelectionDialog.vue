@@ -56,7 +56,11 @@ export default class ParticipationSelectionDialog extends Vue {
   selectParticipant: Participation = new Participation();
 
   validateRating(value: any) {
-    return true;
+    if((value > 0 && value < 6) || value == '' || value == undefined || value == null) {
+      return true;
+    }
+    return false;
+
   }
 
   createParticipation() {
