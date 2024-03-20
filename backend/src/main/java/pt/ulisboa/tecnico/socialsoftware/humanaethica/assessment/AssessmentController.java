@@ -30,6 +30,7 @@ public class AssessmentController {
     }
 
     @GetMapping("/volunteer")
+    @PreAuthorize("(hasRole('ROLE_VOLUNTEER'))")
     public List<AssessmentDto> getVolunteerAssessments(Principal principal) {
         AuthUser authUser = (AuthUser) ((Authentication) principal).getPrincipal();
         return assessmentService.getVolunteerAssessments(authUser.getUser().getId());
