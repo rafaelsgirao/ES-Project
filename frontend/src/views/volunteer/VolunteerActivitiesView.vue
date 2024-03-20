@@ -40,7 +40,7 @@
             </template>
             <span>Report Activity</span>
           </v-tooltip>
-          <v-tooltip v-if="activityHasEnded(item) && volunteerHasParticipated(item)" bottom>
+          <v-tooltip v-if="activityHasEnded(item) && volunteerHasParticipated(item) && !volunteerHasAssessedInstitution(item)" bottom>
             <template v-slot:activator="{ on }">
               <v-icon
                 class="mr-2 action-button"
@@ -63,6 +63,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import RemoteServices from '@/services/RemoteServices';
 import Activity from '@/models/activity/Activity';
 import Participation from '@/models/participation/Participation';
+import Assessment from '@/models/assessment/Assessment';
 import { show } from 'cli-cursor';
 
 @Component({
@@ -71,6 +72,7 @@ import { show } from 'cli-cursor';
 export default class VolunteerActivitiesView extends Vue {
   activities: Activity[] = [];
   volunteerParticipations: Participation[] = [];
+  volunteerAssessments: Assessment[] = [];
   search: string = '';
   headers: object = [
     {
@@ -141,6 +143,7 @@ export default class VolunteerActivitiesView extends Vue {
     try {
       this.activities = await RemoteServices.getActivities();
       this.volunteerParticipations = await RemoteServices.getVolunteerParticipations();
+      this.volunteerAssessments = await RemoteServices.getVolunteerAssessments();
     } catch (error) {
       await this.$store.dispatch('error', error);
     }
@@ -168,6 +171,10 @@ export default class VolunteerActivitiesView extends Vue {
 
   volunteerHasParticipated(activity: Activity) {
     return this.volunteerParticipations.some((p) => p.activityId === activity.id);
+  }
+
+  volunteerHasAssessedInstitution(activity: Activity) {
+    return this.volunteerAssessments.some((a) => a.institutionId === activity.institution.id);
   }
 }
 </script>

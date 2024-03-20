@@ -4,12 +4,14 @@ export default class Assessment {
   id: number | null = null;
   review!: string;
   reviewDate!: string;
+  institutionId!: number;
 
   constructor(jsonObj?: Assessment) {
     if (jsonObj) {
       this.id = jsonObj.id;
       this.review = jsonObj.review;
       this.reviewDate = ISOtoString(jsonObj.reviewDate);
+      this.institutionId = jsonObj.institutionId;
     }
   }
 }
