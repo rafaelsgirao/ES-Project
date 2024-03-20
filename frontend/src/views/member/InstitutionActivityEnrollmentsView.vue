@@ -43,7 +43,7 @@
       </template>
     </v-data-table>
     <participation-selection-dialog
-      v-if="participationSelectionDialog"
+      v-if="currentEnrollment && participationSelectionDialog"
       v-model="participationSelectionDialog"
       :enrollment="currentEnrollment"
       v-on:select-participant="onSelectParticipant"

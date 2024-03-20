@@ -486,6 +486,17 @@ export default class RemoteServices {
 
   // Participation Controller
 
+  static async createParticipation(activityId: number, participant: Participation) {
+    return httpClient
+      .post(`/participations/activities/${activityId}`, participant)
+      .then((response) => {
+        return new Participation(response.data);
+      })
+      .catch(async (error) => {
+        throw Error(await this.errorMessage(error));
+      });
+  }
+
   static async getVolunteerParticipations() {
     return httpClient
       .get('/participations/volunteer')
