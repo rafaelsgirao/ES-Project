@@ -13,6 +13,7 @@ import AuthPasswordDto from '@/models/user/AuthPasswordDto';
 import Theme from '@/models/theme/Theme';
 import Enrollment from '@/models/enrollment/Enrollment';
 import Assessment from '@/models/assessment/Assessment';
+import Participation from '@/models/participation/Participation';
 
 const httpClient = axios.create();
 httpClient.defaults.timeout = 100000;
@@ -483,14 +484,14 @@ export default class RemoteServices {
       });
   }
 
-  // Participant Controller
+  // Participantions Controller
 
   static async getVolunteerParticipations() {
     return httpClient
-      .get('/participants/volunteer')
+      .get('/participations/volunteer')
       .then((response) => {
-        return response.data.map((enrollment: any) => {
-          return new Enrollment(enrollment);
+        return response.data.map((participation: any) => {
+          return new Participation(participation);
         });
       })
       .catch(async (error) => {
