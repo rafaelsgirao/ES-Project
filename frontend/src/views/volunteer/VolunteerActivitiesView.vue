@@ -68,6 +68,13 @@
           </v-tooltip>
         </template>
       </v-data-table>
+      <enrollment-dialog
+        v-if="currentEnrollment && editEnrollmentDialog"
+        v-model="editEnrollmentDialog"
+        :enrollment="currentEnrollment"
+        v-on:save-enrollment="onSaveEnrollment"
+        v-on:close-enrollment-dialog="onCloseEnrollmentDialog"
+      />
       <assessment-dialog
         v-if="newAssessmentDialog && currentActivity"
         v-model="newAssessmentDialog"
@@ -88,9 +95,11 @@ import Participation from '@/models/participation/Participation';
 import Assessment from '@/models/assessment/Assessment';
 import AssessmentDialog from '@/views/volunteer/AssessmentDialog.vue';
 import { show } from 'cli-cursor';
+import EnrollmentDialog from './EnrollmentDialog.vue';
 
 @Component({
   components: {
+    'enrollment-dialog': EnrollmentDialog,
     'assessment-dialog': AssessmentDialog,
   },
   methods: { show },
@@ -203,6 +212,12 @@ export default class VolunteerActivitiesView extends Vue {
   async applyForActivity() {
     this.currentEnrollment = new Enrollment();
     this.editEnrollmentDialog = true;
+  }
+
+  onCloseEnrollmentDialog() {
+  }
+
+  async onSaveEnrollment(enrollment: Enrollment) {
   }
 
   availableToEnroll(activity: Activity): boolean {
