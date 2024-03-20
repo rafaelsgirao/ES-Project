@@ -36,6 +36,7 @@
           variant="text"
           @click="createParticipation"
           data-cy="selectParticipant"
+          :disabled="!validateRating(selectParticipant.rating)"
         >
           Make Participant
         </v-btn>
@@ -57,7 +58,7 @@ export default class ParticipationSelectionDialog extends Vue {
   selectParticipant: Participation = new Participation();
 
   validateRating(value: any) {
-    if ((value > 0 && value < 6) || value === null || value === undefined) {
+    if ((value > 0 && value < 6) || value === null || value === '' || value == undefined) {
       return true;
     }
     return false;
