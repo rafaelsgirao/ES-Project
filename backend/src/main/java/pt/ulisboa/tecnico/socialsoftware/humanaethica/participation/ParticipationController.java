@@ -30,6 +30,7 @@ public class ParticipationController {
     }
 
     @GetMapping("/volunteer")
+    @PreAuthorize("(hasRole('ROLE_VOLUNTEER'))")
     public List<ParticipationDto> getVolunteerParticipations(Principal principal) {
         AuthUser authUser = (AuthUser) ((Authentication) principal).getPrincipal();
         return participationService.getVolunteerParticipations(authUser.getUser().getId());
