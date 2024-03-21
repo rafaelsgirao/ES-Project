@@ -25,14 +25,12 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
-          color="blue darken-1"
           variant="text"
           @click="$emit('close-participation-selection-dialog')"
         >
           Close
         </v-btn>
         <v-btn
-          color="blue darken-1"
           variant="text"
           @click="createParticipation"
           data-cy="selectParticipant"
