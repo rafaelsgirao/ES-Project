@@ -24,6 +24,10 @@ dayBeforeYesterday.setDate(now.getDate() - 2);
 
 Cypress.Commands.add('deleteAllButArs', () => {
   cy.task('queryDatabase', {
+    query: "DELETE FROM ENROLLMENT",
+    credentials: credentials,
+  })
+  cy.task('queryDatabase', {
     query: "DELETE FROM ACTIVITY",
     credentials: credentials,
   })
@@ -39,10 +43,6 @@ Cypress.Commands.add('deleteAllButArs', () => {
     query: "DELETE FROM INSTITUTIONS",
     credentials: credentials,
   });
-  cy.task('queryDatabase', {
-    query: "DELETE FROM ENROLLMENT",
-    credentials: credentials,
-  })
 });
 
 Cypress.Commands.add('createDemoEntities', () => {
