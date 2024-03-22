@@ -34,6 +34,7 @@
         <v-btn 
         variant="text" 
         data-cy="writeAssessment"
+        @click="createAssessment"
         :disabled="!reviewHasAtLeastTenCharacters(newAssessment.review)">
           Save
         </v-btn>
@@ -42,13 +43,16 @@
   </v-dialog>
 </template>
 <script lang="ts">
-import { Model, Component, Vue } from 'vue-property-decorator';
+import { Model, Component, Vue, Prop } from 'vue-property-decorator';
 import Assessment from '@/models/assessment/Assessment';
+import RemoteServices from '@/services/RemoteServices';
+import Activity from '@/models/activity/Activity';
 
 @Component({})
 
 export default class AssessmentDialog extends Vue {
   @Model('dialog', Boolean) dialog!: boolean;
+  @Prop({ type: Activity, required: true }) readonly activity!: Activity;
 
   newAssessment: Assessment = new Assessment();
 
@@ -58,6 +62,20 @@ export default class AssessmentDialog extends Vue {
     }
   }
 
+  async createAssessment() {
+    try {
+      // check if institution is set
+      if(this.activity.institution.id){
+        this.newAssessment.institutionId = this.activity.institution.id;
+      }
+      const result = await RemoteServices.createAssessment(
+        this.newAssessment.institutionId,
+        this.newAssessment);
+      this.$emit('create-assessment', result);
+    } catch (error) {
+      await this.$store.dispatch('error', error);
+    }
+  }
 }
 </script>
 

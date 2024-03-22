@@ -47,7 +47,7 @@
                 color="blue"
                 v-on="on"
                 data-cy="writeAssessmentButton"
-                @click="writeAssessment()"
+                @click="newAssessment(item)"
                 >create</v-icon
               >
             </template>
@@ -56,8 +56,10 @@
         </template>
       </v-data-table>
       <assessment-dialog
-        v-if="newAssessmentDialog"
+        v-if="newAssessmentDialog && currentActivity"
         v-model="newAssessmentDialog"
+        :activity="currentActivity"
+        v-on:create-assessment="createAssessment"
         v-on:close-assessment-dialog="onCloseAssessmentDialog"
       />
     </v-card>
@@ -85,6 +87,7 @@ export default class VolunteerActivitiesView extends Vue {
   volunteerAssessments: Assessment[] = [];
   search: string = '';
 
+  currentActivity: Activity| null = null;
   newAssessmentDialog: boolean = false;
   headers: object = [
     {
@@ -189,11 +192,19 @@ export default class VolunteerActivitiesView extends Vue {
     return this.volunteerAssessments.some((a) => a.institutionId === activity.institution.id);
   }
 
-  writeAssessment() {
+  newAssessment(activity: Activity) {
+    this.currentActivity = activity;
     this.newAssessmentDialog = true;
   }
 
+
+  createAssessment() {
+    this.currentActivity = null;
+    this.newAssessmentDialog = false;
+  }
+
   onCloseAssessmentDialog() {
+    this.currentActivity = null;
     this.newAssessmentDialog = false;
   }
 }

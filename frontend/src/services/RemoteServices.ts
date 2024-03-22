@@ -613,6 +613,17 @@ export default class RemoteServices {
       });
   }
 
+  static async createAssessment(institutionId: number, assessment: Assessment) {
+    return httpClient
+      .post(`/assessments/institutions/${institutionId}`, assessment)
+      .then((response) => {
+        return new Assessment(response.data);
+      })
+      .catch(async (error) => {
+        throw Error(await this.errorMessage(error));
+      });
+  }
+
   // Error
 
   static async errorMessage(error: any): Promise<string> {
