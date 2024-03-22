@@ -152,7 +152,6 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
     return participationsCount < this.activity.participantsNumberLimit;
   }
 
-  createParticipation(enrollment: Enrollment) {}
 }
 </script>
 
