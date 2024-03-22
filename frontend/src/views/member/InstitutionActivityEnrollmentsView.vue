@@ -62,6 +62,8 @@ import { Component, Vue } from 'vue-property-decorator';
 import RemoteServices from '@/services/RemoteServices';
 import Activity from '@/models/activity/Activity';
 import Enrollment from '@/models/enrollment/Enrollment';
+import Participation from '@/models/participation/Participation';
+
 import ParticipationSelectionDialog from './ParticipationSelectionDialog.vue';
 
 @Component({
@@ -136,9 +138,15 @@ export default class InstitutionActivityEnrollmentsView extends Vue {
     this.participationSelectionDialog = true;
   }
 
-  onSelectParticipant() {
+  onSelectParticipant(participation: Participation) {
     this.participationSelectionDialog = false;
     this.currentEnrollment = null;
+    let enrollment = this.enrollments.find(
+      (enrollment) => enrollment.volunteer.id == participation.volunteerId,
+    );
+    if (enrollment != undefined) {
+      enrollment.participating = true;
+    }
   }
 
   onCloseParticipationSelectionDialog() {
