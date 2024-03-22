@@ -46,7 +46,7 @@
                 class="mr-2 action-button"
                 color="blue"
                 v-on="on"
-                data-cy="applyButton"
+                data-cy="newEnrollment"
                 @click="applyForActivity(item)"
                 >fas fa-right-to-bracket</v-icon
               >
