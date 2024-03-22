@@ -198,7 +198,8 @@ export default class VolunteerActivitiesView extends Vue {
   }
 
 
-  createAssessment() {
+  createAssessment(assessment: Assessment) {
+    this.volunteerAssessments.push(assessment);
     this.currentActivity = null;
     this.newAssessmentDialog = false;
   }
