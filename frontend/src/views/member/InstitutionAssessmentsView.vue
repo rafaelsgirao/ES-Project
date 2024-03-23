@@ -40,13 +40,19 @@ export default class InstitutionAssessmentsView extends Vue {
       text: 'Review',
       value: 'review',
       align: 'left',
-      width: '30%',
+      width: '60%',
+    },
+    {
+      text: 'Volunteer Name',
+      value: 'volunteerName',
+      align: 'left',
+      width: '20%',
     },
     {
       text: 'Review Date',
       value: 'reviewDate',
-      align: 'left',
-      width: '5%',
+      align: 'right',
+      width: '10%',
     },
   ];
 

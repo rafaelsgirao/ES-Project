@@ -5,6 +5,7 @@ export default class Assessment {
   review!: string;
   reviewDate!: string;
   institutionId!: number;
+  volunteerName!: string;
 
   constructor(jsonObj?: Assessment) {
     if (jsonObj) {
@@ -12,6 +13,7 @@ export default class Assessment {
       this.review = jsonObj.review;
       this.reviewDate = ISOtoString(jsonObj.reviewDate);
       this.institutionId = jsonObj.institutionId;
+      this.volunteerName = jsonObj.volunteerName;
     }
   }
 }
