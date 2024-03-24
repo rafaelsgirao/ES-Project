@@ -117,7 +117,6 @@ export default class VolunteerActivitiesView extends Vue {
   editEnrollmentDialog: boolean = false;
 
 
-  currentActivity: Activity| null = null;
   newAssessmentDialog: boolean = false;
   headers: object = [
     {
