@@ -33,7 +33,7 @@
         <v-btn
           variant="text"
           @click="createParticipation"
-          data-cy="selectParticipant"
+          data-cy="makeParticipant"
         >
           Make Participant
         </v-btn>
