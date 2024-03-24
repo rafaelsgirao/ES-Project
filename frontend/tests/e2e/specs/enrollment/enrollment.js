@@ -61,6 +61,10 @@ describe('Enrollment', () => {
             cy.get('[data-cy="showEnrollments"]').click();
         })
         cy.wait('@showEnrollments');
+        //Check if the first activity has one enrollment
+        cy.get('[data-cy="activityEnrollmentsTable"] tbody tr').should('have.length', 1);
+        //Check if the enrollment has motivation
+        cy.get('[data-cy="activityEnrollmentsTable"] tbody tr').first().should('contain', NAME);
         cy.logout();
 
     });
