@@ -48,5 +48,20 @@ describe('Enrollment', () => {
         
         cy.logout();
 
+
+        //Login as member
+        cy.demoMemberLogin();
+        cy.intercept('GET', '/activities/*/enrollments').as('showEnrollments');
+        //Get the activities
+        cy.get('[data-cy="institution"]').click();
+        cy.get('[data-cy="activities"]').click();
+        cy.wait('@getInstitution');
+        //Get the enrollments for the first activity
+        cy.get('[data-cy="memberActivitiesTable"] tbody tr').first().within(() => {
+            cy.get('[data-cy="showEnrollments"]').click();
+        })
+        cy.wait('@showEnrollments');
+        cy.logout();
+
     });
 });
