@@ -311,6 +311,113 @@ Cypress.Commands.add('createEnrollmentsDemoEntities', () => {
 });
     
 
+Cypress.Commands.add('createParticipationDemoEntities', () => {
+  cy.task('queryDatabase', {
+    query: 'INSERT INTO ' + INSTITUTION_COLUMNS + generateInstitutionTuple(1),
+    credentials: credentials,
+  });
+  cy.task('queryDatabase', {
+    query:
+      'INSERT INTO ' +
+      USER_COLUMNS +
+      generateUserTuple(2, 'MEMBER', 'DEMO-MEMBER', 'MEMBER', 1),
+    credentials: credentials,
+  });
+  cy.task('queryDatabase', {
+    query:
+      'INSERT INTO ' +
+      USER_COLUMNS +
+      generateUserTuple(3, 'VOLUNTEER', 'DEMO-VOLUNTEER', 'VOLUNTEER', "NULL"),
+    credentials: credentials,
+  });
+  cy.task('queryDatabase', {
+    query:
+      'INSERT INTO ' +
+      USER_COLUMNS +
+      generateUserTuple(4, 'VOLUNTEER', 'DEMO-VOLUNTEER2', 'VOLUNTEER', "NULL"),
+    credentials: credentials,
+  });
+
+  cy.task('queryDatabase', {
+    query:
+      'INSERT INTO ' +
+      USER_COLUMNS +
+      generateUserTuple(5, 'VOLUNTEER', 'DEMO-VOLUNTEER3', 'VOLUNTEER', "NULL"),
+    credentials: credentials,
+  });
+
+
+  cy.task('queryDatabase', {
+    query:
+      'INSERT INTO ' +
+      AUTH_USERS_COLUMNS +
+      generateAuthUserTuple(2, 'DEMO', 'demo-member', 2),
+    credentials: credentials,
+  });
+  cy.task('queryDatabase', {
+    query:
+      'INSERT INTO ' +
+      ACTIVITY_COLUMNS +
+      generateActivityTuple(
+        1,
+        'Has vacancies',
+        '2024-02-08 17:58:21.402146',
+        'A1',
+        2,
+        'Lisbon',
+        'APPROVED',
+        1,
+      ),
+    credentials: credentials,
+  });
+
+  cy.task('queryDatabase', {
+    query:
+      'INSERT INTO ' +
+      ACTIVITY_COLUMNS +
+      generateActivityTuple(
+        2,
+        'Has no vacancies',
+        '2024-02-08 17:58:21.402146',
+        'A1',
+        1,
+        'Lisbon',
+        'APPROVED',
+        1,
+      ),
+    credentials: credentials,
+  });
+  cy.task('queryDatabase', {
+    query: 'INSERT INTO ' + ENROLLMENT_COLUMNS + generateEnrollmentTuple(1, 'Has vacancies and do not participate', 1, 3),
+    credentials: credentials,
+  });
+  cy.task('queryDatabase', {
+    query: 'INSERT INTO ' + ENROLLMENT_COLUMNS + generateEnrollmentTuple(2, 'Has vacancies and participate', 1, 4),
+    credentials: credentials,
+  });
+
+  cy.task('queryDatabase', {
+    query: 'INSERT INTO ' + ENROLLMENT_COLUMNS + generateEnrollmentTuple(3, 'Has no vacancies and participate', 2, 3),
+    credentials: credentials,
+  });
+
+  cy.task('queryDatabase', {
+    query: 'INSERT INTO ' + ENROLLMENT_COLUMNS + generateEnrollmentTuple(4, 'Has no vacancies and participate', 2, 5),
+    credentials: credentials,
+  });
+
+  cy.task('queryDatabase', {
+    query: 'INSERT INTO ' + PARTICIPATION_COLUMNS + generateParticipationTuple(5, 5, 1, 4),
+    credentials: credentials,
+  });
+
+  cy.task('queryDatabase', {
+    query: 'INSERT INTO ' + PARTICIPATION_COLUMNS + generateParticipationTuple(6, 5, 2, 3),
+    credentials: credentials,
+  });
+
+});
+
 function generateAuthUserTuple(id, authType, username, userId) {
   return (
     "VALUES ('" +
