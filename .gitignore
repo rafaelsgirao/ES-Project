@@ -8,3 +8,7 @@ backend/src/main/resources/static/documents/declarations
 frontend/cypress.env.json
 data/access.log
 data/error.log
+.direnv
+.devenv
+.pre-commit-config.yaml
+frontend/index.html*

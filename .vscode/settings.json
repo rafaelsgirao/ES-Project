@@ -1,0 +1,7 @@
+{
+  "java.compile.nullAnalysis.mode": "automatic",
+  //"java.jdt.ls.java.home": "/nix/store/jqdp6vvl9b0c5f9zygggcayrpmmjkrcn-adoptopenjdk-hotspot-bin-17.0.7",
+  "java.project.explorer.showNonJavaResources": false,
+  "java.dependency.syncWithFolderExplorer": true,
+  "java.project.sourcePaths": ["backend"]
+}
